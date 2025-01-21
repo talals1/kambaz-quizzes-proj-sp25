@@ -60,18 +60,6 @@ export default function AssignmentEditor() {
                     <br />
                     <tr>
                         <td align="right" valign="top">
-                            <label htmlFor="wd-submission-type">Submission Type</label>
-                        </td>
-                        <td align="left" valign="top">
-                            <select id="wd-submission-type">
-                                <option value="percentage">Online</option>
-                                <option value="number">In-Person</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <br />
-                    <tr>
-                        <td align="right" valign="top">
                         </td>
                         <td align="left" valign="top">
                             <label>Online Entry Options</label>
