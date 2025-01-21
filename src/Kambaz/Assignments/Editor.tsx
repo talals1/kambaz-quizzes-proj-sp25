@@ -1,7 +1,7 @@
 export default function AssignmentEditor() {
     return (
         <div id="wd-assignments-editor">
-            <h2 htmlFor="wd-name">Assignment Name</h2>
+            <label htmlFor="wd-name">Assignment Name</label>
             <input id="wd-name" value="A1 - ENV + HTML" />
             <br />
             <br />
