@@ -1,5 +1,4 @@
 import { BsGripVertical } from "react-icons/bs";
-import { MdOutlinePlaylistAddCheck } from "react-icons/md";
 import GreenCheckmark from "./GreenCheckmark";
 
 export default function DescriptionControlButtonsEnd() {
