@@ -1,6 +1,5 @@
-import { Button } from "react-bootstrap";
-import { FaSearch } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa6";
+import { FaSearch, FaPlus } from "react-icons/fa";
+import { Button, Form, InputGroup } from "react-bootstrap";
 
 export default function AssignmentControls() {
     return (
@@ -8,16 +7,18 @@ export default function AssignmentControls() {
             id="wd-assignments-controls"
             className="d-flex align-items-center justify-content-between gap-3"
         >
-            <div className="d-flex align-items-center border rounded w-50 px-1 py-2">
-                <FaSearch className="me-2 text-muted" />
-                <input
+            <InputGroup className="border rounded px-1 py-2">
+                <InputGroup.Text className="bg-transparent border-0">
+                    <FaSearch className="text-muted" />
+                </InputGroup.Text>
+                <Form.Control
                     type="text"
                     placeholder="Search..."
                     id="wd-search-assignment"
-                    className="border-0 w-100"
+                    className="border-0"
                     style={{ outline: "none" }}
                 />
-            </div>
+            </InputGroup>
 
             <div className="d-flex gap-2">
                 <Button variant="secondary" size="lg" id="wd-add-group">

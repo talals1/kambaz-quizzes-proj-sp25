@@ -5,8 +5,7 @@ import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
 import { Link, useLocation } from "react-router-dom";
 
 export default function KambazNavigation() {
-    const location = useLocation();
-    const isActive = (path) => location.pathname == path;
+    const { pathname } = useLocation();
 
     return (
         <div
@@ -27,7 +26,7 @@ export default function KambazNavigation() {
                 to="/Kambaz/Account"
                 id="wd-account-link"
                 className={`list-group-item text-center border-0 ${
-                    isActive("/Kambaz/Account")
+                    pathname.includes("Account")
                         ? "bg-white text-danger"
                         : "bg-black text-white"
                 }`}
@@ -40,7 +39,7 @@ export default function KambazNavigation() {
                 to="/Kambaz/Dashboard"
                 id="wd-dashboard-link"
                 className={`list-group-item text-center border-0 ${
-                    isActive("/Kambaz/Dashboard")
+                    pathname.includes("Dashboard")
                         ? "bg-white text-danger"
                         : "bg-black text-white"
                 }`}
@@ -50,10 +49,10 @@ export default function KambazNavigation() {
                 Dashboard{" "}
             </Link>
             <Link
-                to="/Kambaz/Courses"
+                to="/Kambaz/Dashboard"
                 id="wd-course-link"
                 className={`list-group-item text-center border-0 ${
-                    isActive("/Kambaz/Courses")
+                    pathname.includes("Courses")
                         ? "bg-white text-danger"
                         : "bg-black text-white"
                 }`}
@@ -67,7 +66,7 @@ export default function KambazNavigation() {
                 to="/Kambaz/Calendar"
                 id="wd-calendar-link"
                 className={`list-group-item text-center border-0 ${
-                    isActive("/Kambaz/Calendar")
+                    pathname.includes("Calendar")
                         ? "bg-white text-danger"
                         : "bg-black text-white"
                 }`}
@@ -80,7 +79,7 @@ export default function KambazNavigation() {
                 to="/Kambaz/Inbox"
                 id="wd-inbox-link"
                 className={`list-group-item text-center border-0 ${
-                    isActive("/Kambaz/Inbox")
+                    pathname.includes("Inbox")
                         ? "bg-white text-danger"
                         : "bg-black text-white"
                 }`}
@@ -93,7 +92,7 @@ export default function KambazNavigation() {
                 to="/Labs"
                 id="wd-labs-link"
                 className={`list-group-item text-center border-0 ${
-                    isActive("/Kambaz/Labs")
+                    pathname.includes("Labs")
                         ? "bg-white text-danger"
                         : "bg-black text-white"
                 }`}

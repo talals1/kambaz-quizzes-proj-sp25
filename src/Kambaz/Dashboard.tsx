@@ -26,7 +26,7 @@ export default function Dashboard() {
                                         CS1234 React JS
                                     </Card.Title>
                                     <Card.Text className="wd-dashboard-course-description">
-                                        Full Stack software developer
+                                        Full Stack Engineer
                                     </Card.Text>
                                     <Button variant="Primary"> Go </Button>
                                 </Card.Body>
@@ -141,7 +141,7 @@ export default function Dashboard() {
                                 <Card.Img src="/images/cloud.jpg" width={200} />
                                 <Card.Body>
                                     <Card.Title className="wd-dashboard-course-title">
-                                        CS1239 Cloud Computer
+                                        CS1239 Cloud
                                     </Card.Title>
                                     <Card.Text className="wd-dashboard-course-description">
                                         Cloud Engineer
@@ -164,7 +164,7 @@ export default function Dashboard() {
                                 <Card.Img src="/images/cap.jpg" width={200} />
                                 <Card.Body>
                                     <Card.Title className="wd-dashboard-course-title">
-                                        CS1240 Senior Capstone Project
+                                        CS1240 Capstone
                                     </Card.Title>
                                     <Card.Text className="wd-dashboard-course-description">
                                         Capstone

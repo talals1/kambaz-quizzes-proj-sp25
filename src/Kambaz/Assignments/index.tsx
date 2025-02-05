@@ -1,12 +1,11 @@
 import { IoEllipsisVertical } from "react-icons/io5";
 import { BsGripVertical, BsPlus } from "react-icons/bs";
-
-import AssignmentControls from "./AssignmentControls";
 import { ListGroup } from "react-bootstrap";
 import { TiArrowSortedDown } from "react-icons/ti";
-import { Link } from "react-router-dom";
+import { LuNotebookPen } from "react-icons/lu";
+
+import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
-import { FaWpforms } from "react-icons/fa";
 
 export default function Assignments() {
     return (
@@ -29,68 +28,86 @@ export default function Assignments() {
                         </div>
                     </div>
                     <ListGroup className="wd-lessons rounded-0">
-                        <ListGroup.Item className="wd-lesson p-3 ps-2 d-flex align-items-center">
+                        <ListGroup.Item
+                            action
+                            href="#/Kambaz/Courses/1234/Assignments/123"
+                            className="wd-lesson p-3 ps-2 d-flex align-items-center"
+                        >
                             <BsGripVertical className="me-2 fs-3" />
-                            <FaWpforms className="me-2 fs-3" />
+                            <LuNotebookPen
+                                className="me-2 fs-3"
+                                style={{ color: "green" }}
+                            />
                             <div className="flex-grow-1 ">
-                                <Link
-                                    to="/Kambaz/Courses/1234/Assignments/123"
-                                    className="wd-assignment-link"
-                                >
-                                    <h4>A1 - ENV + HTML</h4>
-                                    <p>
-                                        Multiple Modules |{" "}
-                                        <b>Not available until</b> May 6 at
-                                        12:00am|
-                                    </p>
-                                    <p>
-                                        <b>Due</b> May 13 at 11:59pm | 100 pts
-                                    </p>
-                                </Link>
+                                <h4>
+                                    <b>A1</b>
+                                </h4>
+                                <p>
+                                    <text className="text-danger">
+                                        Multiple Modules
+                                    </text>{" "}
+                                    | <b>Not available until</b> May 6 at
+                                    12:00am |
+                                </p>
+                                <p>
+                                    <b>Due</b> May 13 at 11:59pm | 100 pts
+                                </p>
                             </div>
                             <AssignmentControlButtons />
                         </ListGroup.Item>
 
-                        <ListGroup.Item className="wd-lesson p-3 ps-2 d-flex align-items-center">
+                        <ListGroup.Item
+                            action
+                            href="#/Kambaz/Courses/1234/Assignments/124"
+                            className="wd-lesson p-3 ps-2 d-flex align-items-center"
+                        >
                             <BsGripVertical className="me-2 fs-3" />
-                            <FaWpforms className="me-2 fs-3" />
+                            <LuNotebookPen
+                                className="me-2 fs-3"
+                                style={{ color: "green" }}
+                            />
                             <div className="flex-grow-1">
-                                <Link
-                                    to="/Kambaz/Courses/1234/Assignments/124"
-                                    className="wd-assignment-link"
-                                >
-                                    <h4>A2 - CSS + BOOTSTRAP</h4>
-                                    <p>
-                                        Multiple Modules |{" "}
-                                        <b>Not available until</b> May 13 at
-                                        12:00am|
-                                    </p>
-                                    <p>
-                                        <b>Due</b> May 20 at 11:59pm | 100 pts
-                                    </p>
-                                </Link>
+                                <h4>
+                                    <b>A2</b>
+                                </h4>
+                                <p>
+                                    <text className="text-danger">
+                                        Multiple Modules
+                                    </text>{" "}
+                                    | <b>Not available until</b> May 13 at
+                                    12:00am |
+                                </p>
+                                <p>
+                                    <b>Due</b> May 20 at 11:59pm | 100 pts
+                                </p>
                             </div>
                             <AssignmentControlButtons />
                         </ListGroup.Item>
 
-                        <ListGroup.Item className="wd-lesson p-3 ps-2 d-flex align-items-center">
+                        <ListGroup.Item
+                            action
+                            href="#/Kambaz/Courses/1234/Assignments/125"
+                            className="wd-lesson p-3 ps-2 d-flex align-items-center"
+                        >
                             <BsGripVertical className="me-2 fs-3" />
-                            <FaWpforms className="me-2 fs-3" />
+                            <LuNotebookPen
+                                className="me-2 fs-3"
+                                style={{ color: "green" }}
+                            />
                             <div className="flex-grow-1">
-                                <Link
-                                    to="/Kambaz/Courses/1234/Assignments/125"
-                                    className="wd-assignment-link"
-                                >
-                                    <h4>A3 - JAVASCRIPT + REACT</h4>
-                                    <p>
-                                        Multiple Modules |{" "}
-                                        <b>Not available until</b> May 20 at
-                                        12:00am|
-                                    </p>
-                                    <p>
-                                        <b>Due</b> May 27 at 11:59pm | 100 pts
-                                    </p>
-                                </Link>
+                                <h4>
+                                    <b>A3</b>
+                                </h4>
+                                <p>
+                                    <text className="text-danger">
+                                        Multiple Modules
+                                    </text>{" "}
+                                    | <b>Not available until</b> May 20 at
+                                    12:00am |
+                                </p>
+                                <p>
+                                    <b>Due</b> May 27 at 11:59pm | 100 pts
+                                </p>
                             </div>
                             <AssignmentControlButtons />
                         </ListGroup.Item>
