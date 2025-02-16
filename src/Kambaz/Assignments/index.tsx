@@ -6,8 +6,25 @@ import { LuNotebookPen } from "react-icons/lu";
 
 import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
+import { useParams } from "react-router";
+import * as db from "../Database";
 
 export default function Assignments() {
+    const { cid } = useParams();
+    const assignments = db.assignments;
+
+    const formatDate = (dateString) => {
+        if (!dateString) return "";
+        const date = new Date(dateString);
+        return date.toLocaleString("en-US", {
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true,
+        });
+    };
+
     return (
         <div id="wd-assignments">
             <AssignmentControls />
@@ -28,89 +45,49 @@ export default function Assignments() {
                         </div>
                     </div>
                     <ListGroup className="wd-lessons rounded-0">
-                        <ListGroup.Item
-                            action
-                            href="#/Kambaz/Courses/1234/Assignments/123"
-                            className="wd-lesson p-3 ps-2 d-flex align-items-center"
-                        >
-                            <BsGripVertical className="me-2 fs-3" />
-                            <LuNotebookPen
-                                className="me-2 fs-3"
-                                style={{ color: "green" }}
-                            />
-                            <div className="flex-grow-1 ">
-                                <h4>
-                                    <b>A1</b>
-                                </h4>
-                                <p>
-                                    <text className="text-danger">
-                                        Multiple Modules
-                                    </text>{" "}
-                                    | <b>Not available until</b> May 6 at
-                                    12:00am |
-                                </p>
-                                <p>
-                                    <b>Due</b> May 13 at 11:59pm | 100 pts
-                                </p>
-                            </div>
-                            <AssignmentControlButtons />
-                        </ListGroup.Item>
-
-                        <ListGroup.Item
-                            action
-                            href="#/Kambaz/Courses/1234/Assignments/124"
-                            className="wd-lesson p-3 ps-2 d-flex align-items-center"
-                        >
-                            <BsGripVertical className="me-2 fs-3" />
-                            <LuNotebookPen
-                                className="me-2 fs-3"
-                                style={{ color: "green" }}
-                            />
-                            <div className="flex-grow-1">
-                                <h4>
-                                    <b>A2</b>
-                                </h4>
-                                <p>
-                                    <text className="text-danger">
-                                        Multiple Modules
-                                    </text>{" "}
-                                    | <b>Not available until</b> May 13 at
-                                    12:00am |
-                                </p>
-                                <p>
-                                    <b>Due</b> May 20 at 11:59pm | 100 pts
-                                </p>
-                            </div>
-                            <AssignmentControlButtons />
-                        </ListGroup.Item>
-
-                        <ListGroup.Item
-                            action
-                            href="#/Kambaz/Courses/1234/Assignments/125"
-                            className="wd-lesson p-3 ps-2 d-flex align-items-center"
-                        >
-                            <BsGripVertical className="me-2 fs-3" />
-                            <LuNotebookPen
-                                className="me-2 fs-3"
-                                style={{ color: "green" }}
-                            />
-                            <div className="flex-grow-1">
-                                <h4>
-                                    <b>A3</b>
-                                </h4>
-                                <p>
-                                    <text className="text-danger">
-                                        Multiple Modules
-                                    </text>{" "}
-                                    | <b>Not available until</b> May 20 at
-                                    12:00am |
-                                </p>
-                                <p>
-                                    <b>Due</b> May 27 at 11:59pm | 100 pts
-                                </p>
-                            </div>
-                            <AssignmentControlButtons />
-                        </ListGroup.Item>
+                        {assignments
+                            .filter(
+                                (assignment: any) => assignment.course === cid
+                            )
+                            .map(
+                                ({
+                                    _id,
+                                    title,
+                                    availableDate,
+                                    dueDate,
+                                    points,
+                                }) => (
+                                    <ListGroup.Item
+                                        key={_id}
+                                        action
+                                        href={`#/Kambaz/Courses/${cid}/Assignments/${_id}`}
+                                        className="wd-lesson p-3 ps-2 d-flex align-items-center"
+                                    >
+                                        <BsGripVertical className="me-2 fs-3" />
+                                        <LuNotebookPen
+                                            className="me-2 fs-3"
+                                            style={{ color: "green" }}
+                                        />
+                                        <div className="flex-grow-1">
+                                            <h4>
+                                                <b>{title}</b>
+                                            </h4>
+                                            <p>
+                                                <text className="text-danger">
+                                                    Multiple Modules
+                                                </text>{" "}
+                                                | <b>Not available until</b>{" "}
+                                                {formatDate(availableDate)} |
+                                            </p>
+                                            <p>
+                                                <b>Due</b> {formatDate(dueDate)}{" "}
+                                                | {points} pts
+                                            </p>
+                                        </div>
+                                        <AssignmentControlButtons />
+                                    </ListGroup.Item>
+                                )
+                            )}
                     </ListGroup>
                 </ListGroup.Item>
             </ListGroup>
