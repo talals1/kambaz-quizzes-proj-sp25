@@ -9,7 +9,8 @@
         "group": "Assignments",
         "submissionType": "Online",
         "gradeType": "Percentage",
-        "description": ""
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur dictum erat, in lobortis augue. Morbi turpis dui, aliquam sed nisi eu, scelerisque rhoncus lectus. Nam a justo congue, auctor risus a, pulvinar ante. In et fringilla felis. Pellentesque commodo molestie tellus, id elementum purus eleifend id. Phasellus turpis mauris, molestie gravida nisi scelerisque, tincidunt bibendum nibh. Integer viverra est a erat aliquet, at rhoncus urna vehicula. Integer ipsum dui, laoreet id neque ut, auctor tincidunt ipsum. Phasellus volutpat ante vitae tincidunt fringilla. Quisque eu ipsum nec sapien mattis pretium eget et quam. Nulla dapibus, arcu non consectetur finibus, felis sem auctor nulla, non aliquam erat metus eget nisi. Nunc velit urna, hendrerit nec enim a, aliquam euismod turpis. ",
+        "assignTo": "Everyone"
     },
     {
         "_id": "A102",
@@ -21,7 +22,8 @@
         "group": "Quizzes",
         "submissionType": "Online",
         "gradeType": "Whole Number",
-        "description": ""
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur dictum erat, in lobortis augue. Morbi turpis dui, aliquam sed nisi eu, scelerisque rhoncus lectus. Nam a justo congue, auctor risus a, pulvinar ante. In et fringilla felis. Pellentesque commodo molestie tellus, id elementum purus eleifend id. Phasellus turpis mauris, molestie gravida nisi scelerisque, tincidunt bibendum nibh. Integer viverra est a erat aliquet, at rhoncus urna vehicula. Integer ipsum dui, laoreet id neque ut, auctor tincidunt ipsum. Phasellus volutpat ante vitae tincidunt fringilla. Quisque eu ipsum nec sapien mattis pretium eget et quam. Nulla dapibus, arcu non consectetur finibus, felis sem auctor nulla, non aliquam erat metus eget nisi. Nunc velit urna, hendrerit nec enim a, aliquam euismod turpis. ",
+        "assignTo": "Everyone"
     },
     {
         "_id": "A103",
@@ -33,7 +35,8 @@
         "group": "Assignments",
         "submissionType": "Online",
         "gradeType": "Percentage",
-        "description": ""
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur dictum erat, in lobortis augue. Morbi turpis dui, aliquam sed nisi eu, scelerisque rhoncus lectus. Nam a justo congue, auctor risus a, pulvinar ante. In et fringilla felis. Pellentesque commodo molestie tellus, id elementum purus eleifend id. Phasellus turpis mauris, molestie gravida nisi scelerisque, tincidunt bibendum nibh. Integer viverra est a erat aliquet, at rhoncus urna vehicula. Integer ipsum dui, laoreet id neque ut, auctor tincidunt ipsum. Phasellus volutpat ante vitae tincidunt fringilla. Quisque eu ipsum nec sapien mattis pretium eget et quam. Nulla dapibus, arcu non consectetur finibus, felis sem auctor nulla, non aliquam erat metus eget nisi. Nunc velit urna, hendrerit nec enim a, aliquam euismod turpis. ",
+        "assignTo": "Everyone"
     },
     {
         "_id": "A201",
@@ -45,7 +48,8 @@
         "group": "Assignments",
         "submissionType": "Online",
         "gradeType": "Percentage",
-        "description": ""
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur dictum erat, in lobortis augue. Morbi turpis dui, aliquam sed nisi eu, scelerisque rhoncus lectus. Nam a justo congue, auctor risus a, pulvinar ante. In et fringilla felis. Pellentesque commodo molestie tellus, id elementum purus eleifend id. Phasellus turpis mauris, molestie gravida nisi scelerisque, tincidunt bibendum nibh. Integer viverra est a erat aliquet, at rhoncus urna vehicula. Integer ipsum dui, laoreet id neque ut, auctor tincidunt ipsum. Phasellus volutpat ante vitae tincidunt fringilla. Quisque eu ipsum nec sapien mattis pretium eget et quam. Nulla dapibus, arcu non consectetur finibus, felis sem auctor nulla, non aliquam erat metus eget nisi. Nunc velit urna, hendrerit nec enim a, aliquam euismod turpis. ",
+        "assignTo": "Everyone"
     },
     {
         "_id": "A202",
@@ -57,7 +61,8 @@
         "group": "Assignments",
         "submissionType": "Online",
         "gradeType": "Percentage",
-        "description": ""
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur dictum erat, in lobortis augue. Morbi turpis dui, aliquam sed nisi eu, scelerisque rhoncus lectus. Nam a justo congue, auctor risus a, pulvinar ante. In et fringilla felis. Pellentesque commodo molestie tellus, id elementum purus eleifend id. Phasellus turpis mauris, molestie gravida nisi scelerisque, tincidunt bibendum nibh. Integer viverra est a erat aliquet, at rhoncus urna vehicula. Integer ipsum dui, laoreet id neque ut, auctor tincidunt ipsum. Phasellus volutpat ante vitae tincidunt fringilla. Quisque eu ipsum nec sapien mattis pretium eget et quam. Nulla dapibus, arcu non consectetur finibus, felis sem auctor nulla, non aliquam erat metus eget nisi. Nunc velit urna, hendrerit nec enim a, aliquam euismod turpis. ",
+        "assignTo": "Everyone"
     },
     {
         "_id": "A203",
@@ -69,7 +74,7 @@
         "group": "Assignments",
         "submissionType": "Online",
         "gradeType": "Percentage",
-        "description": "",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur dictum erat, in lobortis augue. Morbi turpis dui, aliquam sed nisi eu, scelerisque rhoncus lectus. Nam a justo congue, auctor risus a, pulvinar ante. In et fringilla felis. Pellentesque commodo molestie tellus, id elementum purus eleifend id. Phasellus turpis mauris, molestie gravida nisi scelerisque, tincidunt bibendum nibh. Integer viverra est a erat aliquet, at rhoncus urna vehicula. Integer ipsum dui, laoreet id neque ut, auctor tincidunt ipsum. Phasellus volutpat ante vitae tincidunt fringilla. Quisque eu ipsum nec sapien mattis pretium eget et quam. Nulla dapibus, arcu non consectetur finibus, felis sem auctor nulla, non aliquam erat metus eget nisi. Nunc velit urna, hendrerit nec enim a, aliquam euismod turpis. ",
         "assignTo": "Everyone"
     },
     {
@@ -82,7 +87,7 @@
         "group": "Assignments",
         "submissionType": "Online",
         "gradeType": "Percentage",
-        "description": "",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur dictum erat, in lobortis augue. Morbi turpis dui, aliquam sed nisi eu, scelerisque rhoncus lectus. Nam a justo congue, auctor risus a, pulvinar ante. In et fringilla felis. Pellentesque commodo molestie tellus, id elementum purus eleifend id. Phasellus turpis mauris, molestie gravida nisi scelerisque, tincidunt bibendum nibh. Integer viverra est a erat aliquet, at rhoncus urna vehicula. Integer ipsum dui, laoreet id neque ut, auctor tincidunt ipsum. Phasellus volutpat ante vitae tincidunt fringilla. Quisque eu ipsum nec sapien mattis pretium eget et quam. Nulla dapibus, arcu non consectetur finibus, felis sem auctor nulla, non aliquam erat metus eget nisi. Nunc velit urna, hendrerit nec enim a, aliquam euismod turpis. ",
         "assignTo": "Everyone"
     },
     {
@@ -95,7 +100,7 @@
         "group": "Assignments",
         "submissionType": "Online",
         "gradeType": "Percentage",
-        "description": "",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur dictum erat, in lobortis augue. Morbi turpis dui, aliquam sed nisi eu, scelerisque rhoncus lectus. Nam a justo congue, auctor risus a, pulvinar ante. In et fringilla felis. Pellentesque commodo molestie tellus, id elementum purus eleifend id. Phasellus turpis mauris, molestie gravida nisi scelerisque, tincidunt bibendum nibh. Integer viverra est a erat aliquet, at rhoncus urna vehicula. Integer ipsum dui, laoreet id neque ut, auctor tincidunt ipsum. Phasellus volutpat ante vitae tincidunt fringilla. Quisque eu ipsum nec sapien mattis pretium eget et quam. Nulla dapibus, arcu non consectetur finibus, felis sem auctor nulla, non aliquam erat metus eget nisi. Nunc velit urna, hendrerit nec enim a, aliquam euismod turpis. ",
         "assignTo": "Everyone"
     },
     {
@@ -108,7 +113,7 @@
         "group": "Assignments",
         "submissionType": "Online",
         "gradeType": "Percentage",
-        "description": "",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur dictum erat, in lobortis augue. Morbi turpis dui, aliquam sed nisi eu, scelerisque rhoncus lectus. Nam a justo congue, auctor risus a, pulvinar ante. In et fringilla felis. Pellentesque commodo molestie tellus, id elementum purus eleifend id. Phasellus turpis mauris, molestie gravida nisi scelerisque, tincidunt bibendum nibh. Integer viverra est a erat aliquet, at rhoncus urna vehicula. Integer ipsum dui, laoreet id neque ut, auctor tincidunt ipsum. Phasellus volutpat ante vitae tincidunt fringilla. Quisque eu ipsum nec sapien mattis pretium eget et quam. Nulla dapibus, arcu non consectetur finibus, felis sem auctor nulla, non aliquam erat metus eget nisi. Nunc velit urna, hendrerit nec enim a, aliquam euismod turpis. ",
         "assignTo": "Everyone"
     }
 ]
