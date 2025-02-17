@@ -112,5 +112,95 @@
         "name": "Spacecraft Systems Engineering",
         "description": "Overview of spacecraft systems and subsystems engineering.",
         "course": "RS103"
+    },
+    {
+        "_id": "M401",
+        "name": "Fundamentals of Organic Chemistry",
+        "description": "Introduction to organic molecules, bonding, and reaction mechanisms.",
+        "course": "RS104"
+    },
+    {
+        "_id": "M402",
+        "name": "Spectroscopy and Structural Analysis",
+        "description": "Techniques for analyzing organic compounds, including NMR and IR spectroscopy.",
+        "course": "RS104"
+    },
+    {
+        "_id": "M403",
+        "name": "Organic Synthesis and Reactions",
+        "description": "Study of synthetic pathways and common organic reactions.",
+        "course": "RS104"
+    },
+    {
+        "_id": "M501",
+        "name": "Principles of Inorganic Chemistry",
+        "description": "Basic concepts of inorganic chemistry, including periodic trends and bonding.",
+        "course": "RS105"
+    },
+    {
+        "_id": "M502",
+        "name": "Transition Metals and Coordination Chemistry",
+        "description": "Study of transition metal chemistry and coordination complexes.",
+        "course": "RS105"
+    },
+    {
+        "_id": "M503",
+        "name": "Inorganic Reaction Mechanisms",
+        "description": "Understanding reaction pathways in inorganic chemistry.",
+        "course": "RS105"
+    },
+    {
+        "_id": "M601",
+        "name": "Thermodynamics and Kinetics",
+        "description": "Study of energy changes and reaction rates in physical chemistry.",
+        "course": "RS106"
+    },
+    {
+        "_id": "M602",
+        "name": "Quantum Chemistry",
+        "description": "Introduction to quantum mechanics and its applications in chemistry.",
+        "course": "RS106"
+    },
+    {
+        "_id": "M603",
+        "name": "Statistical Mechanics",
+        "description": "Understanding molecular behavior using statistical methods.",
+        "course": "RS106"
+    },
+    {
+        "_id": "M701",
+        "name": "Introduction to Ancient Languages",
+        "description": "Overview of major ancient languages and their historical contexts.",
+        "course": "RS107"
+    },
+    {
+        "_id": "M702",
+        "name": "Classical Latin",
+        "description": "Study of Latin grammar, vocabulary, and classical texts.",
+        "course": "RS107"
+    },
+    {
+        "_id": "M703",
+        "name": "Ancient Greek",
+        "description": "Introduction to Ancient Greek, including syntax and key literary works.",
+        "course": "RS107"
+    },
+    {
+        "_id": "M801",
+        "name": "Alliances and Conflicts in Middle-earth",
+        "description": "Study of historical alliances and conflicts among Elves, Men, Dwarves, and Wizards.",
+        "course": "RS108"
+    },
+    {
+        "_id": "M802",
+        "name": "The Role of Councils and Diplomacy",
+        "description": "Examination of key diplomatic events, including the Council of Elrond and negotiations in Middle-earth.",
+        "course": "RS108"
+    },
+    {
+        "_id": "M803",
+        "name": "Leadership and Wisdom in Multi-Species Relations",
+        "description": "Analysis of leadership styles and wisdom in maintaining peace among the races of Middle-earth.",
+        "course": "RS108"
     }
 ]
