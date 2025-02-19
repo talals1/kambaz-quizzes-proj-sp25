@@ -1,5 +1,5 @@
 import { Form, Button, Row, Col, InputGroup } from "react-bootstrap";
-import { Link, useLocation, useParams } from "react-router";
+import { useParams } from "react-router";
 import * as db from "../Database";
 
 export default function AssignmentEditor() {
@@ -7,7 +7,10 @@ export default function AssignmentEditor() {
 
     const assignment = db.assignments.find((a) => a._id === aid);
 
-    const formatDate = (dateString) => {
+    const formatDate = (dateString: string | undefined) => {
+        if (!dateString) {
+            return "";
+        }
         const date = new Date(dateString);
         return date.toLocaleString("en-US", {
             month: "2-digit",
@@ -137,15 +140,13 @@ export default function AssignmentEditor() {
                 <hr />
                 <div className="d-flex justify-content-end gap-2">
                     <Button
-                        as={Link}
-                        to={`/Kambaz/Courses/${cid}/Assignments`}
+                        href={`#/Kambaz/Courses/${cid}/Assignments`}
                         variant="secondary"
                     >
                         Cancel
                     </Button>
                     <Button
-                        as={Link}
-                        to={`/Kambaz/Courses/${cid}/Assignments`}
+                        href={`#/Kambaz/Courses/${cid}/Assignments`}
                         variant="danger"
                     >
                         Save

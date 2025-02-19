@@ -13,7 +13,7 @@ export default function Assignments() {
     const { cid } = useParams();
     const assignments = db.assignments;
 
-    const formatDate = (dateString) => {
+    const formatDate = (dateString: string | undefined) => {
         if (!dateString) return "";
         const date = new Date(dateString);
         return date.toLocaleString("en-US", {
