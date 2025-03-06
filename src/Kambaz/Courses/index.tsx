@@ -9,6 +9,7 @@ import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table";
 import ProtectedRoute from "../Account/ProtectedRoute";
 import { useSelector } from "react-redux";
+import Quizzes from "./Quizzes";
 
 export default function Courses() {
     const { cid } = useParams();
@@ -43,6 +44,7 @@ export default function Courses() {
                             }
                         />
                         <Route path="People" element={<PeopleTable />} />
+                        <Route path="Quizzes" element={<Quizzes />}/>
                     </Routes>
                 </div>
             </div>
