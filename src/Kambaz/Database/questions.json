@@ -1,0 +1,32 @@
+[
+    {
+        "_id": "1",
+        "qid": "quiz1",
+        "title": "Sample Question",
+        "type": "multiple-choice",
+        "points": 10,
+        "answers": ["Option 1", "Option 2", "Option 3", "Option 4"],
+        "correctAnswer": "Option 1",
+        "question": "What is the capital of France?"
+    },
+    {
+        "_id": "2",
+        "qid": "quiz1",
+        "title": "True or False Question",
+        "type": "true-false",
+        "points": 5,
+        "answers": [],
+        "correctAnswer": "True",
+        "question": "The sky is blue."
+    },
+    {
+        "_id": "3",
+        "qid": "quiz1",
+        "title": "Fill in the Blank Question",
+        "type": "fill-in-the-blank",
+        "points": 8,
+        "answers": [],
+        "correctAnswer": "Paris",
+        "question": "The capital of France is _____."
+    }
+]
