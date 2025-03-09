@@ -8,6 +8,7 @@ import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import { useParams } from "react-router";
 import * as db from "../Database";
+import { useSelector } from "react-redux";
 
 export default function Assignments() {
     const { cid } = useParams();
@@ -25,11 +26,17 @@ export default function Assignments() {
         });
     };
 
+    const { currentUser } = useSelector((state: any) => state.accountReducer);
+
     return (
         <div id="wd-assignments">
-            <AssignmentControls />
-            <br />
-            <br />
+            {currentUser?.role === "FACULTY" && (
+                <div>
+                    <AssignmentControls />
+                    <br />
+                    <br />
+                </div>
+            )}
             <ListGroup className="rounded-0" id="wd-assignments">
                 <ListGroup.Item className="wd-module p-0 mb-5 fs-5 border-gray">
                     <div className="wd-title p-3 ps-2 bg-secondary">

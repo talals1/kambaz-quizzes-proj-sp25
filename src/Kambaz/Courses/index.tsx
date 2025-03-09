@@ -7,6 +7,7 @@ import CourseNavigation from "./Navigation";
 import Modules from "./Modules";
 import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table";
+import ProtectedRoute from "../Account/ProtectedRoute";
 
 export default function Courses({ courses }: { courses: any[] }) {
     const { cid } = useParams();
@@ -32,7 +33,11 @@ export default function Courses({ courses }: { courses: any[] }) {
                         <Route path="Assignments" element={<Assignments />} />
                         <Route
                             path="Assignments/:aid"
-                            element={<AssignmentEditor />}
+                            element={
+                                <ProtectedRoute>
+                                    <AssignmentEditor />
+                                </ProtectedRoute>
+                            }
                         />
                         <Route path="People" element={<PeopleTable />} />
                     </Routes>
