@@ -1,7 +1,11 @@
 import { FaSearch, FaPlus } from "react-icons/fa";
 import { Button, Form, InputGroup } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 export default function AssignmentControls() {
+    const { cid } = useParams();
+
     return (
         <div
             id="wd-assignments-controls"
@@ -28,7 +32,12 @@ export default function AssignmentControls() {
                     />
                     Group
                 </Button>
-                <Button variant="danger" size="lg" id="wd-add-assignment">
+                <Button
+                    variant="danger"
+                    size="lg"
+                    id="wd-add-assignment"
+                    href={`#/Kambaz/Courses/${cid}/Assignments/${uuidv4()}`}
+                >
                     <FaPlus
                         className="position-relative me-2"
                         style={{ bottom: "1px" }}

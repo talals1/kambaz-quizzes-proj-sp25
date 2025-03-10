@@ -3,7 +3,9 @@ import { assignments } from "../Database";
 import { v4 as uuidv4 } from "uuid";
 const initialState = {
     assignments: assignments,
+    assignment: null,
 };
+
 const assignmentsSlice = createSlice({
     name: "assignments",
     initialState,
@@ -11,7 +13,8 @@ const assignmentsSlice = createSlice({
         addAssignment: (state, { payload: assignment }) => {
             const newAssignment: any = {
                 _id: uuidv4(),
-                name: assignment.name,
+                course: assignment.course,
+                title: assignment.title,
                 description: assignment.description,
                 dueDate: assignment.dueDate,
                 availableDate: assignment.availableDate,

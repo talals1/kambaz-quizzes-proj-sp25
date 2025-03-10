@@ -7,12 +7,13 @@ import { LuNotebookPen } from "react-icons/lu";
 import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import { useParams } from "react-router";
-import * as db from "../Database";
 import { useSelector } from "react-redux";
 
 export default function Assignments() {
     const { cid } = useParams();
-    const assignments = db.assignments;
+    const assignments = useSelector(
+        (state: any) => state.assignmentReducer.assignments
+    );
 
     const formatDate = (dateString: string | undefined) => {
         if (!dateString) return "";
@@ -91,7 +92,13 @@ export default function Assignments() {
                                                 | {points} pts
                                             </p>
                                         </div>
-                                        <AssignmentControlButtons />
+                                        <div
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            <AssignmentControlButtons
+                                                assignmentId={_id}
+                                            />
+                                        </div>
                                     </ListGroup.Item>
                                 )
                             )}
