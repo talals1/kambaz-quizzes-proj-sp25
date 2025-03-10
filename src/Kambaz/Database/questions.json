@@ -1,32 +1,29 @@
 [
     {
         "_id": "1",
-        "qid": "quiz1",
-        "title": "Sample Question",
+        "title": "Basic Rocket Fuel",
         "type": "multiple-choice",
         "points": 10,
-        "answers": ["Option 1", "Option 2", "Option 3", "Option 4"],
-        "correctAnswer": "Option 1",
-        "question": "What is the capital of France?"
+        "answers": ["Water", "Gasoline", "Rocket Fuel", "Wood"],
+        "correctAnswer": "Rocket Fuel",
+        "description": "Which of the following is used to power most rockets?"
     },
     {
         "_id": "2",
-        "qid": "quiz1",
-        "title": "True or False Question",
+        "title": "Rocket Motion",
         "type": "true-false",
         "points": 5,
         "answers": [],
         "correctAnswer": "True",
-        "question": "The sky is blue."
+        "description": "Rockets move forward by pushing gases backward."
     },
     {
         "_id": "3",
-        "qid": "quiz1",
-        "title": "Fill in the Blank Question",
+        "title": "Rocket Thrust",
         "type": "fill-in-the-blank",
         "points": 8,
         "answers": [],
-        "correctAnswer": "Paris",
-        "question": "The capital of France is _____."
+        "correctAnswer": "Thrust",
+        "description": "The force that pushes a rocket upwards is called _____."
     }
 ]

@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import quizReducer from "./Courses/Quizzes"
+import quizReducer from "./Courses/Quizzes/quizReducer"
 
 const store = configureStore({
     reducer: {
-        quizReducer
+        quizReducer,
     },
 });
 export default store;
