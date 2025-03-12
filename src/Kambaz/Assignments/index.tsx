@@ -7,11 +7,13 @@ import { LuNotebookPen } from "react-icons/lu";
 import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import { useParams } from "react-router";
-import * as db from "../Database";
+import { useSelector } from "react-redux";
 
 export default function Assignments() {
     const { cid } = useParams();
-    const assignments = db.assignments;
+    const assignments = useSelector(
+        (state: any) => state.assignmentReducer.assignments
+    );
 
     const formatDate = (dateString: string | undefined) => {
         if (!dateString) return "";
@@ -25,11 +27,17 @@ export default function Assignments() {
         });
     };
 
+    const { currentUser } = useSelector((state: any) => state.accountReducer);
+
     return (
         <div id="wd-assignments">
-            <AssignmentControls />
-            <br />
-            <br />
+            {currentUser?.role === "FACULTY" && (
+                <div>
+                    <AssignmentControls />
+                    <br />
+                    <br />
+                </div>
+            )}
             <ListGroup className="rounded-0" id="wd-assignments">
                 <ListGroup.Item className="wd-module p-0 mb-5 fs-5 border-gray">
                     <div className="wd-title p-3 ps-2 bg-secondary">
@@ -56,6 +64,12 @@ export default function Assignments() {
                                     availableDate,
                                     dueDate,
                                     points,
+                                }: {
+                                    _id: string;
+                                    title: string;
+                                    availableDate: string;
+                                    dueDate: string;
+                                    points: number;
                                 }) => (
                                     <ListGroup.Item
                                         key={_id}
@@ -84,7 +98,13 @@ export default function Assignments() {
                                                 | {points} pts
                                             </p>
                                         </div>
-                                        <AssignmentControlButtons />
+                                        <div
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            <AssignmentControlButtons
+                                                assignmentId={_id}
+                                            />
+                                        </div>
                                     </ListGroup.Item>
                                 )
                             )}
