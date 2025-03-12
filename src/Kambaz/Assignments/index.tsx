@@ -64,6 +64,12 @@ export default function Assignments() {
                                     availableDate,
                                     dueDate,
                                     points,
+                                }: {
+                                    _id: string;
+                                    title: string;
+                                    availableDate: string;
+                                    dueDate: string;
+                                    points: number;
                                 }) => (
                                     <ListGroup.Item
                                         key={_id}

@@ -99,17 +99,17 @@ export default function Dashboard() {
                 <Row xs={1} md={5} className="row row-cols-1 row-cols-md-5 g-4">
                     {courses
                         .filter(
-                            (course) =>
+                            (course: any) =>
                                 showAllCourses ||
                                 enrollments.some(
-                                    (enrollment) =>
+                                    (enrollment: any) =>
                                         enrollment.user === currentUser._id &&
                                         enrollment.course === course._id
                                 )
                         )
-                        .map((course) => {
+                        .map((course: any) => {
                             const isEnrolled = enrollments.some(
-                                (enrollment) =>
+                                (enrollment: any) =>
                                     enrollment.user === currentUser._id &&
                                     enrollment.course === course._id
                             );

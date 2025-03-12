@@ -10,18 +10,6 @@ export default function AssignmentEditor() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const formatDate = (dateString: string | undefined) => {
-        if (!dateString) {
-            return "";
-        }
-        const date = new Date(dateString);
-        return date.toLocaleString("en-US", {
-            month: "2-digit",
-            day: "2-digit",
-            year: "numeric",
-        });
-    };
-
     const existingAssignment = useSelector((state: any) =>
         state.assignmentReducer.assignments.find((a: any) => a._id === aid)
     );

@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 export default function Courses() {
     const { cid } = useParams();
     const course = useSelector((state: any) =>
-        state.coursesReducer.courses.find((course) => course._id === cid)
+        state.coursesReducer.courses.find((course: any) => course._id === cid)
     );
     const { pathname } = useLocation();
 
