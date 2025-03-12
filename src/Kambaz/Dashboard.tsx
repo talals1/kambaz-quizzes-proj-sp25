@@ -1,31 +1,40 @@
 import { Row, Col, Card, Button, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { enroll, unenroll } from "./reducer"; // Import actions
 import { useSelector, useDispatch } from "react-redux";
-import * as db from "./Database";
 import { useState } from "react";
+import { addCourse, updateCourse, deleteCourse } from "./Courses/reducer"; // Import Redux actions
+import { enroll, unenroll } from "./reducer"; // Import enrollment actions
+import { v4 as uuidv4 } from "uuid";
 
-export default function Dashboard({
-    courses,
-    course,
-    setCourse,
-    addNewCourse,
-    deleteCourse,
-    updateCourse,
-}: {
-    courses: any[];
-    course: any;
-    setCourse: (course: any) => void;
-    addNewCourse: () => void;
-    deleteCourse: (course: any) => void;
-    updateCourse: () => void;
-}) {
+export default function Dashboard() {
+    const dispatch = useDispatch();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const { enrollments } = useSelector(
         (state: any) => state.enrollmentReducer
     );
+    const courses = useSelector((state: any) => state.coursesReducer.courses);
+
     const [showAllCourses, setShowAllCourses] = useState(false);
-    const dispatch = useDispatch();
+    const [course, setCourse] = useState<any>({
+        _id: uuidv4(),
+        name: "",
+        description: "",
+    });
+
+    const handleNewCourse = () => {
+        dispatch(
+            enroll({
+                courseID: course._id,
+                studentID: currentUser._id,
+            })
+        );
+        dispatch(addCourse(course));
+        setCourse({
+            _id: uuidv4(),
+            name: "",
+            description: "",
+        });
+    };
 
     return (
         <div id="wd-dashboard">
@@ -35,9 +44,7 @@ export default function Dashboard({
                     <Button
                         className="btn btn-primary float-end"
                         id="wd-add-new-course-click"
-                        onClick={() => {
-                            setShowAllCourses(!showAllCourses);
-                        }}
+                        onClick={() => setShowAllCourses(!showAllCourses)}
                     >
                         Enrollments
                     </Button>
@@ -51,14 +58,13 @@ export default function Dashboard({
                         <Button
                             className="btn btn-primary float-end"
                             id="wd-add-new-course-click"
-                            onClick={addNewCourse}
+                            onClick={handleNewCourse}
                         >
-                            {" "}
-                            Add{" "}
+                            Add
                         </Button>
                         <Button
                             className="btn btn-warning float-end me-2"
-                            onClick={updateCourse}
+                            onClick={() => dispatch(updateCourse(course))}
                             id="wd-update-course-click"
                         >
                             Update
@@ -110,6 +116,7 @@ export default function Dashboard({
                             return (
                                 <Col
                                     className="wd-dashboard-course"
+                                    key={course._id}
                                     style={{ width: "300px" }}
                                 >
                                     <Card>
@@ -137,7 +144,7 @@ export default function Dashboard({
                                                     {" "}
                                                     Go{" "}
                                                 </Button>
-                                                {currentUser.role ==
+                                                {currentUser.role ===
                                                     "FACULTY" && (
                                                     <div>
                                                         <Button
@@ -159,8 +166,10 @@ export default function Dashboard({
                                                                 event
                                                             ) => {
                                                                 event.preventDefault();
-                                                                deleteCourse(
-                                                                    course._id
+                                                                dispatch(
+                                                                    deleteCourse(
+                                                                        course._id
+                                                                    )
                                                                 );
                                                             }}
                                                             className="btn btn-danger float-end"

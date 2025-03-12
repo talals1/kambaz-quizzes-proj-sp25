@@ -14,14 +14,15 @@ export default function AssignmentControlButtons({
     const navigate = useNavigate();
     const { cid } = useParams();
 
-    const handleDelete = () => {
+    const handleDelete = (e: any) => {
         const confirmed = window.confirm(
             "Are you sure you want to remove this assignment?"
         );
+        e.preventDefault();
         if (confirmed) {
             dispatch(deleteAssignment(assignmentId));
-            navigate(`#/Kambaz/Courses/${cid}/Assignments`);
         }
+        navigate(`#/Kambaz/Courses/${cid}/Assignments`);
     };
     return (
         <div className="float-end ">

@@ -8,10 +8,13 @@ import Modules from "./Modules";
 import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table";
 import ProtectedRoute from "../Account/ProtectedRoute";
+import { useSelector } from "react-redux";
 
-export default function Courses({ courses }: { courses: any[] }) {
+export default function Courses() {
     const { cid } = useParams();
-    const course = courses.find((course) => course._id === cid);
+    const course = useSelector((state: any) =>
+        state.coursesReducer.courses.find((course) => course._id === cid)
+    );
     const { pathname } = useLocation();
 
     return (
