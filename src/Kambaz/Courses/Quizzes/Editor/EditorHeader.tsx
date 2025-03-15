@@ -6,23 +6,30 @@ import { useParams } from "react-router-dom";
 
 export default function EditorHeader() {
     const { qid } = useParams(); // Retrieve qid from URL params
-    const quizzes = useSelector((state: any) => state.quizReducer);
-    //const currentQuiz = quizzes.find((q: any) => q._id === qid);
+    const quizzes = useSelector((state: any) => state.quizReducer.quizzes);
+
+    // Find the quiz that matches the qid
+    const currentQuiz = quizzes.find((quiz: any) => quiz._id === "Q101");
+
+    // Determine if the quiz is published
+    const isPublished = currentQuiz?.published === "YES";
+    const points = currentQuiz?.points || "0"; // Default to 0 if undefined
 
     return (
         <div className="d-flex align-items-center justify-content-end">
-            <h5 className="me-2">
-                Points
-            </h5>
-            <div className="d-flex align-items-center text-success">
-                <GreenCheckmark className="me-1" />
-                <span>Published</span>
-            </div>
-        
-            <div className="d-flex align-items-center">
-                <FaTimesCircle className="me-1" />
-                <span>Not Published</span>
-            </div>
+            <h5 className="me-2">Points</h5>
+            <h5 className="me-2">{points}</h5>
+            {isPublished ? (
+                <div className="d-flex align-items-center text-success">
+                    <GreenCheckmark className="me-1" />
+                    <span>Published</span>
+                </div>
+            ) : (
+                <div className="d-flex align-items-center text-danger">
+                    <FaTimesCircle className="me-1" />
+                    <span>Not Published</span>
+                </div>
+            )}
             <IoEllipsisVertical className="fs-4" />
         </div>
     );
