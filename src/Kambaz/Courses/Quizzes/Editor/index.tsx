@@ -1,13 +1,11 @@
 import { useState } from "react";
+import { Button } from "react-bootstrap";
 import DetailsEditor from "./DetailsEditor";
 import EditorHeader from "./EditorHeader";
 import QuestionsEditor from "./QuestionsEditor";
-import { Button } from "react-bootstrap";
-import { useParams } from "react-router";
 
 export default function QuizEditor() {
     const [activeTab, setActiveTab] = useState("details");
-    const { qid } = useParams();
 
     return (
         <div id="quiz-editor">

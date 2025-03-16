@@ -4,21 +4,18 @@ import { FaPlus } from "react-icons/fa";
 import QuestionList from "./QuestionList";
 import { useState } from "react";
 import QuestionEditor from "./QuestionEditor";
-import { useParams } from "react-router";
 
 export default function QuestionsEditor() {
-    const {cid, qid} = useParams();
     const [showEditor, setShowEditor] = useState(false);
-    const [selectedQuestionID, setSelectedQuestionID] = useState(null);
+    const [selectedQuestionID, setSelectedQuestionID] = useState("");
 
     const openEditor = (id) => {
-        console.log(id)
         setSelectedQuestionID(id);
         setShowEditor(true);
     };
     const closeEditor = () => {
         setShowEditor(false);
-        setSelectedQuestionID(null);
+        setSelectedQuestionID("");
     };
 
     return (
@@ -33,7 +30,7 @@ export default function QuestionsEditor() {
             <div className="d-flex justify-content-center ">
                 <Button
                     className="bg-light text-dark border border-secondary"
-                    onClick={() => openEditor(null)}
+                    onClick={() => openEditor("")}
                 >
                     <FaPlus className="me-2" /> New Question
                 </Button>

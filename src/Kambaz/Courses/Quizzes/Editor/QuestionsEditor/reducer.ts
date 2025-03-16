@@ -13,6 +13,7 @@ const questionSlice = createSlice({
         addQuestion: (state, { payload: question }) => {
             const newQuestion = {
                 _id: uuidv4(),
+                quizID: question.quizID,
                 title: question.title,
                 type: question.type,
                 points: question.points,

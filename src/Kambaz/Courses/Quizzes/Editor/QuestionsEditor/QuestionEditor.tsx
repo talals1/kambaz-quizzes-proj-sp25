@@ -1,25 +1,26 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal, Form, Button, ListGroup } from "react-bootstrap";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import ReactQuill from "react-quill";
 import { v4 as uuidv4 } from "uuid";
 
-import { updateQuestion, addQuestion } from "./reducer";
-
 import "react-quill/dist/quill.snow.css";
+import { addQuestion, updateQuestion } from "./reducer";
+import { useParams } from "react-router";
 
 export default function QuestionEditor({ show, handleClose, questionID }) {
     const dispatch = useDispatch();
-    console.log(questionID)
+    const { qid } = useParams();
 
-    // Retrieve the question from Redux state using questionID
     const existingQuestion = useSelector((state: any) =>
         state.questionReducer.questions.find((q: any) => q._id === questionID)
     );
 
+
     const [formData, setFormData] = useState({
         _id: uuidv4(),
+        quizID: qid,
         title: "",
         type: "multiple-choice",
         points: "",
@@ -28,13 +29,22 @@ export default function QuestionEditor({ show, handleClose, questionID }) {
         description: "",
     });
 
-    // Load existing question data when questionID or existingQuestion changes
     useEffect(() => {
         if (existingQuestion) {
-            setFormData(existingQuestion);
+            setFormData({
+                _id: existingQuestion._id,
+                quizID: existingQuestion.quizID,
+                title: existingQuestion.title,
+                type: existingQuestion.type,
+                points: existingQuestion.points,
+                answers: existingQuestion.answers,
+                correctAnswer: existingQuestion.correctAnswer,
+                description: existingQuestion.description,
+            });
         } else {
             setFormData({
                 _id: uuidv4(),
+                quizID: qid,
                 title: "",
                 type: "multiple-choice",
                 points: "",
@@ -53,49 +63,27 @@ export default function QuestionEditor({ show, handleClose, questionID }) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleDescriptionChange = (value) => {
+    const handleQuillChange = (value: any) => {
         setFormData({ ...formData, description: value });
     };
 
-    const addAnswer = () => {
-        setFormData({ ...formData, answers: [...formData.answers, ""] });
-    };
-
-    const handleUpdateAnswer = (index, value) => {
-        setFormData((prev) => {
-            const updatedAnswers = [...prev.answers];
-            updatedAnswers[index] = value;
-            return { ...prev, answers: updatedAnswers };
-        });
-    };
-
-    const handleSelectCorrectAnswer = (answer) => {
-        setFormData({ ...formData, correctAnswer: answer });
-    };
-
-    const handleDeleteAnswer = (index) => {
-        const answerToDelete = formData.answers[index];
-        setFormData((prev) => {
-            const updatedAnswers = prev.answers.filter((_, i) => i !== index);
-            return {
-                ...prev,
-                answers: updatedAnswers,
-                correctAnswer:
-                    prev.correctAnswer === answerToDelete
-                        ? ""
-                        : prev.correctAnswer,
-            };
-        });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         if (existingQuestion) {
             dispatch(updateQuestion(formData));
         } else {
-            dispatch(addQuestion(formData, qid));
+            dispatch(addQuestion(formData));
         }
         handleClose();
+        setFormData({
+            _id: uuidv4(),
+            quizID: qid,
+            title: "",
+            type: "multiple-choice",
+            points: "",
+            answers: [],
+            correctAnswer: "",
+            description: "",
+        });
     };
 
     return (
@@ -107,7 +95,7 @@ export default function QuestionEditor({ show, handleClose, questionID }) {
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3">
+                    <Form.Group className="mb-3" controlId="title">
                         <Form.Label>Title</Form.Label>
                         <Form.Control
                             type="text"
@@ -152,7 +140,7 @@ export default function QuestionEditor({ show, handleClose, questionID }) {
                         <Form.Label>Description</Form.Label>
                         <ReactQuill
                             value={formData.description}
-                            onChange={handleDescriptionChange}
+                            onChange={handleQuillChange}
                             placeholder="Enter question description..."
                         />
                     </Form.Group>
@@ -174,21 +162,27 @@ export default function QuestionEditor({ show, handleClose, questionID }) {
                                                 answer
                                             }
                                             onChange={() =>
-                                                handleSelectCorrectAnswer(
-                                                    answer
-                                                )
+                                                setFormData({
+                                                    ...formData,
+                                                    correctAnswer: answer,
+                                                })
                                             }
                                             className="me-2"
                                         />
                                         <Form.Control
                                             type="text"
                                             value={answer}
-                                            onChange={(e) =>
-                                                handleUpdateAnswer(
-                                                    index,
-                                                    e.target.value
-                                                )
-                                            }
+                                            onChange={(e) => {
+                                                const newAnswers = [
+                                                    ...formData.answers,
+                                                ];
+                                                newAnswers[index] =
+                                                    e.target.value;
+                                                setFormData({
+                                                    ...formData,
+                                                    answers: newAnswers,
+                                                });
+                                            }}
                                             placeholder="Enter answer choice"
                                             className="me-2"
                                         />
@@ -196,7 +190,14 @@ export default function QuestionEditor({ show, handleClose, questionID }) {
                                             variant="danger"
                                             size="sm"
                                             onClick={() =>
-                                                handleDeleteAnswer(index)
+                                                setFormData({
+                                                    ...formData,
+                                                    answers:
+                                                        formData.answers.filter(
+                                                            (_, i) =>
+                                                                i !== index
+                                                        ),
+                                                })
                                             }
                                         >
                                             <FaTrash />
@@ -204,7 +205,15 @@ export default function QuestionEditor({ show, handleClose, questionID }) {
                                     </ListGroup.Item>
                                 ))}
                             </ListGroup>
-                            <Button className="mt-2" onClick={addAnswer}>
+                            <Button
+                                className="mt-2"
+                                onClick={() =>
+                                    setFormData({
+                                        ...formData,
+                                        answers: [...formData.answers, ""],
+                                    })
+                                }
+                            >
                                 <FaPlus className="me-2" /> Add Answer
                             </Button>
                         </Form.Group>
@@ -220,7 +229,10 @@ export default function QuestionEditor({ show, handleClose, questionID }) {
                                 value="True"
                                 checked={formData.correctAnswer === "True"}
                                 onChange={() =>
-                                    handleSelectCorrectAnswer("True")
+                                    setFormData({
+                                        ...formData,
+                                        correctAnswer: "True",
+                                    })
                                 }
                             />
                             <Form.Check
@@ -230,7 +242,10 @@ export default function QuestionEditor({ show, handleClose, questionID }) {
                                 value="False"
                                 checked={formData.correctAnswer === "False"}
                                 onChange={() =>
-                                    handleSelectCorrectAnswer("False")
+                                    setFormData({
+                                        ...formData,
+                                        correctAnswer: "False",
+                                    })
                                 }
                             />
                         </Form.Group>
@@ -252,7 +267,19 @@ export default function QuestionEditor({ show, handleClose, questionID }) {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
+                <Button variant="secondary" onClick={() => {            
+                    setFormData({
+                        _id: uuidv4(),
+                        quizID: qid,
+                        title: "",
+                        type: "multiple-choice",
+                        points: "",
+                        answers: [],
+                        correctAnswer: "",
+                        description: "",
+                    });
+                    handleClose();
+                }}>
                     Cancel
                 </Button>
                 <Button variant="danger" onClick={handleSubmit}>
