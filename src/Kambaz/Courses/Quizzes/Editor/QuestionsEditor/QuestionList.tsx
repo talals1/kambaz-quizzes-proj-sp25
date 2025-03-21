@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { deleteQuestion } from "./reducer";
 
-export default function QuestionList({editQuestion}) {
-    const { qid } = useParams();
+export default function QuestionList({}) {
+    const { cid, qid } = useParams();
     const dispatch = useDispatch();
     const questions = useSelector((state: any) => state.questionReducer.questions);
     
@@ -23,9 +23,7 @@ export default function QuestionList({editQuestion}) {
                                     <Button
                                         variant="outline-secondary"
                                         size="sm"
-                                        onClick={() => {
-                                            editQuestion(question._id);
-                                        }}
+                                        href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/${question._id}`}
                                     >
                                         Edit
                                     </Button>
@@ -33,7 +31,9 @@ export default function QuestionList({editQuestion}) {
                                         variant="outline-secondary btn-danger text-dark"
                                         size="sm"
                                         onClick={() => {
-                                            dispatch(deleteQuestion(question._id));
+                                            dispatch(
+                                                deleteQuestion(question._id)
+                                            );
                                         }}
                                     >
                                         Delete

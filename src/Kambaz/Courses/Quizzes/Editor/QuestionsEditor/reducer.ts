@@ -17,7 +17,10 @@ const questionSlice = createSlice({
                 title: question.title,
                 type: question.type,
                 points: question.points,
-                answers: question.type === "MCQ" ? question.answers || [] : "",
+                answers:
+                    question.type === "multiple-choice"
+                        ? question.answers || []
+                        : "",
                 correctAnswer: question.correctAnswer,
                 description: question.description,
             };

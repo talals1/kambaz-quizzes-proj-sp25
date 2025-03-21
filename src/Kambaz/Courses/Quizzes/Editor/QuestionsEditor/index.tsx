@@ -2,35 +2,19 @@ import { Button } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 
 import QuestionList from "./QuestionList";
-import { useState } from "react";
-import QuestionEditor from "./QuestionEditor";
+import { useParams } from "react-router";
+import { v4 as uuidv4 } from "uuid";
 
 export default function QuestionsEditor() {
-    const [showEditor, setShowEditor] = useState(false);
-    const [selectedQuestionID, setSelectedQuestionID] = useState("");
-
-    const openEditor = (id) => {
-        setSelectedQuestionID(id);
-        setShowEditor(true);
-    };
-    const closeEditor = () => {
-        setShowEditor(false);
-        setSelectedQuestionID("");
-    };
-
+    const {cid, qid} = useParams();
     return (
         <div>
-            <QuestionList editQuestion={openEditor} />
+            <QuestionList />
             <br />
-            <QuestionEditor
-                show={showEditor}
-                handleClose={closeEditor}
-                questionID={selectedQuestionID}
-            />
             <div className="d-flex justify-content-center ">
                 <Button
                     className="bg-light text-dark border border-secondary"
-                    onClick={() => openEditor("")}
+                    href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/${uuidv4()}`}
                 >
                     <FaPlus className="me-2" /> New Question
                 </Button>
