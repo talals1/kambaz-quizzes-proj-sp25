@@ -42,7 +42,7 @@ export default function MyQuizEditor() {
                         <Form.Label>Access Code</Form.Label>
                         <Form.Control
                             type="text"
-                            defaultValue={quiz?.access_code}
+                            defaultValue={quiz?.accessCode}
                         // onChange={handleChange}
                         />
                     </Col>
@@ -55,7 +55,7 @@ export default function MyQuizEditor() {
                     </Form.Label>
                     <Col sm={5}>
                         <Form.Select
-                            defaultValue={quiz?.quiz_type}
+                            defaultValue={quiz?.quizType}
                         // onChange={handleChange}
                         >
                             <option>Graded Quiz</option>
@@ -102,7 +102,7 @@ export default function MyQuizEditor() {
                     </Form.Label>
                     <Col sm={2}>
                         <Form.Control
-                            defaultValue={quiz?.time_limit}
+                            defaultValue={quiz?.timeLimit}
                         // onChange={handleChange}
                         />
                     </Col>

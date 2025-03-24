@@ -3,6 +3,7 @@ import { quizzes } from "../Database";
 import { ListGroup } from "react-bootstrap";
 import { BsGripVertical } from "react-icons/bs";
 import { LuNotebookPen } from "react-icons/lu";
+import { useState } from "react";
 
 export default function MyQuizzes() {
   const { cid } = useParams();
@@ -74,7 +75,7 @@ export default function MyQuizzes() {
             )
           )}
       </ListGroup>
-      <p>hi</p>
+      <p>hi</p> 
     </div>
   )
 }

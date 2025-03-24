@@ -14,6 +14,7 @@ import QuizEditor from "./Quizzes/Editor";
 import QuestionEditor from "./Quizzes/Editor/QuestionsEditor/QuestionEditor";
 import MyQuizzes from "../Quiz";
 import MyQuizEditor from "../Quiz/Editor";
+import MyQuizViewer from "../Quiz/Viewer";
 
 export default function Courses() {
     const { cid } = useParams();
@@ -52,7 +53,7 @@ export default function Courses() {
                             path="MyQuizzes/:qid"
                             element={
                                 <ProtectedRoute>
-                                    <MyQuizEditor />
+                                    <MyQuizViewer />
                                 </ProtectedRoute>
                             }
                         />
