@@ -1,27 +1,45 @@
-import { Row, Col, Card, Button, FormControl } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { Row, Col, Card, Button, FormControl } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+
+import * as enrollmentsClient from "./client";
 import * as userClient from "./Account/client";
 import * as courseClient from "./Courses/client";
+import { enroll, setEnrollments, unenroll } from "./reducer.ts";
 
 export default function Dashboard() {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const [courses, setCourses] = useState<any[]>([]);
+    const { enrollments } = useSelector(
+        (state: any) => state.enrollmentReducer
+    );
+    const dispatch = useDispatch();
+    const [showAllCourses, setShowAllCourses] = useState(false);
+
     const fetchCourses = async () => {
         try {
-            const courses = await userClient.findMyCourses();
-            setCourses(courses);
+            if (showAllCourses) {
+                const courses = await courseClient.fetchAllCourses();
+                setCourses(courses);
+            } else {
+                const courses = await userClient.findMyCourses();
+                setCourses(courses);
+            }
         } catch (error) {
             console.error(error);
         }
     };
+    const fetchEnrollments = async () => {
+        const enrollments = await userClient.findMyEnrollments();
+        dispatch(setEnrollments(enrollments));
+    };
     useEffect(() => {
         fetchCourses();
-    }, [currentUser]);
+        fetchEnrollments();
+    }, [currentUser, showAllCourses]);
 
-    const [showAllCourses, setShowAllCourses] = useState(false);
     const [course, setCourse] = useState<any>({
         _id: uuidv4(),
         name: "",
@@ -59,6 +77,32 @@ export default function Dashboard() {
     const deleteCourse = async (courseId: string) => {
         const status = await courseClient.deleteCourse(courseId);
         setCourses(courses.filter((course) => course._id !== courseId));
+    };
+
+    const handleEnroll = async (courseId: string, studentId: string) => {
+        const status = await enrollmentsClient.enrollStudentInCourse(
+            courseId,
+            studentId
+        );
+        dispatch(
+            enroll({
+                courseID: courseId,
+                studentID: studentId,
+            })
+        );
+    };
+
+    const handleUnenroll = async (courseId: string, studentId: string) => {
+        const status = await enrollmentsClient.unenrollStudentInCourse(
+            courseId,
+            studentId
+        );
+        dispatch(
+            unenroll({
+                courseID: courseId,
+                studentID: studentId,
+            })
+        );
     };
 
     return (
@@ -122,11 +166,6 @@ export default function Dashboard() {
             <div id="wd-dashboard-courses">
                 <Row xs={1} md={5} className="row row-cols-1 row-cols-md-5 g-4">
                     {courses.map((course: any) => {
-                        // const isEnrolled = enrollments.some(
-                        //     (enrollment: any) =>
-                        //         enrollment.user === currentUser._id &&
-                        //         enrollment.course === course._id
-                        // );
                         return (
                             <Col
                                 className="wd-dashboard-course"
@@ -184,51 +223,47 @@ export default function Dashboard() {
                                                     </Button>
                                                 </div>
                                             )}
-                                            {/* {showAllCourses && (
-                                                    <div className="mt-2">
-                                                        {isEnrolled ? (
-                                                            <Button
-                                                                className="btn btn-danger"
-                                                                id="wd-unenroll-click"
-                                                                onClick={(
-                                                                    event
-                                                                ) => {
-                                                                    event.preventDefault();
-                                                                    dispatch(
-                                                                        unenroll(
-                                                                            {
-                                                                                courseID:
-                                                                                    course._id,
-                                                                                studentID:
-                                                                                    currentUser._id,
-                                                                            }
-                                                                        )
-                                                                    );
-                                                                }}
-                                                            >
-                                                                Unenroll
-                                                            </Button>
-                                                        ) : (
-                                                            <Button
-                                                                className="btn btn-success"
-                                                                id="wd-enroll-click"
-                                                                onClick={(
-                                                                    event
-                                                                ) => {
-                                                                    event.preventDefault();
-                                                                    enroll({
-                                                                        courseID:
-                                                                            course._id,
-                                                                        studentID:
-                                                                            currentUser._id,
-                                                                    });
-                                                                }}
-                                                            >
-                                                                Enroll
-                                                            </Button>
-                                                        )}
-                                                    </div>
-                                                )} */}
+                                            {showAllCourses && (
+                                                <div className="mt-2">
+                                                    {enrollments.some(
+                                                        (e: any) =>
+                                                            e.course ===
+                                                            course._id
+                                                    ) ? (
+                                                        <Button
+                                                            className="btn btn-danger"
+                                                            id="wd-unenroll-click"
+                                                            onClick={(
+                                                                event
+                                                            ) => {
+                                                                event.preventDefault();
+                                                                handleUnenroll(
+                                                                    course._id,
+                                                                    currentUser._id
+                                                                );
+                                                            }}
+                                                        >
+                                                            Unenroll
+                                                        </Button>
+                                                    ) : (
+                                                        <Button
+                                                            className="btn btn-success"
+                                                            id="wd-enroll-click"
+                                                            onClick={(
+                                                                event
+                                                            ) => {
+                                                                event.preventDefault();
+                                                                handleEnroll(
+                                                                    course._id,
+                                                                    currentUser._id
+                                                                );
+                                                            }}
+                                                        >
+                                                            Enroll
+                                                        </Button>
+                                                    )}
+                                                </div>
+                                            )}
                                         </Card.Body>
                                     </Link>
                                 </Card>
