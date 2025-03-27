@@ -75,15 +75,12 @@ export default function Dashboard() {
     };
 
     const deleteCourse = async (courseId: string) => {
-        const status = await courseClient.deleteCourse(courseId);
+        await courseClient.deleteCourse(courseId);
         setCourses(courses.filter((course) => course._id !== courseId));
     };
 
     const handleEnroll = async (courseId: string, studentId: string) => {
-        const status = await enrollmentsClient.enrollStudentInCourse(
-            courseId,
-            studentId
-        );
+        await enrollmentsClient.enrollStudentInCourse(courseId, studentId);
         dispatch(
             enroll({
                 courseID: courseId,
@@ -93,10 +90,7 @@ export default function Dashboard() {
     };
 
     const handleUnenroll = async (courseId: string, studentId: string) => {
-        const status = await enrollmentsClient.unenrollStudentInCourse(
-            courseId,
-            studentId
-        );
+        await enrollmentsClient.unenrollStudentInCourse(courseId, studentId);
         dispatch(
             unenroll({
                 courseID: courseId,
