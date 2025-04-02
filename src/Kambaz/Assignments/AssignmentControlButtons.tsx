@@ -4,6 +4,7 @@ import { FaTrash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { deleteAssignment } from "./reducer";
+import * as assignmentsClient from "./client";
 
 export default function AssignmentControlButtons({
     assignmentId,
@@ -14,16 +15,21 @@ export default function AssignmentControlButtons({
     const navigate = useNavigate();
     const { cid } = useParams();
 
-    const handleDelete = (e: any) => {
+    const removeAssignment = async (assignmentId: string) => {
+        await assignmentsClient.deleteAssignment(assignmentId);
+        dispatch(deleteAssignment(assignmentId));
+    };
+    const handleDelete = async (e: any) => {
         const confirmed = window.confirm(
             "Are you sure you want to remove this assignment?"
         );
         e.preventDefault();
         if (confirmed) {
-            dispatch(deleteAssignment(assignmentId));
+            removeAssignment(assignmentId);
         }
         navigate(`#/Kambaz/Courses/${cid}/Assignments`);
     };
+
     return (
         <div className="float-end ">
             <GreenCheckmark />

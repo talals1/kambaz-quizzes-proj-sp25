@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { updateAssignment, addAssignment } from "./reducer";
+import * as coursesClient from "../Courses/client";
+import * as assignmentsClient from "./client";
 import { v4 as uuidv4 } from "uuid";
 
 export default function AssignmentEditor() {
@@ -36,11 +38,19 @@ export default function AssignmentEditor() {
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
 
+    const createNewAssignment = async () => {
+        await coursesClient.createAssignmentForCourse(cid as string, formData);
+        dispatch(addAssignment(formData));
+    };
+    const editAssignment = async () => {
+        await assignmentsClient.updateAssignment(formData);
+        dispatch(updateAssignment(formData));
+    };
     const handleSave = () => {
         if (existingAssignment) {
-            dispatch(updateAssignment(formData));
+            editAssignment();
         } else {
-            dispatch(addAssignment(formData));
+            createNewAssignment();
         }
         navigate(`#/Kambaz/Courses/${cid}/Assignments`);
     };

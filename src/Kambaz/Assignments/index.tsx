@@ -1,19 +1,34 @@
+import { useEffect } from "react";
+import { useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+
+import { ListGroup } from "react-bootstrap";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { BsGripVertical, BsPlus } from "react-icons/bs";
-import { ListGroup } from "react-bootstrap";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { LuNotebookPen } from "react-icons/lu";
 
 import AssignmentControls from "./AssignmentControls";
 import AssignmentControlButtons from "./AssignmentControlButtons";
-import { useParams } from "react-router";
-import { useSelector } from "react-redux";
+import * as coursesClient from "../Courses/client";
+import { setAssignments } from "./reducer";
 
 export default function Assignments() {
     const { cid } = useParams();
     const assignments = useSelector(
         (state: any) => state.assignmentReducer.assignments
     );
+    const dispatch = useDispatch();
+
+    const fetchAssignments = async () => {
+        const assignments = await coursesClient.findAssignmentsForCourse(
+            cid as string
+        );
+        dispatch(setAssignments(assignments));
+    };
+    useEffect(() => {
+        fetchAssignments();
+    }, []);
 
     const formatDate = (dateString: string | undefined) => {
         if (!dateString) return "";
@@ -53,59 +68,55 @@ export default function Assignments() {
                         </div>
                     </div>
                     <ListGroup className="wd-lessons rounded-0">
-                        {assignments
-                            .filter(
-                                (assignment: any) => assignment.course === cid
-                            )
-                            .map(
-                                ({
-                                    _id,
-                                    title,
-                                    availableDate,
-                                    dueDate,
-                                    points,
-                                }: {
-                                    _id: string;
-                                    title: string;
-                                    availableDate: string;
-                                    dueDate: string;
-                                    points: number;
-                                }) => (
-                                    <ListGroup.Item
-                                        key={_id}
-                                        action
-                                        href={`#/Kambaz/Courses/${cid}/Assignments/${_id}`}
-                                        className="wd-lesson p-3 ps-2 d-flex align-items-center"
-                                    >
-                                        <BsGripVertical className="me-2 fs-3" />
-                                        <LuNotebookPen
-                                            className="me-2 fs-3"
-                                            style={{ color: "green" }}
+                        {assignments.map(
+                            ({
+                                _id,
+                                title,
+                                availableDate,
+                                dueDate,
+                                points,
+                            }: {
+                                _id: string;
+                                title: string;
+                                availableDate: string;
+                                dueDate: string;
+                                points: number;
+                            }) => (
+                                <ListGroup.Item
+                                    key={_id}
+                                    action
+                                    href={`#/Kambaz/Courses/${cid}/Assignments/${_id}`}
+                                    className="wd-lesson p-3 ps-2 d-flex align-items-center"
+                                >
+                                    <BsGripVertical className="me-2 fs-3" />
+                                    <LuNotebookPen
+                                        className="me-2 fs-3"
+                                        style={{ color: "green" }}
+                                    />
+                                    <div className="flex-grow-1">
+                                        <h4>
+                                            <b>{title}</b>
+                                        </h4>
+                                        <p>
+                                            <text className="text-danger">
+                                                Multiple Modules
+                                            </text>{" "}
+                                            | <b>Not available until</b>{" "}
+                                            {formatDate(availableDate)} |
+                                        </p>
+                                        <p>
+                                            <b>Due</b> {formatDate(dueDate)} |{" "}
+                                            {points} pts
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <AssignmentControlButtons
+                                            assignmentId={_id}
                                         />
-                                        <div className="flex-grow-1">
-                                            <h4>
-                                                <b>{title}</b>
-                                            </h4>
-                                            <p>
-                                                <text className="text-danger">
-                                                    Multiple Modules
-                                                </text>{" "}
-                                                | <b>Not available until</b>{" "}
-                                                {formatDate(availableDate)} |
-                                            </p>
-                                            <p>
-                                                <b>Due</b> {formatDate(dueDate)}{" "}
-                                                | {points} pts
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <AssignmentControlButtons
-                                                assignmentId={_id}
-                                            />
-                                        </div>
-                                    </ListGroup.Item>
-                                )
-                            )}
+                                    </div>
+                                </ListGroup.Item>
+                            )
+                        )}
                     </ListGroup>
                 </ListGroup.Item>
             </ListGroup>
