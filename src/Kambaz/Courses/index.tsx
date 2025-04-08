@@ -10,6 +10,8 @@ import PeopleTable from "./People/Table";
 import ProtectedRoute from "../Account/ProtectedRoute";
 import { useSelector } from "react-redux";
 import Quizzes from "./Quizzes";
+import QuizEditor from "./Quizzes/Editor";
+import QuestionEditor from "./Quizzes/Editor/QuestionsEditor/QuestionEditor";
 
 export default function Courses() {
     const { cid } = useParams();
@@ -44,7 +46,9 @@ export default function Courses() {
                             }
                         />
                         <Route path="People" element={<PeopleTable />} />
-                        <Route path="Quizzes" element={<Quizzes />}/>
+                        <Route path="Quizzes" element={<Quizzes/>}/>
+                        <Route path="Quizzes/:qid" element={<QuizEditor/>}/>
+                        <Route path="Quizzes/:qid/:questionID" element={<QuestionEditor/>}/>
                     </Routes>
                 </div>
             </div>

@@ -14,6 +14,7 @@ const store = configureStore({
         assignmentReducer,
         coursesReducer,
         quizReducer,
+        questionReducer,
     },
 });
 export default store;
