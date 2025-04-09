@@ -1,10 +1,16 @@
 import { Col, Container, Row, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { quizzes } from "../Database";
+import { useSelector } from "react-redux";
 
 export default function QuizDetails() {
     const { cid, qid } = useParams();
-    const quiz = quizzes.find(q => q._id === qid)
+    const { quizzes } = useSelector((state: any) => state.myQuizzesReducer);
+    const quiz = quizzes.find((q: any) => {
+        console.log(q);
+        return q._id === qid
+    });
+    // const quiz = quizzes.find(q => q._id === qid)
 
     const formatDate = (dateString: string | undefined) => {
         if (!dateString) return "";

@@ -1,12 +1,15 @@
 import { useParams } from "react-router-dom";
-import { quizzes } from "../Database";
+// import { quizzes } from "../Database";
 import { ListGroup } from "react-bootstrap";
 import { BsGripVertical } from "react-icons/bs";
 import { LuNotebookPen } from "react-icons/lu";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function MyQuizzes() {
   const { cid } = useParams();
+  const { quizzes } = useSelector((state: any) => state.myQuizzesReducer);
+  
 
   const formatDate = (dateString: string | undefined) => {
     if (!dateString) return "";
@@ -38,7 +41,7 @@ export default function MyQuizzes() {
               <ListGroup.Item
                 key={_id}
                 action
-                href={`#/Kambaz/Courses/${cid}/Quizzes/${_id}`}
+                href={`#/Kambaz/Courses/${cid}/MyQuizzes/${_id}`}
                 className="wd-quiz p-3 ps-2 d-flex align-items-center"
               >
                 <BsGripVertical className="me-2 fs-3" />
