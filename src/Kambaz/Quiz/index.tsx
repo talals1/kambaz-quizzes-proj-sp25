@@ -34,7 +34,7 @@ export default function MyQuizzes() {
             ({
               _id,
               title,
-              availableFromDate,
+              availableDate,
               dueDate,
               points,
             }) => (
@@ -55,7 +55,7 @@ export default function MyQuizzes() {
                   </h4>
                   <p>
                     <b>Not available until </b>
-                    {formatDate(availableFromDate)}
+                    {formatDate(availableDate)}
                     &ensp;
                     |
                     &ensp;

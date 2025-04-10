@@ -16,12 +16,12 @@ export default function QuizDetailsEditor(
         return q._id === qid
     });
 
+    // The quiz object we end up saving to
     let modifiedQuiz = quiz ? quiz : { _id: uuidv4(), course: cid };
 
+    // Handles any change in any field
     const handleChange = (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLSelectElement
-        >
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
         if (e.target.type === "checkbox") {
             modifiedQuiz = { ...modifiedQuiz, [e.target.id]: e.target.checked };
@@ -30,6 +30,7 @@ export default function QuizDetailsEditor(
         }
     };
 
+    // Saves quiz data
     const saveQuiz = () => {
         if (quiz) {
             dispatch(updateQuiz(modifiedQuiz));
@@ -43,7 +44,7 @@ export default function QuizDetailsEditor(
     return (
         <Container className="p-4">
             <Button variant="danger" className="float-end" onClick={saveQuiz}>Save</Button>
-            <Button variant="secondary" className="float-end">Cancel</Button>
+            <Button variant="secondary" className="float-end" onClick={() => setUseEditor(false)}>Cancel</Button>
             <br />
             <br />
             <Form>

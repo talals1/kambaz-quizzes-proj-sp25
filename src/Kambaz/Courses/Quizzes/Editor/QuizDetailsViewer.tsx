@@ -1,17 +1,14 @@
 import { Col, Container, Row, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-// import { quizzes } from "../Database";
 import { useSelector } from "react-redux";
 
 export default function QuizDetailsViewer() {
-    const { cid, qid } = useParams();
+    const { qid } = useParams();
     const { quizzes } = useSelector((state: any) => state.quizReducer);
-    console.log("Details screen - All quizzes")
-    console.log(quizzes)
+    
     const quiz = quizzes.find((q: any) => {
         return q._id === qid
     });
-    // const quiz = quizzes.find(q => q._id === qid)
 
     const formatBoolean = (bool: boolean) => bool ? "Yes" : "No";
 

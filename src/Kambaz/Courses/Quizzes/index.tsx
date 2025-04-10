@@ -13,6 +13,19 @@ export default function Quizzes() {
     const { quizzes } = useSelector((state: any) => state.quizReducer);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     // const dispatch = useDispatch();
+
+    const formatDate = (dateString: string | undefined) => {
+        if (!dateString) return "";
+        const date = new Date(dateString);
+        return date.toLocaleString("en-US", {
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true,
+        });
+    };
+
     return (
         <div>
             {currentUser.role === "FACULTY" && (
@@ -40,9 +53,9 @@ export default function Quizzes() {
                                                 </h4>
                                                 <p>
                                                     <text>
-                                                        <b>Available</b> {quiz.availableDate}
+                                                        <b>Available</b> {formatDate(quiz.availableDate)}
                                                     </text>{" "}
-                                                    | <b>Due</b> {quiz.dueDate} {" "}
+                                                    | <b>Due</b> {formatDate(quiz.dueDate)} {" "}
                                                     | {quiz.points} pts | {quiz.qids.length} Questions
                                                 </p>
                                             </div>
@@ -60,9 +73,9 @@ export default function Quizzes() {
                                                     </h4>
                                                     <p>
                                                         <text>
-                                                            <b>Available</b> {quiz.availableDate}
+                                                            <b>Available</b> {formatDate(quiz.availableDate)}
                                                         </text>{" "}
-                                                        | <b>Due</b> {quiz.dueDate} {" "}
+                                                        | <b>Due</b> {formatDate(quiz.dueDate)} {" "}
                                                         | {quiz.points} pts | {quiz.qids.length} Questions
                                                     </p>
                                                 </div>

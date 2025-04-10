@@ -9,8 +9,8 @@ export default function QuizDetails() {
 
     return (
         <div>
-            <Button variant="danger" onClick={() => setUseEditor(!useEditor)}>Edit Details</Button>
-            <hr />
+            {!useEditor && <Button variant="danger" className="float-end" onClick={() => setUseEditor(!useEditor)}>Edit Details</Button>}
+            <br/>
             {useEditor ? <QuizDetailsEditor setUseEditor={setUseEditor} /> : <QuizDetailsViewer  />}
         </div>
     )
