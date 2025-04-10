@@ -13,9 +13,11 @@ const myQuizzesSlice = createSlice({
             state.quizzes = state.quizzes.push(newQuiz) as any
         },
         updateQuiz: (state, { payload: updatedQuiz }) => {
-            state.quizzes = state.quizzes.map((q: any) => {
+            state.quizzes = state.quizzes.map((q: any) => 
                 q._id === updatedQuiz._id ? updatedQuiz : q
-            }) as any;
+            ) as any;
+            console.log("New quizzes state!!")
+            console.log(state.quizzes)
         }
     }
 });

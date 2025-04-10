@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { addQuiz, updateQuiz } from "./reducer";
 
-export default function MyQuizEditor({setUseEditor}) {
-    const { cid, qid } = useParams();
-    const navigate = useNavigate();
+export default function MyQuizEditor({qid, cid, setUseEditor}) {
+    // const { cid, qid } = useParams();
+    // const navigate = useNavigate();
     const dispatch = useDispatch();
     // const quiz = quizzes.find(q => q._id === qid);
     const { quizzes } = useSelector((state: any) => state.myQuizzesReducer);
@@ -32,14 +32,24 @@ export default function MyQuizEditor({setUseEditor}) {
             modifiedQuiz = { ...modifiedQuiz, [e.target.id]: e.target.value };
         }
 
+        console.log("Quiz being modified")
         console.log(modifiedQuiz)
+        console.log("All quizzes")
+        console.log(quizzes)
 
     };
 
     const saveQuiz = () => {
+        console.log("Saving!")
+        console.log("Quiz being modified")
+        console.log(modifiedQuiz)
+        console.log("All quizzes")
+        console.log(quizzes)
         if (quiz) {
+            console.log("Updating existing quiz")
             dispatch(updateQuiz(modifiedQuiz));
         } else {
+            console.log("Creating new quiz!")
             dispatch(addQuiz(modifiedQuiz));
         }
         setUseEditor(false);
