@@ -1,16 +1,15 @@
-import { Button, Card, CardBody, CardSubtitle, CardTitle, Col, Container, Form, Nav, NavItem, Row } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
-// import { quizzes } from "../Database";
+import { Button, Card, CardBody, CardSubtitle, CardTitle, Col, Container, Form, Row } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { addQuiz, updateQuiz } from "./reducer";
+import { addQuiz, updateQuiz } from "../reducer";
 
-export default function MyQuizEditor({qid, cid, setUseEditor}) {
-    // const { cid, qid } = useParams();
-    // const navigate = useNavigate();
+export default function QuizDetailsEditor(
+    { setUseEditor }: { setUseEditor: (useEditor: boolean) => void }
+) {
     const dispatch = useDispatch();
-    // const quiz = quizzes.find(q => q._id === qid);
-    const { quizzes } = useSelector((state: any) => state.myQuizzesReducer);
+    const { cid, qid } = useParams();
+    const { quizzes } = useSelector((state: any) => state.quizReducer);
 
     const quiz = quizzes.find((q: any) => {
         console.log(q);
@@ -25,37 +24,20 @@ export default function MyQuizEditor({qid, cid, setUseEditor}) {
         >
     ) => {
         if (e.target.type === "checkbox") {
-            console.log(`${e.target.id} : ${e.target.checked}`)
             modifiedQuiz = { ...modifiedQuiz, [e.target.id]: e.target.checked };
         } else {
-            console.log(`${e.target.id} : ${e.target.value}`)
             modifiedQuiz = { ...modifiedQuiz, [e.target.id]: e.target.value };
         }
-
-        console.log("Quiz being modified")
-        console.log(modifiedQuiz)
-        console.log("All quizzes")
-        console.log(quizzes)
-
     };
 
     const saveQuiz = () => {
-        console.log("Saving!")
-        console.log("Quiz being modified")
-        console.log(modifiedQuiz)
-        console.log("All quizzes")
-        console.log(quizzes)
         if (quiz) {
-            console.log("Updating existing quiz")
             dispatch(updateQuiz(modifiedQuiz));
         } else {
-            console.log("Creating new quiz!")
             dispatch(addQuiz(modifiedQuiz));
         }
         setUseEditor(false);
-        // navigate(`/Kambaz/Courses/${cid}/Quizzes`);
     }
-
 
 
     return (
@@ -63,14 +45,6 @@ export default function MyQuizEditor({qid, cid, setUseEditor}) {
             <Button variant="danger" className="float-end" onClick={saveQuiz}>Save</Button>
             <Button variant="secondary" className="float-end">Cancel</Button>
             <br />
-            <Nav variant="tabs" defaultActiveKey={`#/Kambaz/Courses/${cid}/MyQuizzes/${qid}`}>
-                <Nav.Item>
-                    <Nav.Link href={`#/Kambaz/Courses/${cid}/MyQuizzes/${qid}`}>Details</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link eventKey="link-1">Questions</Nav.Link>
-                </Nav.Item>
-            </Nav>
             <br />
             <Form>
                 <Form.Group controlId="title" className="mb-3">
@@ -105,13 +79,13 @@ export default function MyQuizEditor({qid, cid, setUseEditor}) {
                 </Form.Group>
 
 
-                <Form.Group as={Row} controlId="quizType" className="mb-3">
+                <Form.Group as={Row} controlId="type" className="mb-3">
                     <Form.Label column sm={2}>
                         Quiz Type
                     </Form.Label>
                     <Col sm={5}>
                         <Form.Select
-                            defaultValue={quiz?.quizType}
+                            defaultValue={quiz?.type}
                             onChange={handleChange}
                         >
                             <option>Graded Quiz</option>
@@ -177,7 +151,7 @@ export default function MyQuizEditor({qid, cid, setUseEditor}) {
                                 Options
                             </Form.Label> */}
                             {/* <Col sm={6}> */}
-                            <Form.Check id="shuffle" type="checkbox" label="Shuffle Answers" defaultChecked={quiz?.shuffle} onChange={handleChange} />
+                            <Form.Check id="shuffleAnswers" type="checkbox" label="Shuffle Answers" defaultChecked={quiz?.shuffleAnswers} onChange={handleChange} />
                             <Form.Check id="multipleAttempts" type="checkbox" label="Multiple Attempts" defaultChecked={quiz?.multipleAttempts} onChange={handleChange} />
                             <Form.Check id="showCorrectAnswers" type="checkbox" label="Show Correct Answers" defaultChecked={quiz?.showCorrectAnswers} onChange={handleChange} />
                             <Form.Check id="oneQuestionAtATime" type="checkbox" label="Show One Question at a Time" defaultChecked={quiz?.oneQuestionAtATime} onChange={handleChange} />
@@ -196,7 +170,7 @@ export default function MyQuizEditor({qid, cid, setUseEditor}) {
                                 Available From
                             </Form.Label>
                             <Col sm={10}>
-                                <Form.Control id="availableFromDate" type="date" defaultValue={quiz?.availableFromDate} onChange={handleChange} />
+                                <Form.Control id="availableDate" type="date" defaultValue={quiz?.availableDate} onChange={handleChange} />
                             </Col>
                         </Form.Group>
 
@@ -205,7 +179,7 @@ export default function MyQuizEditor({qid, cid, setUseEditor}) {
                                 Available Until
                             </Form.Label>
                             <Col sm={10}>
-                                <Form.Control id="availableUntilDate" type="date" defaultValue={quiz?.availableUntilDate} onChange={handleChange} />
+                                <Form.Control id="untilDate" type="date" defaultValue={quiz?.untilDate} onChange={handleChange} />
                             </Col>
                         </Form.Group>
 

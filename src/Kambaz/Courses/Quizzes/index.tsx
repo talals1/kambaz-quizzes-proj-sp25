@@ -32,8 +32,8 @@ export default function Quizzes() {
                             .map(
                                 (quiz: any) => (
                                     currentUser.role === "FACULTY" ? (
-                                        <ListGroup.Item key={quiz._id} className="wd-quiz p-3 ps-2 d-flex align-items-center">
-                                            <RxRocket style={{ color: "green" }}/>
+                                        <ListGroup.Item key={quiz._id} action className="wd-quiz p-3 ps-2 d-flex align-items-center" href={`#/Kambaz/Courses/${cid}/Quizzes/${quiz._id}`}>
+                                            <RxRocket style={{ color: "green" }} />
                                             <div className="flex-grow-1">
                                                 <h4>
                                                     <b>{quiz.title}</b>
@@ -52,8 +52,8 @@ export default function Quizzes() {
                                         </ListGroup.Item>
                                     ) : (
                                         quiz.published === "YES" && (
-                                            <ListGroup.Item key={quiz._id} className="wd-quiz p-3 ps-2 d-flex align-items-center">
-                                                <RxRocket style={{ color: "green" }}/>
+                                            <ListGroup.Item key={quiz._id} action className="wd-quiz p-3 ps-2 d-flex align-items-center" href={`#/Kambaz/Courses/${cid}/Quizzes/${quiz._id}`}>
+                                                <RxRocket style={{ color: "green" }} />
                                                 <div className="flex-grow-1">
                                                     <h4>
                                                         <b>{quiz.title}</b>
