@@ -1,6 +1,7 @@
 import { Col, Container, Row, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { formatDate } from "../../../../utils";
 
 export default function QuizDetailsViewer() {
     const { qid } = useParams();
@@ -11,18 +12,6 @@ export default function QuizDetailsViewer() {
     });
 
     const formatBoolean = (bool: boolean) => bool ? "Yes" : "No";
-
-    const formatDate = (dateString: string | undefined) => {
-        if (!dateString) return "";
-        const date = new Date(dateString);
-        return date.toLocaleString("en-US", {
-            month: "long",
-            day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true,
-        });
-    };
 
     return (
         <Container>

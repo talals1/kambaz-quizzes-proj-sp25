@@ -7,24 +7,13 @@ import { useSelector } from "react-redux";
 import { ListGroup } from "react-bootstrap";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { RxRocket } from "react-icons/rx";
+import { formatDate } from "../../../utils";
 
 export default function Quizzes() {
     const { cid } = useParams();
     const { quizzes } = useSelector((state: any) => state.quizReducer);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     // const dispatch = useDispatch();
-
-    const formatDate = (dateString: string | undefined) => {
-        if (!dateString) return "";
-        const date = new Date(dateString);
-        return date.toLocaleString("en-US", {
-            month: "long",
-            day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true,
-        });
-    };
 
     return (
         <div>
