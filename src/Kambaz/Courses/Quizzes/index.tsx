@@ -7,12 +7,14 @@ import { useSelector } from "react-redux";
 import { ListGroup } from "react-bootstrap";
 import { TiArrowSortedDown } from "react-icons/ti";
 import { RxRocket } from "react-icons/rx";
+import { formatDate } from "../../../utils";
 
 export default function Quizzes() {
     const { cid } = useParams();
     const { quizzes } = useSelector((state: any) => state.quizReducer);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     // const dispatch = useDispatch();
+
     return (
         <div>
             {currentUser.role === "FACULTY" && (
@@ -32,17 +34,17 @@ export default function Quizzes() {
                             .map(
                                 (quiz: any) => (
                                     currentUser.role === "FACULTY" ? (
-                                        <ListGroup.Item key={quiz._id} className="wd-quiz p-3 ps-2 d-flex align-items-center">
-                                            <RxRocket style={{ color: "green" }}/>
+                                        <ListGroup.Item key={quiz._id} action className="wd-quiz p-3 ps-2 d-flex align-items-center" href={`#/Kambaz/Courses/${cid}/Quizzes/${quiz._id}`}>
+                                            <RxRocket style={{ color: "green" }} />
                                             <div className="flex-grow-1">
                                                 <h4>
                                                     <b>{quiz.title}</b>
                                                 </h4>
                                                 <p>
                                                     <text>
-                                                        <b>Available</b> {quiz.availableDate}
+                                                        <b>Available</b> {formatDate(quiz.availableDate)}
                                                     </text>{" "}
-                                                    | <b>Due</b> {quiz.dueDate} {" "}
+                                                    | <b>Due</b> {formatDate(quiz.dueDate)} {" "}
                                                     | {quiz.points} pts | {quiz.qids.length} Questions
                                                 </p>
                                             </div>
@@ -52,17 +54,17 @@ export default function Quizzes() {
                                         </ListGroup.Item>
                                     ) : (
                                         quiz.published === "YES" && (
-                                            <ListGroup.Item key={quiz._id} className="wd-quiz p-3 ps-2 d-flex align-items-center">
-                                                <RxRocket style={{ color: "green" }}/>
+                                            <ListGroup.Item key={quiz._id} action className="wd-quiz p-3 ps-2 d-flex align-items-center" href={`#/Kambaz/Courses/${cid}/Quizzes/${quiz._id}`}>
+                                                <RxRocket style={{ color: "green" }} />
                                                 <div className="flex-grow-1">
                                                     <h4>
                                                         <b>{quiz.title}</b>
                                                     </h4>
                                                     <p>
                                                         <text>
-                                                            <b>Available</b> {quiz.availableDate}
+                                                            <b>Available</b> {formatDate(quiz.availableDate)}
                                                         </text>{" "}
-                                                        | <b>Due</b> {quiz.dueDate} {" "}
+                                                        | <b>Due</b> {formatDate(quiz.dueDate)} {" "}
                                                         | {quiz.points} pts | {quiz.qids.length} Questions
                                                     </p>
                                                 </div>
