@@ -12,6 +12,7 @@ export default function CourseNavigation() {
         "Zoom",
         "Assignments",
         "Quizzes",
+        "MyQuizzes",
         "Grades",
         "People",
     ];
