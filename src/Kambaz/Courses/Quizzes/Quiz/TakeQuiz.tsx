@@ -2,19 +2,45 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Button, Form, FormCheck, ListGroup } from "react-bootstrap";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 export default function TakeQuiz() {
     const { cid, qid } = useParams();
     // const dispatch = useDispatch();
     const questions = useSelector((state: any) => state.questionReducer.questions);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const { quizzes } = useSelector((state: any) => state.quizReducer);
-    const [submission, setSubmission] = useState([]);
+    const [answerList, setAnswerList] = useState({});
+    // const [quizAttempt, setQuizAttempt] = useState({});
 
     const quiz = quizzes.find((q: any) => {
         console.log(q);
         return q._id === qid
     });
+
+    const handleSubmit = () => {
+
+        const quizAttempt = {
+            _id: uuidv4(),
+            user_id: currentUser._id,
+            quiz_id: qid,
+            answers: answerList
+        };
+        // send out quizAttempt
+        console.log(quizAttempt);
+    };
     return (
+        // <div>
+        //     {currentUser.role === "STUDENT" ? (
+        //             quiz.oneQuestionAtATime ? (
+        //                 <div> test 1 </div>
+        //             ) : (
+        //                 <div> test 2 </div>
+        //             )
+        //         ) : (
+        //             <div> test 3 </div>
+        //         )
+        //     }
+        // </div>
         <div>
             {currentUser.role === "STUDENT" ? (
                 // <div>TAKING QUIZ</div>
@@ -32,26 +58,6 @@ export default function TakeQuiz() {
                                     <h4 className="mb-0">
                                         <b>{question.title}</b>
                                     </h4>
-                                    {/* <div>
-                                        <Button
-                                            variant="outline-secondary"
-                                            size="sm"
-                                            href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/${question._id}`}
-                                        >
-                                            Edit
-                                        </Button>
-                                        <Button
-                                            variant="outline-secondary btn-danger text-dark"
-                                            size="sm"
-                                            onClick={() => {
-                                                // dispatch(
-                                                //     deleteQuestion(question._id)
-                                                // );
-                                            }}
-                                        >
-                                            Delete
-                                        </Button>
-                                    </div> */}
                                 </div>
                                 <hr />
                                 <p>{question.description}</p>
@@ -65,10 +71,9 @@ export default function TakeQuiz() {
                                                     id={`answer-${index}`}
                                                     label={answer}
                                                     value={answer}
-                                                    // checked={
-                                                    //     answer ===
-                                                    //     question.correctAnswer
-                                                    // }
+                                                    onChange = {(e) => {
+                                                        setAnswerList({...answerList, [questions._id]: e.target.value});
+                                                    }}
                                                 />
                                             )
                                         )}
@@ -80,20 +85,14 @@ export default function TakeQuiz() {
                                                 id="true-answer"
                                                 label="True"
                                                 value="True"
-                                                // checked={
-                                                //     "True" ===
-                                                //     question.correctAnswer
-                                                // }
+                                                onChange={() => setAnswerList({...answerList, [question._id]: true})}
                                             />
                                             <FormCheck
                                                 type="radio"
                                                 id="false-answer"
                                                 label="False"
                                                 value="False"
-                                                // checked={
-                                                //     "False" ===
-                                                //     question.correctAnswer
-                                                // }
+                                                onChange={() => setAnswerList({...answerList, [question._id]: false})}
                                             />
                                         </>
                                     )}
@@ -101,20 +100,22 @@ export default function TakeQuiz() {
                                     {question.type === "fill-in-the-blank" && (
                                         <Form.Control
                                             type="text"
-                                            // defaultValue={question.correctAnswer}
                                             placeholder="Enter your answer here"
+                                            onChange={(e) => setAnswerList({...answerList, [question._id]: e.target.value})}
                                         />
                                     )}
                                 </Form>
                             </ListGroup.Item>
                         ))}
                 </ListGroup>
-            ) : (
-                <div>PREVIEWING QUIZ</div>
-            )
+                ) : (
+                    <div>PREVIEWING QUIZ</div>
+                )
             }
             <hr/>
-            <Button variant="secondary">
+            <Button variant="secondary" onClick={() => {
+                handleSubmit();
+            }}>
                 Submit
             </Button>
         </div>

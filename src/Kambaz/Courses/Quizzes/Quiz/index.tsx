@@ -10,7 +10,7 @@ import { setQuizzes } from "../reducer";
 import { quiz_attempts } from "../../../Database";
 
 export default function Quiz() {
-    const { cid, qid, uid } = useParams();
+    const { cid, qid} = useParams();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const { quizzes } = useSelector((state: any) => state.quizReducer);
     const dispatch = useDispatch();
