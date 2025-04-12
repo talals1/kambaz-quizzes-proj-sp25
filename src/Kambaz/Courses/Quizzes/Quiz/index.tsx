@@ -7,9 +7,10 @@ import QuizEditor from "../Editor";
 import { formatDate } from "../../../../utils";
 import * as coursesClient from "../../client";
 import { setQuizzes } from "../reducer";
+import { quiz_attempts } from "../../../Database";
 
 export default function Quiz() {
-    const { cid, qid } = useParams();
+    const { cid, qid, uid } = useParams();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const { quizzes } = useSelector((state: any) => state.quizReducer);
     const dispatch = useDispatch();
@@ -26,6 +27,8 @@ export default function Quiz() {
         console.log(q);
         return q._id === qid;
     });
+
+    // need quiz_attempts data type to grab
 
     return (
         <>
@@ -58,9 +61,10 @@ export default function Quiz() {
 
                     <br />
                     <div className="d-flex justify-content-center">
-                        <Button variant="danger">Take the Quiz</Button>
-                    </div>
-                    <br />
+                        {/* need to add check for if the user has an attempt left */}
+                        <Button variant="danger" href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/take_quiz`}>Take the Quiz</Button>
+                    </div>                  
+                    <br/>
 
                     <hr />
                 </>
