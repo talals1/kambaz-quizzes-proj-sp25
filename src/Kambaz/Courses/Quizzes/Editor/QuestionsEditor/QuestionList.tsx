@@ -1,13 +1,34 @@
+import { useEffect } from "react";
 import { Button, Form, FormCheck, ListGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { deleteQuestion } from "./reducer";
 
-export default function QuestionList({}) {
+import * as quizzesClient from "../../client";
+import { deleteQuestion, setQuestions } from "./reducer";
+
+export default function QuestionList() {
     const { cid, qid } = useParams();
     const dispatch = useDispatch();
-    const questions = useSelector((state: any) => state.questionReducer.questions);
-    
+    const questions = useSelector(
+        (state: any) => state.questionReducer.questions
+    );
+
+    const fetchQuestions = async () => {
+        const questions = await quizzesClient.findQuestionsForQuiz(
+            qid as string
+        );
+        console.log(questions);
+        dispatch(setQuestions(questions));
+    };
+    useEffect(() => {
+        fetchQuestions();
+    }, []);
+
+    const handleDelete = async (questionId: string) => {
+        await quizzesClient.removeQuestionFromQuiz(qid as string, questionId);
+        dispatch(deleteQuestion(questionId));
+    };
+
     return (
         <div>
             <ListGroup>
@@ -31,9 +52,7 @@ export default function QuestionList({}) {
                                         variant="outline-secondary btn-danger text-dark"
                                         size="sm"
                                         onClick={() => {
-                                            dispatch(
-                                                deleteQuestion(question._id)
-                                            );
+                                            handleDelete(question._id);
                                         }}
                                     >
                                         Delete

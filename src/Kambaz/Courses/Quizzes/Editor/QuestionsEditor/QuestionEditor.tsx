@@ -1,19 +1,21 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { Form, Button, ListGroup } from "react-bootstrap";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import ReactQuill from "react-quill";
+import { useNavigate, useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import "react-quill/dist/quill.snow.css";
 import { v4 as uuidv4 } from "uuid";
 
-import "react-quill/dist/quill.snow.css";
+import * as questionsClient from "./client";
+import * as quizzesClient from "../../client";
 import { addQuestion, updateQuestion } from "./reducer";
-import { useNavigate, useParams } from "react-router";
 
-export default function QuestionEditor({ }) {
+export default function QuestionEditor() {
     const dispatch = useDispatch();
     const { cid, qid, questionID } = useParams();
     const navigate = useNavigate();
-    
+
     const existingQuestion = useSelector((state: any) =>
         state.questionReducer.questions.find((q: any) => q._id === questionID)
     );
@@ -29,17 +31,6 @@ export default function QuestionEditor({ }) {
         description: existingQuestion?.description || "",
     });
 
-    // useEffect(() => {
-    //     if (questionID) {
-    //         setFormData(existingQuestion);
-    //     } else {
-    //         setFormData(initialFormState);
-    //     }
-    // }, [questionID, existingQuestion]);
-
-    console.log(existingQuestion)
-    console.log(formData);
-
     const handleChange = (
         e: React.ChangeEvent<
             HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -50,13 +41,22 @@ export default function QuestionEditor({ }) {
 
     const handleQuillChange = (value: any) => {
         setFormData({ ...formData, description: value });
-    };    
+    };
+
+    const createNewQuestion = async () => {
+        await quizzesClient.createQuestionForQuiz(cid as string, formData);
+        dispatch(addQuestion(formData));
+    };
+    const editQuestion = async () => {
+        await questionsClient.updateQuestion(formData);
+        dispatch(updateQuestion(formData));
+    };
 
     const handleSubmit = () => {
         if (existingQuestion) {
-            dispatch(updateQuestion(formData));
+            editQuestion();
         } else {
-            dispatch(addQuestion(formData));
+            createNewQuestion();
         }
         navigate(`#/Kambaz/Courses/${cid}/Quizzes/${qid}`);
     };
