@@ -1,17 +1,15 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { quiz_attempts } from "../../../Database";
 import { Form, FormCheck, ListGroup } from "react-bootstrap";
+import * as quizzesClient from "../client"
+import { setQuestions } from "../Editor/QuestionsEditor/reducer";
+import { useEffect } from "react";
 
 export default function QuizAttempts() {
-    const { cid, qid } = useParams();
+    const { qid } = useParams();
+    const dispatch = useDispatch();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
-    const { quizzes } = useSelector((state: any) => state.quizReducer);
-
-    const quiz = quizzes.find((q: any) => {
-        console.log(q);
-        return q._id === qid
-    });
 
     const attempts = quiz_attempts.filter((qa: any) => {
         return qa.user_id === currentUser._id && qa.quiz_id === qid;
@@ -19,10 +17,19 @@ export default function QuizAttempts() {
 
     // TODO add latest attempt
 
-    console.log("attempts incoming")
-    console.log(attempts)
-
     const questions = useSelector((state: any) => state.questionReducer.questions);
+
+       const fetchQuestions = async () => {
+            const questions = await quizzesClient.findQuestionsForQuiz(
+                qid as string
+            );
+            console.log(questions);
+            dispatch(setQuestions(questions));
+        };
+        useEffect(() => {
+            fetchQuestions();
+        }, []);
+    
 
     return (
         <div>
