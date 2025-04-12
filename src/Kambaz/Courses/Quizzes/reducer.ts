@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { quizzes } from "../../Database";
 import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
-    quizzes: quizzes,
+    quizzes: [],
 };
 
 const quizSlice = createSlice({
     name: "quizzes",
     initialState,
     reducers: {
+        setQuizzes: (state, action) => {
+            state.quizzes = action.payload;
+        },
         addQuiz: (state, { payload: quiz }) => {
             const newQuiz = {
                 _id: uuidv4(),
@@ -36,16 +38,11 @@ const quizSlice = createSlice({
 
         updateQuiz: (state, { payload: updatedQuiz }) => {
             state.quizzes = state.quizzes.map((quiz) =>
-                quiz._id === updatedQuiz._id
-                    ? { ...quiz, ...updatedQuiz }
-                    : quiz
+                quiz._id === updatedQuiz._id ? updatedQuiz : quiz
             );
-        }
+        },
     },
 });
 
-export const {
-    addQuiz,
-    updateQuiz
-} = quizSlice.actions;
+export const { addQuiz, updateQuiz, setQuizzes } = quizSlice.actions;
 export default quizSlice.reducer;

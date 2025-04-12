@@ -1,19 +1,34 @@
-import { Button, Card, CardBody, CardSubtitle, CardTitle, Col, Container, Form, Row } from "react-bootstrap";
+import {
+    Button,
+    Card,
+    CardBody,
+    CardSubtitle,
+    CardTitle,
+    Col,
+    Container,
+    Form,
+    Row,
+} from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { addQuiz, updateQuiz } from "../reducer";
 
-export default function QuizDetailsEditor(
-    { setUseEditor }: { setUseEditor: (useEditor: boolean) => void }
-) {
+import { addQuiz, updateQuiz } from "../../reducer";
+import * as coursesClient from "../../../client";
+import * as quizzesClient from "../../client";
+
+export default function QuizDetailsEditor({
+    setUseEditor,
+}: {
+    setUseEditor: (useEditor: boolean) => void;
+}) {
     const dispatch = useDispatch();
     const { cid, qid } = useParams();
     const { quizzes } = useSelector((state: any) => state.quizReducer);
 
     const quiz = quizzes.find((q: any) => {
         console.log(q);
-        return q._id === qid
+        return q._id === qid;
     });
 
     // The quiz object we end up saving to
@@ -30,21 +45,37 @@ export default function QuizDetailsEditor(
         }
     };
 
+    const createNewQuiz = async () => {
+        await coursesClient.createQuizForCourse(cid as string, modifiedQuiz);
+        dispatch(addQuiz(modifiedQuiz));
+    };
+    const editQuiz = async () => {
+        await quizzesClient.updateQuiz(modifiedQuiz);
+        dispatch(updateQuiz(modifiedQuiz));
+    };
+
     // Saves quiz data
     const saveQuiz = () => {
         if (quiz) {
-            dispatch(updateQuiz(modifiedQuiz));
+            editQuiz();
         } else {
-            dispatch(addQuiz(modifiedQuiz));
+            createNewQuiz();
         }
         setUseEditor(false);
-    }
-
+    };
 
     return (
         <Container className="p-4">
-            <Button variant="danger" className="float-end" onClick={saveQuiz}>Save</Button>
-            <Button variant="secondary" className="float-end" onClick={() => setUseEditor(false)}>Cancel</Button>
+            <Button variant="danger" className="float-end" onClick={saveQuiz}>
+                Save
+            </Button>
+            <Button
+                variant="secondary"
+                className="float-end"
+                onClick={() => setUseEditor(false)}
+            >
+                Cancel
+            </Button>
             <br />
             <br />
             <Form>
@@ -79,7 +110,6 @@ export default function QuizDetailsEditor(
                     </Col>
                 </Form.Group>
 
-
                 <Form.Group as={Row} controlId="type" className="mb-3">
                     <Form.Label column sm={2}>
                         Quiz Type
@@ -96,7 +126,6 @@ export default function QuizDetailsEditor(
                         </Form.Select>
                     </Col>
                 </Form.Group>
-
 
                 <Form.Group as={Row} controlId="group" className="mb-3">
                     <Form.Label column sm={2}>
@@ -140,9 +169,7 @@ export default function QuizDetailsEditor(
                 </Form.Group>
 
                 <Card className="mb-4" style={{ width: "36rem" }}>
-                    <CardTitle>
-                        Options
-                    </CardTitle>
+                    <CardTitle>Options</CardTitle>
                     <CardSubtitle>
                         Various configuration options for quizzes
                     </CardSubtitle>
@@ -152,12 +179,48 @@ export default function QuizDetailsEditor(
                                 Options
                             </Form.Label> */}
                             {/* <Col sm={6}> */}
-                            <Form.Check id="shuffleAnswers" type="checkbox" label="Shuffle Answers" defaultChecked={quiz?.shuffleAnswers} onChange={handleChange} />
-                            <Form.Check id="multipleAttempts" type="checkbox" label="Multiple Attempts" defaultChecked={quiz?.multipleAttempts} onChange={handleChange} />
-                            <Form.Check id="showCorrectAnswers" type="checkbox" label="Show Correct Answers" defaultChecked={quiz?.showCorrectAnswers} onChange={handleChange} />
-                            <Form.Check id="oneQuestionAtATime" type="checkbox" label="Show One Question at a Time" defaultChecked={quiz?.oneQuestionAtATime} onChange={handleChange} />
-                            <Form.Check id="webcamRequired" type="checkbox" label="Webcam Required" defaultChecked={quiz?.webcamRequired} onChange={handleChange} />
-                            <Form.Check id="lockAfterAnswering" type="checkbox" label="Lock Questions after Answering" defaultChecked={quiz?.lockAfterAnswering} onChange={handleChange} />
+                            <Form.Check
+                                id="shuffleAnswers"
+                                type="checkbox"
+                                label="Shuffle Answers"
+                                defaultChecked={quiz?.shuffleAnswers}
+                                onChange={handleChange}
+                            />
+                            <Form.Check
+                                id="multipleAttempts"
+                                type="checkbox"
+                                label="Multiple Attempts"
+                                defaultChecked={quiz?.multipleAttempts}
+                                onChange={handleChange}
+                            />
+                            <Form.Check
+                                id="showCorrectAnswers"
+                                type="checkbox"
+                                label="Show Correct Answers"
+                                defaultChecked={quiz?.showCorrectAnswers}
+                                onChange={handleChange}
+                            />
+                            <Form.Check
+                                id="oneQuestionAtATime"
+                                type="checkbox"
+                                label="Show One Question at a Time"
+                                defaultChecked={quiz?.oneQuestionAtATime}
+                                onChange={handleChange}
+                            />
+                            <Form.Check
+                                id="webcamRequired"
+                                type="checkbox"
+                                label="Webcam Required"
+                                defaultChecked={quiz?.webcamRequired}
+                                onChange={handleChange}
+                            />
+                            <Form.Check
+                                id="lockAfterAnswering"
+                                type="checkbox"
+                                label="Lock Questions after Answering"
+                                defaultChecked={quiz?.lockAfterAnswering}
+                                onChange={handleChange}
+                            />
                             {/* </Col> */}
                         </Form.Group>
                     </CardBody>
@@ -171,7 +234,12 @@ export default function QuizDetailsEditor(
                                 Available From
                             </Form.Label>
                             <Col sm={10}>
-                                <Form.Control id="availableDate" type="date" defaultValue={quiz?.availableDate} onChange={handleChange} />
+                                <Form.Control
+                                    id="availableDate"
+                                    type="date"
+                                    defaultValue={quiz?.availableDate}
+                                    onChange={handleChange}
+                                />
                             </Col>
                         </Form.Group>
 
@@ -180,7 +248,12 @@ export default function QuizDetailsEditor(
                                 Available Until
                             </Form.Label>
                             <Col sm={10}>
-                                <Form.Control id="untilDate" type="date" defaultValue={quiz?.untilDate} onChange={handleChange} />
+                                <Form.Control
+                                    id="untilDate"
+                                    type="date"
+                                    defaultValue={quiz?.untilDate}
+                                    onChange={handleChange}
+                                />
                             </Col>
                         </Form.Group>
 
@@ -189,16 +262,17 @@ export default function QuizDetailsEditor(
                                 Due Date
                             </Form.Label>
                             <Col sm={10}>
-                                <Form.Control id="dueDate" type="date" defaultValue={quiz?.dueDate} onChange={handleChange} />
+                                <Form.Control
+                                    id="dueDate"
+                                    type="date"
+                                    defaultValue={quiz?.dueDate}
+                                    onChange={handleChange}
+                                />
                             </Col>
                         </Form.Group>
                     </Card.Body>
                 </Card>
-
-
-
             </Form>
-
         </Container>
-    )
+    );
 }
