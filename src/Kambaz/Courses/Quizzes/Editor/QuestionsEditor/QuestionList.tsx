@@ -3,7 +3,6 @@ import { Button, Form, FormCheck, ListGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 
-import * as questionsClient from "./client";
 import * as quizzesClient from "../../client";
 import { deleteQuestion, setQuestions } from "./reducer";
 
@@ -26,7 +25,7 @@ export default function QuestionList() {
     }, []);
 
     const handleDelete = async (questionId: string) => {
-        await questionsClient.deleteQuestion(questionId);
+        await quizzesClient.removeQuestionFromQuiz(qid as string, questionId);
         dispatch(deleteQuestion(questionId));
     };
 
