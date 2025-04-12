@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -6,33 +6,37 @@ import { useParams } from "react-router-dom";
 import QuizEditor from "../Editor";
 import { formatDate } from "../../../../utils";
 import * as coursesClient from "../../client";
+import * as quizzesClient from "../client";
 import { setQuizzes } from "../reducer";
-import { quiz_attempts } from "../../../Database";
 import QuizAttempts from "./QuizAttempts";
 
 export default function Quiz() {
-    const { cid, qid} = useParams();
+    const { cid, qid } = useParams();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const { quizzes } = useSelector((state: any) => state.quizReducer);
+    const [totalAttempts, setTotalAttempts] = useState(0);
     const dispatch = useDispatch();
 
     const fetchQuizzes = async () => {
         const quizzes = await coursesClient.findQuizzesForCourse(cid as string);
         dispatch(setQuizzes(quizzes));
     };
+
     useEffect(() => {
         fetchQuizzes();
     }, []);
 
     const quiz = quizzes.find((q: any) => {
-        console.log(q);
         return q._id === qid;
     });
 
-    const anyAttemptsLeft = true;
-    const hasPreviousAttempts = true;
-
-    // need quiz_attempts data type to grab
+    const fetchAttempts = async () => {
+        const attempts = await quizzesClient.findTotalAttempts(qid as string);
+        setTotalAttempts(attempts);
+    };
+    useEffect(() => {
+        fetchAttempts();
+    }, [quiz]);
 
     return (
         <>
@@ -65,12 +69,19 @@ export default function Quiz() {
 
                     <br />
                     <div className="d-flex justify-content-center">
-                        {anyAttemptsLeft && <Button variant="danger" href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/take_quiz`}>Take the Quiz</Button>}
-                    </div>                  
-                    <br/>
+                        {totalAttempts < quiz.numberOfAttempts && (
+                            <Button
+                                variant="danger"
+                                href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/take_quiz`}
+                            >
+                                Take the Quiz
+                            </Button>
+                        )}
+                    </div>
+                    <br />
 
-                    <hr/>
-                    {hasPreviousAttempts && <QuizAttempts/>}
+                    <hr />
+                    {totalAttempts > 0 && <QuizAttempts />}
                 </>
             )}
         </>
