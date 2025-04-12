@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export default function QuestionsEditor() {
     const {cid, qid} = useParams();
+    
     return (
         <div>
             <QuestionList />

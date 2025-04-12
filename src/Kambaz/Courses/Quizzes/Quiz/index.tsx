@@ -1,29 +1,45 @@
+import { useEffect } from "react";
 import { Button } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import QuizEditor from "../Editor";
 import { formatDate } from "../../../../utils";
+import * as coursesClient from "../../client";
+import { setQuizzes } from "../reducer";
 
 export default function Quiz() {
-    const { qid } = useParams();
+    const { cid, qid } = useParams();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
-
     const { quizzes } = useSelector((state: any) => state.quizReducer);
+    const dispatch = useDispatch();
+
+    const fetchQuizzes = async () => {
+        const quizzes = await coursesClient.findQuizzesForCourse(cid as string);
+        dispatch(setQuizzes(quizzes));
+    };
+    useEffect(() => {
+        fetchQuizzes();
+    }, []);
 
     const quiz = quizzes.find((q: any) => {
         console.log(q);
-        return q._id === qid
+        return q._id === qid;
     });
 
     return (
         <>
-            {currentUser.role === "FACULTY" ? <QuizEditor /> : (
+            {currentUser.role === "FACULTY" ? (
+                <QuizEditor />
+            ) : (
                 <>
-                    <br/>
-                    <h2><b>{quiz.title}</b></h2>
+                    <br />
+                    <h2>
+                        <b>{quiz.title}</b>
+                    </h2>
 
-                    <hr/>
-                    
+                    <hr />
+
                     <p className="my-1">
                         <b>Due</b> {formatDate(quiz.dueDate)}
                         &nbsp; &nbsp; &nbsp; &nbsp;
@@ -32,23 +48,23 @@ export default function Quiz() {
                         <b>Questions</b> {quiz.qids.length}
                     </p>
                     <p className="my-1">
-                        <b>Available</b> {formatDate(quiz.availableDate)} - {formatDate(quiz.untilDate)}
+                        <b>Available</b> {formatDate(quiz.availableDate)} -{" "}
+                        {formatDate(quiz.untilDate)}
                         &nbsp; &nbsp; &nbsp; &nbsp;
                         <b>Time Limit</b> {quiz.timeLimit} Minutes
                     </p>
 
-                    <hr/>
+                    <hr />
 
-                    <br/>
+                    <br />
                     <div className="d-flex justify-content-center">
-                        <Button variant="danger" >Take the Quiz</Button>
-                    </div>                  
-                    <br/>
+                        <Button variant="danger">Take the Quiz</Button>
+                    </div>
+                    <br />
 
-                    <hr/>
+                    <hr />
                 </>
             )}
         </>
-
-    )
+    );
 }
