@@ -8,6 +8,7 @@ import { formatDate } from "../../../../utils";
 import * as coursesClient from "../../client";
 import { setQuizzes } from "../reducer";
 import { quiz_attempts } from "../../../Database";
+import QuizAttempts from "./QuizAttempts";
 
 export default function Quiz() {
     const { cid, qid} = useParams();
@@ -27,6 +28,9 @@ export default function Quiz() {
         console.log(q);
         return q._id === qid;
     });
+
+    const anyAttemptsLeft = true;
+    const hasPreviousAttempts = true;
 
     // need quiz_attempts data type to grab
 
@@ -61,12 +65,12 @@ export default function Quiz() {
 
                     <br />
                     <div className="d-flex justify-content-center">
-                        {/* need to add check for if the user has an attempt left */}
-                        <Button variant="danger" href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/take_quiz`}>Take the Quiz</Button>
+                        {anyAttemptsLeft && <Button variant="danger" href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/take_quiz`}>Take the Quiz</Button>}
                     </div>                  
                     <br/>
 
-                    <hr />
+                    <hr/>
+                    {hasPreviousAttempts && <QuizAttempts/>}
                 </>
             )}
         </>

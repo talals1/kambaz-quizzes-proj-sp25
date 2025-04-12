@@ -18,9 +18,11 @@ export default function TakeQuiz() {
     });
 
     const handleSubmit = () => {
+        const dateString = new Date().toISOString()
 
         const quizAttempt = {
             _id: uuidv4(),
+            timestamp: dateString,
             user_id: currentUser._id,
             quiz_id: qid,
             answers: answerList
@@ -65,15 +67,13 @@ export default function TakeQuiz() {
                                     {question.type === "multiple-choice" &&
                                         question.answers.map(
                                             (answer: any, index: any) => (
-                                                <FormCheck
+                                                <Form.Check
                                                     key={index}
                                                     type="radio"
                                                     id={`answer-${index}`}
                                                     label={answer}
-                                                    value={answer}
-                                                    onChange = {(e) => {
-                                                        setAnswerList({...answerList, [questions._id]: e.target.value});
-                                                    }}
+                                                    name={`multi-${question._id}`}
+                                                    onChange = {() => setAnswerList({...answerList, [question._id]: answer})}
                                                 />
                                             )
                                         )}
@@ -84,14 +84,14 @@ export default function TakeQuiz() {
                                                 type="radio"
                                                 id="true-answer"
                                                 label="True"
-                                                value="True"
+                                                name={`bool-${question._id}`}
                                                 onChange={() => setAnswerList({...answerList, [question._id]: true})}
                                             />
                                             <FormCheck
                                                 type="radio"
                                                 id="false-answer"
                                                 label="False"
-                                                value="False"
+                                                name={`bool-${question._id}`}
                                                 onChange={() => setAnswerList({...answerList, [question._id]: false})}
                                             />
                                         </>
