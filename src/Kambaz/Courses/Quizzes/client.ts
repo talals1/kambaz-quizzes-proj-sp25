@@ -17,16 +17,18 @@ export const createQuestionForQuiz = async (quizId: string, question: any) => {
     return response.data;
 };
 
-export const findLatestQuizAttempt = async (quizId: string) => {
+export const findTotalAttempts = async (quizId: string) => {
     const { data } = await axios.get(`${ATTEMPTS_API}/${quizId}`);
     return data;
 };
 
+export const findLatestQuizAttempt = async (quizId: string) => {
+    const { data } = await axios.get(`${ATTEMPTS_API}/${quizId}/latest`);
+    return data;
+};
+
 export const createQuizAttempt = async (quizId: string, attempt: any) => {
-    const response = await axios.post(
-        `${ATTEMPTS_API}/${quizId}`,
-        attempt
-    );
+    const response = await axios.post(`${ATTEMPTS_API}/${quizId}`, attempt);
     return response.data;
 };
 
