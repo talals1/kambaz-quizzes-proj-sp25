@@ -1,7 +1,6 @@
 import { Table } from "react-bootstrap";
 import { FaUserCircle } from "react-icons/fa";
 
-import * as client from "../../Account/client";
 import PeopleDetails from "./Details";
 import { Link } from "react-router-dom";
 

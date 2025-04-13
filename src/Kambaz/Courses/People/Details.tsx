@@ -3,7 +3,6 @@ import { FaCheck, FaUserCircle } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { IoCloseSharp } from "react-icons/io5";
 import { useParams, useNavigate } from "react-router";
-import { Link } from "react-router-dom";
 
 import * as client from "../../Account/client";
 import { FormControl } from "react-bootstrap";
@@ -14,7 +13,6 @@ export default function PeopleDetails() {
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [editing, setEditing] = useState(false);
-    
 
     const fetchUser = async () => {
         if (!uid) return;
@@ -33,7 +31,6 @@ export default function PeopleDetails() {
         await client.deleteUser(uid);
         navigate(-1);
     };
-
 
     useEffect(() => {
         if (uid) fetchUser();
