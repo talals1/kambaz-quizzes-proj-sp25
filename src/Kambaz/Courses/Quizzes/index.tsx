@@ -43,7 +43,7 @@ export default function Quizzes() {
                                         key={quiz._id}
                                         action
                                         className="wd-quiz p-3 ps-2 d-flex align-items-center"
-                                        href={`#/Kambaz/Courses/${cid}/Quizzes/${quiz._id}`}
+                                        href={`#/Kambaz/Courses/${cid}/Quizzes/${quiz._id}/take_quiz`}
                                     >
                                         <RxRocket style={{ color: "green" }} />
                                         <div className="flex-grow-1">
