@@ -17,7 +17,9 @@ export default function QuizControls() {
                     style={{ outline: "none" }}
                 />
                 <div className="d-flex gap-2">
-                    <Button id="wd-add-quiz" variant="danger">
+                    <Button id="wd-add-quiz" variant="danger" onClick={() => {
+                        // navigate to quiz editor with some default values
+                    }}>
                         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
                         Quiz
                     </Button>
