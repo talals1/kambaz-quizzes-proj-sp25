@@ -9,13 +9,25 @@ import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table";
 import ProtectedRoute from "../Account/ProtectedRoute";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import * as client from "./client.ts";
 
 export default function Courses() {
     const { cid } = useParams();
+    const [users, setUsers] = useState<any[]>([]);
     const course = useSelector((state: any) =>
         state.coursesReducer.courses.find((course: any) => course._id === cid)
     );
     const { pathname } = useLocation();
+
+    const fetchUsers = async () => {
+        const users = await client.findUsersForCourse(cid!);
+        setUsers(users);
+    };
+
+    useEffect(() => {
+        fetchUsers();
+    }, [cid]);
 
     return (
         <div id="wd-courses">
@@ -42,7 +54,10 @@ export default function Courses() {
                                 </ProtectedRoute>
                             }
                         />
-                        <Route path="People" element={<PeopleTable />} />
+                        <Route
+                            path="People"
+                            element={<PeopleTable users={users} />}
+                        />
                     </Routes>
                 </div>
             </div>
