@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Card, Button, FormControl } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
@@ -165,6 +165,7 @@ export default function Dashboard() {
             <div id="wd-dashboard-courses">
                 <Row xs={1} md={5} className="row row-cols-1 row-cols-md-5 g-4">
                     {courses.map((course: any) => {
+                        if (!course) return null;
                         return (
                             <Col
                                 className="wd-dashboard-course"
