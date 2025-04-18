@@ -12,14 +12,26 @@ import { useSelector } from "react-redux";
 import Quizzes from "./Quizzes";
 import QuestionEditor from "./Quizzes/Editor/QuestionsEditor/QuestionEditor";
 import Quiz from "./Quizzes/Quiz";
+import { useEffect, useState } from "react";
+import * as client from "./client.ts";
 import TakeQuiz from "./Quizzes/Quiz/TakeQuiz";
 
 export default function Courses() {
     const { cid } = useParams();
+    const [users, setUsers] = useState<any[]>([]);
     const course = useSelector((state: any) =>
         state.coursesReducer.courses.find((course: any) => course._id === cid)
     );
     const { pathname } = useLocation();
+
+    const fetchUsers = async () => {
+        const users = await client.findUsersForCourse(cid!);
+        setUsers(users);
+    };
+
+    useEffect(() => {
+        fetchUsers();
+    }, [cid]);
 
     return (
         <div id="wd-courses">
@@ -46,7 +58,7 @@ export default function Courses() {
                                 </ProtectedRoute>
                             }
                         />
-                        <Route path="People" element={<PeopleTable />} />
+                        <Route path="People" element={<PeopleTable users={users} />} />
                         <Route path="Quizzes" element={<Quizzes />} />
                         <Route path="Quizzes/:qid" element={<Quiz />} />
                         <Route
