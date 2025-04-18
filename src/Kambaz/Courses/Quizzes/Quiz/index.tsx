@@ -38,10 +38,11 @@ export default function Quiz() {
     const fetchAttempts = async () => {
         const attempts = await quizzesClient.findTotalAttempts(qid as string);
         setTotalAttempts(attempts);
-        const attempt = await quizzesClient.findLatestQuizAttempt(
+        const currentAttempt = await quizzesClient.findLatestQuizAttempt(
             qid as string
         );
-        setAttempt(attempt);
+        console.log(currentAttempt);
+        setAttempt(currentAttempt);
     };
     const fetchQuestions = async () => {
         const questions = await quizzesClient.findQuestionsForQuiz(
@@ -50,13 +51,6 @@ export default function Quiz() {
         console.log(questions);
         dispatch(setQuestions(questions));
     };
-    // const fetchAttempts = async () => {
-    //     const attempt = await quizzesClient.findLatestQuizAttempt(
-    //         qid as string
-    //     );
-    //     setAttempt(attempt);
-    //     console.log(attempt);
-    // };
     useEffect(() => {
         fetchAttempts();
         fetchQuestions();
@@ -105,7 +99,9 @@ export default function Quiz() {
                     <br />
 
                     <hr />
-                    {totalAttempts > 0 && <QuizAttempts attempt={attempt} questions={questions} />}
+                    {totalAttempts > 0 && (
+                        <QuizAttempts attempt={attempt} questions={questions} />
+                    )}
                 </>
             )}
         </>

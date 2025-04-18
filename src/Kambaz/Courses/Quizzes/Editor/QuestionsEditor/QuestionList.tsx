@@ -14,11 +14,12 @@ export default function QuestionList() {
     );
 
     const fetchQuestions = async () => {
-        const questions = await quizzesClient.findQuestionsForQuiz(
+        const quizQuestions = await quizzesClient.findQuestionsForQuiz(
             qid as string
         );
-        console.log(questions);
-        dispatch(setQuestions(questions));
+        console.log("gathered questions");
+        console.log(quizQuestions);
+        dispatch(setQuestions(quizQuestions));
     };
     useEffect(() => {
         fetchQuestions();
