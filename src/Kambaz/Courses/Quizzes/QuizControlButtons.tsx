@@ -19,7 +19,7 @@ export default function QuizControlButtons({ quiz } : { quiz: any}) {
                     }}> Edit Quiz </Dropdown.Item>
                 <Dropdown.Item onClick={async (e) => {
                         e.preventDefault();
-                        await quizzesClient.deleteQuiz(quiz);
+                        await quizzesClient.deleteQuiz(quiz._id);
                         dispatch(deleteQuiz(quiz));
                     }}> Delete Quiz </Dropdown.Item>
                 <Dropdown.Item onClick={async (e) => {

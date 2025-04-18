@@ -9,12 +9,17 @@ import * as coursesClient from "../../client";
 import * as quizzesClient from "../client";
 import { setQuizzes } from "../reducer";
 import QuizAttempts from "./QuizAttempts";
+import { setQuestions } from "../Editor/QuestionsEditor/reducer";
 
 export default function Quiz() {
     const { cid, qid } = useParams();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const { quizzes } = useSelector((state: any) => state.quizReducer);
     const [totalAttempts, setTotalAttempts] = useState(0);
+    const [attempt, setAttempt] = useState({});
+    const questions = useSelector(
+        (state: any) => state.questionReducer.questions
+    );
     const dispatch = useDispatch();
 
     const fetchQuizzes = async () => {
@@ -33,9 +38,28 @@ export default function Quiz() {
     const fetchAttempts = async () => {
         const attempts = await quizzesClient.findTotalAttempts(qid as string);
         setTotalAttempts(attempts);
+        const attempt = await quizzesClient.findLatestQuizAttempt(
+            qid as string
+        );
+        setAttempt(attempt);
     };
+    const fetchQuestions = async () => {
+        const questions = await quizzesClient.findQuestionsForQuiz(
+            qid as string
+        );
+        console.log(questions);
+        dispatch(setQuestions(questions));
+    };
+    // const fetchAttempts = async () => {
+    //     const attempt = await quizzesClient.findLatestQuizAttempt(
+    //         qid as string
+    //     );
+    //     setAttempt(attempt);
+    //     console.log(attempt);
+    // };
     useEffect(() => {
         fetchAttempts();
+        fetchQuestions();
     }, [quiz]);
 
     return (
@@ -81,7 +105,7 @@ export default function Quiz() {
                     <br />
 
                     <hr />
-                    {totalAttempts > 0 && <QuizAttempts />}
+                    {totalAttempts > 0 && <QuizAttempts attempt={attempt} questions={questions} />}
                 </>
             )}
         </>

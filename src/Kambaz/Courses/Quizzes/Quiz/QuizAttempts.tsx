@@ -5,44 +5,47 @@ import * as quizzesClient from "../client";
 import { setQuestions } from "../Editor/QuestionsEditor/reducer";
 import { useEffect, useState } from "react";
 
-export default function QuizAttempts() {
-    const { qid } = useParams();
-    const dispatch = useDispatch();
-    const [attempt, setAttempt] = useState({});
+export default function QuizAttempts({ attempt, questions } : { attempt: any; questions: any; }) {
+    // const { qid } = useParams();
+    // const dispatch = useDispatch();
+    // const [attempt, setAttempt] = useState({});
 
-    const fetchAttempts = async () => {
-        const attempt = await quizzesClient.findLatestQuizAttempt(
-            qid as string
-        );
-        setAttempt(attempt);
-    };
-    useEffect(() => {
-        fetchAttempts();
-    }, []);
+    // const fetchAttempts = async () => {
+    //     const attempt = await quizzesClient.findLatestQuizAttempt(
+    //         qid as string
+    //     );
+    //     setAttempt(attempt);
+    //     console.log(attempt);
+    // };
+    // useEffect(() => {
+    //     fetchAttempts();
+    // }, [qid]);
 
-    const questions = useSelector(
-        (state: any) => state.questionReducer.questions
-    );
+    // const questions = useSelector(
+    //     (state: any) => state.questionReducer.questions
+    // );
 
-    const fetchQuestions = async () => {
-        const questions = await quizzesClient.findQuestionsForQuiz(
-            qid as string
-        );
-        console.log(questions);
-        dispatch(setQuestions(questions));
-    };
-    useEffect(() => {
-        fetchQuestions();
-    }, []);
+    // const fetchQuestions = async () => {
+    //     const questions = await quizzesClient.findQuestionsForQuiz(
+    //         qid as string
+    //     );
+    //     console.log(questions);
+    //     dispatch(setQuestions(questions));
+    // };
+    // useEffect(() => {
+    //     fetchAttempts();
+    //     fetchQuestions();
+    // }, [qid]);
 
     return (
+        // console.log(attempt) &&
         <div>
             <h3>Attempts</h3>
             <br />
             <div>
                 <ListGroup>
                     {questions
-                        .filter((question: any) => question.quizID === qid)
+                        // .filter((question: any) => question.quizID === qid)
                         .map((question: any) => (
                             <ListGroup.Item key={question._id}>
                                 <div className="d-flex justify-content-between align-items-center">

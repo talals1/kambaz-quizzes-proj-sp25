@@ -42,9 +42,9 @@ const quizSlice = createSlice({
             );
         },
 
-        deleteQuiz: (state, { payload}) => {
+        deleteQuiz: (state, { payload }) => {
             state.quizzes = state.quizzes.filter(
-                (quiz: any) => quiz._id === payload
+                (quiz: any) => quiz._id !== payload
             );
         },
     },
