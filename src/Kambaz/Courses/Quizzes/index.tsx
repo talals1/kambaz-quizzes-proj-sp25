@@ -35,15 +35,41 @@ export default function Quizzes() {
                         Assignment Quizzes
                     </div>
                     <ListGroup className="wd-quizzes rounded-0">
-                        {quizzes
-                            .filter((quiz: any) => quiz.course === cid)
-                            .map((quiz: any) =>
-                                currentUser.role === "FACULTY" ? (
+                        {quizzes.map((quiz: any) =>
+                            currentUser.role === "FACULTY" ? (
+                                <ListGroup.Item
+                                    key={quiz._id}
+                                    action
+                                    className="wd-quiz p-3 ps-2 d-flex align-items-center"
+                                    href={`#/Kambaz/Courses/${cid}/Quizzes/${quiz._id}/take_quiz`}
+                                >
+                                    <RxRocket style={{ color: "green" }} />
+                                    <div className="flex-grow-1">
+                                        <h4>
+                                            <b>{quiz.title}</b>
+                                        </h4>
+                                        <p>
+                                            <text>
+                                                <b>Available</b>{" "}
+                                                {formatDate(quiz.availableDate)}
+                                            </text>{" "}
+                                            | <b>Due</b>{" "}
+                                            {formatDate(quiz.dueDate)} |{" "}
+                                            {quiz.points} pts |{" "}
+                                            {quiz.qids.length} Questions
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <QuizControlButtons quiz={quiz} />
+                                    </div>
+                                </ListGroup.Item>
+                            ) : (
+                                quiz.published === "YES" && (
                                     <ListGroup.Item
                                         key={quiz._id}
                                         action
                                         className="wd-quiz p-3 ps-2 d-flex align-items-center"
-                                        href={`#/Kambaz/Courses/${cid}/Quizzes/${quiz._id}/take_quiz`}
+                                        href={`#/Kambaz/Courses/${cid}/Quizzes/${quiz._id}`}
                                     >
                                         <RxRocket style={{ color: "green" }} />
                                         <div className="flex-grow-1">
@@ -63,42 +89,10 @@ export default function Quizzes() {
                                                 {quiz.qids.length} Questions
                                             </p>
                                         </div>
-                                        <div>
-                                            <QuizControlButtons quiz={quiz} />
-                                        </div>
                                     </ListGroup.Item>
-                                ) : (
-                                    quiz.published === "YES" && (
-                                        <ListGroup.Item
-                                            key={quiz._id}
-                                            action
-                                            className="wd-quiz p-3 ps-2 d-flex align-items-center"
-                                            href={`#/Kambaz/Courses/${cid}/Quizzes/${quiz._id}`}
-                                        >
-                                            <RxRocket
-                                                style={{ color: "green" }}
-                                            />
-                                            <div className="flex-grow-1">
-                                                <h4>
-                                                    <b>{quiz.title}</b>
-                                                </h4>
-                                                <p>
-                                                    <text>
-                                                        <b>Available</b>{" "}
-                                                        {formatDate(
-                                                            quiz.availableDate
-                                                        )}
-                                                    </text>{" "}
-                                                    | <b>Due</b>{" "}
-                                                    {formatDate(quiz.dueDate)} |{" "}
-                                                    {quiz.points} pts |{" "}
-                                                    {quiz.qids.length} Questions
-                                                </p>
-                                            </div>
-                                        </ListGroup.Item>
-                                    )
                                 )
-                            )}
+                            )
+                        )}
                     </ListGroup>
                 </ListGroup.Item>
             </ListGroup>
