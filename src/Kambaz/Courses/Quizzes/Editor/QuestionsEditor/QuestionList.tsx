@@ -14,11 +14,12 @@ export default function QuestionList() {
     );
 
     const fetchQuestions = async () => {
-        const questions = await quizzesClient.findQuestionsForQuiz(
+        const quizQuestions = await quizzesClient.findQuestionsForQuiz(
             qid as string
         );
-        console.log(questions);
-        dispatch(setQuestions(questions));
+        console.log("gathered questions");
+        console.log(quizQuestions);
+        dispatch(setQuestions(quizQuestions));
     };
     useEffect(() => {
         fetchQuestions();
@@ -32,88 +33,84 @@ export default function QuestionList() {
     return (
         <div>
             <ListGroup>
-                {questions
-                    .filter((question: any) => question.quizID === qid)
-                    .map((question: any) => (
-                        <ListGroup.Item key={question._id}>
-                            <div className="d-flex justify-content-between align-items-center">
-                                <h4 className="mb-0">
-                                    <b>{question.title}</b>
-                                </h4>
-                                <div>
-                                    <Button
-                                        variant="outline-secondary"
-                                        size="sm"
-                                        href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/${question._id}`}
-                                    >
-                                        Edit
-                                    </Button>
-                                    <Button
-                                        variant="outline-secondary btn-danger text-dark"
-                                        size="sm"
-                                        onClick={() => {
-                                            handleDelete(question._id);
-                                        }}
-                                    >
-                                        Delete
-                                    </Button>
-                                </div>
+                {questions.map((question: any) => (
+                    <ListGroup.Item key={question._id}>
+                        <div className="d-flex justify-content-between align-items-center">
+                            <h4 className="mb-0">
+                                <b>{question.title}</b>
+                            </h4>
+                            <div>
+                                <Button
+                                    variant="outline-secondary"
+                                    size="sm"
+                                    href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/${question._id}`}
+                                >
+                                    Edit
+                                </Button>
+                                <Button
+                                    variant="outline-secondary btn-danger text-dark"
+                                    size="sm"
+                                    onClick={() => {
+                                        handleDelete(question._id);
+                                    }}
+                                >
+                                    Delete
+                                </Button>
                             </div>
-                            <hr />
-                            <p>{question.description}</p>
-                            <Form>
-                                {question.type === "multiple-choice" &&
-                                    question.answers.map(
-                                        (answer: any, index: any) => (
-                                            <FormCheck
-                                                key={index}
-                                                type="radio"
-                                                id={`answer-${index}`}
-                                                label={answer}
-                                                value={answer}
-                                                checked={
-                                                    answer ===
-                                                    question.correctAnswer
-                                                }
-                                            />
-                                        )
-                                    )}
-
-                                {question.type === "true-false" && (
-                                    <>
+                        </div>
+                        <hr />
+                        <p>{question.description}</p>
+                        <Form>
+                            {question.type === "multiple-choice" &&
+                                question.answers.map(
+                                    (answer: any, index: any) => (
                                         <FormCheck
+                                            key={index}
                                             type="radio"
-                                            id="true-answer"
-                                            label="True"
-                                            value="True"
+                                            id={`answer-${index}`}
+                                            label={answer}
+                                            value={answer}
                                             checked={
-                                                "True" ===
+                                                answer ===
                                                 question.correctAnswer
                                             }
                                         />
-                                        <FormCheck
-                                            type="radio"
-                                            id="false-answer"
-                                            label="False"
-                                            value="False"
-                                            checked={
-                                                "False" ===
-                                                question.correctAnswer
-                                            }
-                                        />
-                                    </>
+                                    )
                                 )}
 
-                                {question.type === "fill-in-the-blank" && (
-                                    <Form.Control
-                                        type="text"
-                                        defaultValue={question.correctAnswer}
-                                        placeholder="Enter your answer here"
+                            {question.type === "true-false" && (
+                                <>
+                                    <FormCheck
+                                        type="radio"
+                                        id="true-answer"
+                                        label="True"
+                                        value="True"
+                                        checked={
+                                            "True" === question.correctAnswer
+                                        }
                                     />
-                                )}
-                            </Form>
-                        </ListGroup.Item>
-                    ))}
+                                    <FormCheck
+                                        type="radio"
+                                        id="false-answer"
+                                        label="False"
+                                        value="False"
+                                        checked={
+                                            "False" === question.correctAnswer
+                                        }
+                                    />
+                                </>
+                            )}
+
+                            {question.type === "fill-in-the-blank" && (
+                                <Form.Control
+                                    type="text"
+                                    defaultValue={question.correctAnswer}
+                                    placeholder="Enter your answer here"
+                                />
+                            )}
+                        </Form>
+                    </ListGroup.Item>
+                ))}
             </ListGroup>
         </div>
     );

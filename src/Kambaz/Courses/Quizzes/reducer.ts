@@ -36,13 +36,19 @@ const quizSlice = createSlice({
             state.quizzes = [...state.quizzes, newQuiz] as any;
         },
 
-        updateQuiz: (state, { payload: updatedQuiz }) => {
-            state.quizzes = state.quizzes.map((quiz) =>
+        updateQuiz: (state: any, { payload: updatedQuiz }) => {
+            state.quizzes = state.quizzes.map((quiz: any) =>
                 quiz._id === updatedQuiz._id ? updatedQuiz : quiz
+            );
+        },
+
+        deleteQuiz: (state, { payload }) => {
+            state.quizzes = state.quizzes.filter(
+                (quiz: any) => quiz._id !== payload
             );
         },
     },
 });
 
-export const { addQuiz, updateQuiz, setQuizzes } = quizSlice.actions;
+export const { addQuiz, updateQuiz, setQuizzes, deleteQuiz } = quizSlice.actions;
 export default quizSlice.reducer;

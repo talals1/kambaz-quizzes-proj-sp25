@@ -2,6 +2,8 @@ import axios from "axios";
 
 const REMOTE_SERVER = import.meta.env.VITE_REMOTE_SERVER;
 const QUIZZES_API = `${REMOTE_SERVER}/api/quizzes`;
+const ATTEMPTS_API = `${REMOTE_SERVER}/api/attempts`;
+const axiosWithCredentials = axios.create({ withCredentials: true });
 
 export const findQuestionsForQuiz = async (quizId: string) => {
     const { data } = await axios.get(`${QUIZZES_API}/${quizId}`);
@@ -12,6 +14,28 @@ export const createQuestionForQuiz = async (quizId: string, question: any) => {
     const response = await axios.post(
         `${QUIZZES_API}/${quizId}/questions`,
         question
+    );
+    return response.data;
+};
+
+export const findTotalAttempts = async (quizId: string) => {
+    const { data } = await axiosWithCredentials.get(
+        `${ATTEMPTS_API}/${quizId}`
+    );
+    return data;
+};
+
+export const findLatestQuizAttempt = async (quizId: string) => {
+    const { data } = await axiosWithCredentials.get(
+        `${ATTEMPTS_API}/${quizId}/latest`
+    );
+    return data;
+};
+
+export const createQuizAttempt = async (quizId: string, attempt: any) => {
+    const response = await axiosWithCredentials.post(
+        `${ATTEMPTS_API}/${quizId}`,
+        attempt
     );
     return response.data;
 };

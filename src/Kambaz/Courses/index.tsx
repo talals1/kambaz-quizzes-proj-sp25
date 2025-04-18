@@ -14,6 +14,7 @@ import QuestionEditor from "./Quizzes/Editor/QuestionsEditor/QuestionEditor";
 import Quiz from "./Quizzes/Quiz";
 import { useEffect, useState } from "react";
 import * as client from "./client.ts";
+import TakeQuiz from "./Quizzes/Quiz/TakeQuiz";
 
 export default function Courses() {
     const { cid } = useParams();
@@ -64,6 +65,7 @@ export default function Courses() {
                             path="Quizzes/:qid/:questionID"
                             element={<QuestionEditor />}
                         />
+                        <Route path="Quizzes/:qid/take_quiz" element={<TakeQuiz/>}/>
                     </Routes>
                 </div>
             </div>
