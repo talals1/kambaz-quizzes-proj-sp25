@@ -33,7 +33,7 @@ export default function QuizDetailsEditor({
     });
 
     // The quiz object we end up saving to
-    let modifiedQuiz = quiz ? quiz : { _id: uuidv4(), course: cid };
+    let modifiedQuiz = quiz ? quiz : { _id: qid, course: cid };
 
     // Handles any change in any field
     const handleChange = (
@@ -70,9 +70,9 @@ export default function QuizDetailsEditor({
     };
 
     const saveAndPublishQuiz = () => {
-        modifiedQuiz = {...modifiedQuiz, published: true};
-        saveQuiz()
-    }
+        modifiedQuiz = { ...modifiedQuiz, published: true };
+        saveQuiz();
+    };
 
     return (
         <Container className="p-4">
@@ -95,9 +95,6 @@ export default function QuizDetailsEditor({
                         placeholder="Enter quiz description..."
                     />
                 </Form.Group>
-
-
-
 
                 <Form.Group controlId="accessCode" className="mb-3">
                     <Col sm={5}>
@@ -262,10 +259,18 @@ export default function QuizDetailsEditor({
                 </Card>
             </Form>
             <div className="d-flex justify-content-center gap-2">
-                <Button variant="danger" className="float-end" onClick={saveAndPublishQuiz}>
+                <Button
+                    variant="danger"
+                    className="float-end"
+                    onClick={saveAndPublishQuiz}
+                >
                     Save & Publish
                 </Button>
-                <Button variant="danger" className="float-end" onClick={saveQuiz}>
+                <Button
+                    variant="danger"
+                    className="float-end"
+                    onClick={saveQuiz}
+                >
                     Save
                 </Button>
                 <Button
