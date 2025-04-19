@@ -5,31 +5,62 @@ import { Dropdown, DropdownButton } from "react-bootstrap";
 import * as quizzesClient from "./client";
 import { useDispatch } from "react-redux";
 import { deleteQuiz, updateQuiz } from "./reducer";
-export default function QuizControlButtons({ quiz } : { quiz: any}) {
+export default function QuizControlButtons({
+    quiz,
+    qid,
+}: {
+    quiz: any;
+    qid: string;
+}) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     return (
         <div className="float-end">
-            {quiz.published ? <GreenCheckmark /> :
-            <IoBan style={{ color: "red" }}/> }
-            <DropdownButton variant="secondary" title={<IoEllipsisVertical className="fs-4" />} onClick={(e) => e.preventDefault()} >
-                <Dropdown.Item onClick={(e) => {
+            {quiz.published ? (
+                <GreenCheckmark />
+            ) : (
+                <IoBan style={{ color: "red" }} />
+            )}
+            <DropdownButton
+                variant="secondary"
+                title={<IoEllipsisVertical className="fs-4" />}
+                onClick={(e) => e.preventDefault()}
+            >
+                <Dropdown.Item
+                    onClick={(e) => {
                         e.preventDefault();
-                        navigate(`${quiz._id}`);
-                    }}> Edit Quiz </Dropdown.Item>
-                <Dropdown.Item onClick={async (e) => {
+                        navigate(`${qid}`);
+                    }}
+                >
+                    {" "}
+                    Edit Quiz{" "}
+                </Dropdown.Item>
+
+                <Dropdown.Item
+                    onClick={async (e) => {
                         e.preventDefault();
-                        await quizzesClient.deleteQuiz(quiz._id);
+                        await quizzesClient.deleteQuiz(qid);
                         dispatch(deleteQuiz(quiz));
-                    }}> Delete Quiz </Dropdown.Item>
-                <Dropdown.Item onClick={async (e) => {
+                    }}
+                >
+                    {" "}
+                    Delete Quiz{" "}
+                </Dropdown.Item>
+                <Dropdown.Item
+                    onClick={async (e) => {
                         e.preventDefault();
-                        
-                        const publish = {...quiz, published: !quiz.published}
-                        
-                        await quizzesClient.updateQuiz(publish);
-                        dispatch(updateQuiz(publish));
-                    }}> {quiz.published ? ("Unpublish Quiz") : ("Publish Quiz") } </Dropdown.Item>
+                        const updatedQuiz = {
+                            ...quiz,
+                            published: !quiz.published,
+                        };
+                        await quizzesClient.updateQuiz(updatedQuiz);
+                        dispatch(updateQuiz(updatedQuiz));
+                    }}
+                >
+                    {" "}
+                    {quiz.published ? "Unpublish Quiz" : "Publish Quiz"}{" "}
+                </Dropdown.Item>
             </DropdownButton>
         </div>
     );
