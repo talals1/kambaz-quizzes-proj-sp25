@@ -17,14 +17,26 @@ export default function Quizzes() {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const dispatch = useDispatch();
 
+    const findAvailability = (avail: any, until: any) => {
+        const current = new Date();
+        const a = new Date(avail);
+        const u = new Date(until);
+        if (current > u) {
+            return "Closed";
+        } else if (current < a) {
+            return "Not available until";
+        } else {
+            return "Available";
+        }
+    };
+
     const fetchQuizzes = async () => {
         const quizzes = await coursesClient.findQuizzesForCourse(cid as string);
-        console.log(quizzes);
         dispatch(setQuizzes(quizzes));
     };
     useEffect(() => {
         fetchQuizzes();
-    }, []);
+    }, [quizzes]);
 
     return (
         <div>
@@ -51,7 +63,7 @@ export default function Quizzes() {
                                         </h4>
                                         <p>
                                             <text>
-                                                <b>Available</b>{" "}
+                                                <b>{findAvailability(quiz.availableDate, quiz.untilDate)}</b>{" "}
                                                 {formatDate(quiz.availableDate)}
                                             </text>{" "}
                                             | <b>Due</b>{" "}
@@ -79,7 +91,7 @@ export default function Quizzes() {
                                             </h4>
                                             <p>
                                                 <text>
-                                                    <b>Available</b>{" "}
+                                                    <b>{findAvailability(quiz.availableDate, quiz.untilDate)}</b>{" "}
                                                     {formatDate(
                                                         quiz.availableDate
                                                     )}
