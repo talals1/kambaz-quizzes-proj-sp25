@@ -13,6 +13,9 @@ export default function QuizAttempts({
             <br />
             <div>
                 <ListGroup>
+                    <div>
+                        Score: {attempt.score}%
+                    </div>
                     {questions.map((question: any) => (
                         <ListGroup.Item key={question._id}>
                             <div className="d-flex justify-content-between align-items-center">
@@ -49,7 +52,7 @@ export default function QuizAttempts({
                                             label="True"
                                             name={`bool-${question._id}`}
                                             checked={
-                                                attempt.answers[question._id]
+                                                attempt.answers[question._id] === true
                                             }
                                         />
                                         <FormCheck
@@ -58,7 +61,7 @@ export default function QuizAttempts({
                                             label="False"
                                             name={`bool-${question._id}`}
                                             checked={
-                                                !attempt.answers[question._id]
+                                                attempt.answers[question._id] === false
                                             }
                                         />
                                     </>

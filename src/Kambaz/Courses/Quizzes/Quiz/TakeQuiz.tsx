@@ -12,9 +12,7 @@ export default function TakeQuiz() {
     const { cid, qid } = useParams();
     const dispatch = useDispatch();
     const { currentUser } = useSelector((state: any) => state.accountReducer);
-    const { quizzes } = useSelector((state: any) => state.quizReducer);
     const questions = useSelector((state: any) => state.questionReducer.questions);
-
 
     const fetchQuizzes = async () => {
         const quizzes = await coursesClient.findQuizzesForCourse(cid as string);
@@ -24,12 +22,6 @@ export default function TakeQuiz() {
     useEffect(() => {
         fetchQuizzes();
     }, []);
-
-    const quiz = quizzes.find((q: any) => {
-        console.log(q);
-        return q._id === qid;
-    });
-
 
     const fetchQuestions = async () => {
         const questions = await quizzesClient.findQuestionsForQuiz(
@@ -44,7 +36,7 @@ export default function TakeQuiz() {
 
     const [answerList, setAnswerList] = useState({});
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const dateString = new Date().toISOString()
 
         const quizAttempt = {
@@ -52,33 +44,20 @@ export default function TakeQuiz() {
             timestamp: dateString,
             user_id: currentUser._id,
             quiz_id: qid,
-            answers: answerList
+            answers: answerList,
         };
-        // send out quizAttempt
         console.log(quizAttempt);
+        await quizzesClient.createQuizAttempt(qid as string, quizAttempt);
     };
 
 
 
     return (
-        // <div>
-        //     {currentUser.role === "STUDENT" ? (
-        //             quiz.oneQuestionAtATime ? (
-        //                 <div> test 1 </div>
-        //             ) : (
-        //                 <div> test 2 </div>
-        //             )
-        //         ) : (
-        //             <div> test 3 </div>
-        //         )
-        //     }
-        // </div>
         <div>
             {currentUser.role !== "STUDENT" && <Alert variant="danger">This is a preview of the published version of the quiz.</Alert>}
 
             <ListGroup>
                 {questions
-                    .filter((question: any) => question.quizID === qid)
                     .map((question: any) => (
                         <ListGroup.Item key={question._id}>
                             <div className="d-flex justify-content-between align-items-center">
@@ -135,7 +114,7 @@ export default function TakeQuiz() {
             </ListGroup>
 
 
-            <Button variant="secondary" onClick={() => {
+            <Button variant="secondary" href={`#/Kambaz/Courses/${cid}/Quizzes`} onClick={() => {
                 handleSubmit();
             }}>
                 Submit
