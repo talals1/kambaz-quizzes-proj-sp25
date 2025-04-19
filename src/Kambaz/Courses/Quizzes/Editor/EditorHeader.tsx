@@ -9,7 +9,7 @@ export default function EditorHeader() {
     const quizzes = useSelector((state: any) => state.quizReducer.quizzes);
 
     // Find the quiz that matches the qid
-    const currentQuiz = quizzes.find((quiz: any) => quiz._id === "Q101");
+    const currentQuiz = quizzes.find((quiz: any) => quiz._id === qid);
 
     // Determine if the quiz is published
     const isPublished = currentQuiz?.published;

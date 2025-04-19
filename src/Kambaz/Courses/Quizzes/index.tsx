@@ -61,7 +61,7 @@ export default function Quizzes() {
                                         </p>
                                     </div>
                                     <div>
-                                        <QuizControlButtons quiz={quiz} />
+                                        <QuizControlButtons quiz={quiz} qid={quiz._id} />
                                     </div>
                                 </ListGroup.Item>
                             ) : (
