@@ -1,4 +1,5 @@
-import { Form, FormCheck, ListGroup } from "react-bootstrap";
+import { Badge, Form, FormCheck, ListGroup } from "react-bootstrap";
+import { FaCheckCircle } from "react-icons/fa";
 
 export default function QuizAttempts({
     attempt,
@@ -7,6 +8,15 @@ export default function QuizAttempts({
     attempt: any;
     questions: any;
 }) {
+
+
+    const isCorrect = (question: any) => {
+        console.log("isCorrcet")
+        console.log(question.correctAnswer)
+        console.log(attempt.answers[question._id] as string)
+        return question.correctAnswer === (attempt.answers[question._id] as string)
+    }
+
     return (
         <div>
             <h3>Attempts</h3>
@@ -21,6 +31,14 @@ export default function QuizAttempts({
                             <div className="d-flex justify-content-between align-items-center">
                                 <h4 className="mb-0">
                                     <b>{question.title}</b>
+                                    &nbsp;
+                                    &nbsp;
+                                    {isCorrect(question) ?
+                                        <Badge bg="success">Correct!</Badge>
+                                        :
+                                        <Badge bg="danger">Incorrect</Badge>
+                                    }
+
                                 </h4>
                             </div>
                             <hr />
@@ -33,11 +51,18 @@ export default function QuizAttempts({
                                                 key={index}
                                                 type="radio"
                                                 id={`answer-${index}`}
-                                                label={answer}
+                                                label={
+                                                    <>
+                                                        {answer}
+                                                        &nbsp;
+                                                        {question.correctAnswer === answer &&
+                                                        <FaCheckCircle className="text-success"/>}
+                                                    </>
+                                                }
                                                 name={`multi-${question._id}`}
                                                 checked={
                                                     attempt.answers[
-                                                        question._id
+                                                    question._id
                                                     ] === answer
                                                 }
                                             />
@@ -49,7 +74,14 @@ export default function QuizAttempts({
                                         <FormCheck
                                             type="radio"
                                             id="true-answer"
-                                            label="True"
+                                            label={
+                                                <>
+                                                    True
+                                                    &nbsp;
+                                                    {question.correctAnswer &&
+                                                    <FaCheckCircle className="text-success"/>}
+                                                </>
+                                            }
                                             name={`bool-${question._id}`}
                                             checked={
                                                 attempt.answers[question._id] === true
@@ -58,7 +90,14 @@ export default function QuizAttempts({
                                         <FormCheck
                                             type="radio"
                                             id="false-answer"
-                                            label="False"
+                                            label={
+                                                <>
+                                                    False
+                                                    &nbsp;
+                                                    {!question.correctAnswer &&
+                                                    <FaCheckCircle className="text-success"/>}
+                                                </>
+                                            }
                                             name={`bool-${question._id}`}
                                             checked={
                                                 attempt.answers[question._id] === false
