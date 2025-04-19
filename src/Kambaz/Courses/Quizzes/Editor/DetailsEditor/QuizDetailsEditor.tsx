@@ -16,6 +16,7 @@ import { v4 as uuidv4 } from "uuid";
 import { addQuiz, updateQuiz } from "../../reducer";
 import * as coursesClient from "../../../client";
 import * as quizzesClient from "../../client";
+import ReactQuill from "react-quill";
 
 export default function QuizDetailsEditor({
     setUseEditor,
@@ -45,6 +46,10 @@ export default function QuizDetailsEditor({
         }
     };
 
+    const handleQuillChange = (value: any) => {
+        modifiedQuiz = { ...modifiedQuiz, description: value };
+    };
+
     const createNewQuiz = async () => {
         await coursesClient.createQuizForCourse(cid as string, modifiedQuiz);
         dispatch(addQuiz(modifiedQuiz));
@@ -64,20 +69,13 @@ export default function QuizDetailsEditor({
         setUseEditor(false);
     };
 
+    const saveAndPublishQuiz = () => {
+        modifiedQuiz = {...modifiedQuiz, published: true};
+        saveQuiz()
+    }
+
     return (
         <Container className="p-4">
-            <Button variant="danger" className="float-end" onClick={saveQuiz}>
-                Save
-            </Button>
-            <Button
-                variant="secondary"
-                className="float-end"
-                onClick={() => setUseEditor(false)}
-            >
-                Cancel
-            </Button>
-            <br />
-            <br />
             <Form>
                 <Form.Group controlId="title" className="mb-3">
                     <Form.Label>Quiz Title</Form.Label>
@@ -91,13 +89,15 @@ export default function QuizDetailsEditor({
                 {/* TODO replace this with React Quill */}
                 <Form.Group controlId="description" className="mb-3">
                     <Form.Label>Description</Form.Label>
-                    <Form.Control
-                        as="textarea"
-                        rows={5}
+                    <ReactQuill
                         defaultValue={quiz?.description}
-                        onChange={handleChange}
+                        onChange={handleQuillChange}
+                        placeholder="Enter quiz description..."
                     />
                 </Form.Group>
+
+
+
 
                 <Form.Group controlId="accessCode" className="mb-3">
                     <Col sm={5}>
@@ -141,18 +141,6 @@ export default function QuizDetailsEditor({
                             <option>Assignments</option>
                             <option>Project</option>
                         </Form.Select>
-                    </Col>
-                </Form.Group>
-
-                <Form.Group as={Row} controlId="points" className="mb-3">
-                    <Form.Label column sm={2}>
-                        Points
-                    </Form.Label>
-                    <Col sm={2}>
-                        <Form.Control
-                            defaultValue={quiz?.points}
-                            onChange={handleChange}
-                        />
                     </Col>
                 </Form.Group>
 
@@ -273,6 +261,21 @@ export default function QuizDetailsEditor({
                     </Card.Body>
                 </Card>
             </Form>
+            <div className="d-flex justify-content-center gap-2">
+                <Button variant="danger" className="float-end" onClick={saveAndPublishQuiz}>
+                    Save & Publish
+                </Button>
+                <Button variant="danger" className="float-end" onClick={saveQuiz}>
+                    Save
+                </Button>
+                <Button
+                    variant="secondary"
+                    className="float-end"
+                    onClick={() => setUseEditor(false)}
+                >
+                    Cancel
+                </Button>
+            </div>
         </Container>
     );
 }

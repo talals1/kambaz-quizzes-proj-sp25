@@ -46,10 +46,7 @@ export default function QuizEditor() {
 
             <hr />
 
-            <div className="d-flex justify-content-center gap-2">
-                <Button variant="secondary">Cancel</Button>
-                <Button variant="danger">Save</Button>
-            </div>
+
         </div>
     );
 }
