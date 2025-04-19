@@ -148,6 +148,17 @@ export default function QuizDetailsViewer() {
                 </Col>
             </Row>
 
+            <Row className="justify-content-start">
+                <Col size={4} className="text-end">
+                    {" "}
+                    <b>Description</b>{" "}
+                </Col>
+                <Col size={4} className="text-start">
+                    {" "}
+                    {quiz?.description}{" "}
+                </Col>
+            </Row>
+
             <br />
 
             <Table bordered>

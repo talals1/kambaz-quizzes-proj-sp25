@@ -233,14 +233,14 @@ export default function QuestionEditor() {
                 <div className="d-flex justify-content-end gap-2">
                     <Button
                         variant="secondary"
-                        href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}`}
+                        href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/Editor`}
                     >
                         Cancel
                     </Button>
                     <Button
                         variant="danger"
                         onClick={handleSubmit}
-                        href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}`}
+                        href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/Editor`}
                     >
                         Save Question
                     </Button>
