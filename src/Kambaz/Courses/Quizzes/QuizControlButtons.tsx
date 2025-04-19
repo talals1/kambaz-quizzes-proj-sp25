@@ -10,7 +10,7 @@ export default function QuizControlButtons({ quiz } : { quiz: any}) {
     const dispatch = useDispatch();
     return (
         <div className="float-end">
-            {quiz.published === "YES" ? <GreenCheckmark /> :
+            {quiz.published ? <GreenCheckmark /> :
             <IoBan style={{ color: "red" }}/> }
             <DropdownButton variant="secondary" title={<IoEllipsisVertical className="fs-4" />} onClick={(e) => e.preventDefault()} >
                 <Dropdown.Item onClick={(e) => {
@@ -24,15 +24,12 @@ export default function QuizControlButtons({ quiz } : { quiz: any}) {
                     }}> Delete Quiz </Dropdown.Item>
                 <Dropdown.Item onClick={async (e) => {
                         e.preventDefault();
-                        let publish;
-                        if (quiz.published === "YES") {
-                            publish = {...quiz, published: "NO"};
-                        } else {
-                            publish = {...quiz, published: "YES"};
-                        }
+                        
+                        const publish = {...quiz, published: !quiz.published}
+                        
                         await quizzesClient.updateQuiz(publish);
                         dispatch(updateQuiz(publish));
-                    }}> {quiz.published === "YES" ? ("Unpublish Quiz") : ("Publish Quiz") } </Dropdown.Item>
+                    }}> {quiz.published ? ("Unpublish Quiz") : ("Publish Quiz") } </Dropdown.Item>
             </DropdownButton>
         </div>
     );

@@ -19,6 +19,7 @@ export default function Quizzes() {
 
     const fetchQuizzes = async () => {
         const quizzes = await coursesClient.findQuizzesForCourse(cid as string);
+        console.log(quizzes);
         dispatch(setQuizzes(quizzes));
     };
     useEffect(() => {
@@ -64,7 +65,7 @@ export default function Quizzes() {
                                     </div>
                                 </ListGroup.Item>
                             ) : (
-                                quiz.published === "YES" && (
+                                quiz.published && (
                                     <ListGroup.Item
                                         key={quiz._id}
                                         action
