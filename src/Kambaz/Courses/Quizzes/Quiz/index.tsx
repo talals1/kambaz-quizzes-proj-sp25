@@ -41,7 +41,6 @@ export default function Quiz() {
         const currentAttempt = await quizzesClient.findLatestQuizAttempt(
             qid as string
         );
-        console.log(currentAttempt);
         setAttempt(currentAttempt);
     };
     const fetchQuestions = async () => {
@@ -99,7 +98,7 @@ export default function Quiz() {
                     <br />
 
                     <hr />
-                    {totalAttempts > 0 && (
+                    {totalAttempts > 0 && Object.keys(attempt).length > 0 && (
                         <QuizAttempts attempt={attempt} questions={questions} />
                     )}
                 </>
