@@ -43,7 +43,7 @@ export default function QuestionList() {
                                 <Button
                                     variant="outline-secondary"
                                     size="sm"
-                                    href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/${question._id}`}
+                                    href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/Editor/${question._id}`}
                                 >
                                     Edit
                                 </Button>

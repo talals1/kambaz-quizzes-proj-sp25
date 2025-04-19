@@ -15,6 +15,7 @@ import Quiz from "./Quizzes/Quiz";
 import { useEffect, useState } from "react";
 import * as client from "./client.ts";
 import TakeQuiz from "./Quizzes/Quiz/TakeQuiz";
+import QuizEditor from "./Quizzes/Editor/index.tsx";
 
 export default function Courses() {
     const { cid } = useParams();
@@ -58,14 +59,24 @@ export default function Courses() {
                                 </ProtectedRoute>
                             }
                         />
-                        <Route path="People" element={<PeopleTable users={users} />} />
+                        <Route
+                            path="People"
+                            element={<PeopleTable users={users} />}
+                        />
                         <Route path="Quizzes" element={<Quizzes />} />
                         <Route path="Quizzes/:qid" element={<Quiz />} />
                         <Route
-                            path="Quizzes/:qid/:questionID"
+                            path="Quizzes/:qid/Editor"
+                            element={<QuizEditor />}
+                        />
+                        <Route
+                            path="Quizzes/:qid/Editor/:questionID"
                             element={<QuestionEditor />}
                         />
-                        <Route path="Quizzes/:qid/take_quiz" element={<TakeQuiz/>}/>
+                        <Route
+                            path="Quizzes/:qid/take_quiz"
+                            element={<TakeQuiz />}
+                        />
                     </Routes>
                 </div>
             </div>

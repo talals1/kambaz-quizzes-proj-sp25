@@ -58,7 +58,7 @@ export default function QuestionEditor() {
         } else {
             createNewQuestion();
         }
-        navigate(`#/Kambaz/Courses/${cid}/Quizzes/${qid}`);
+        navigate(`#/Kambaz/Courses/${cid}/Quizzes/${qid}/Editor`);
     };
 
     return (
