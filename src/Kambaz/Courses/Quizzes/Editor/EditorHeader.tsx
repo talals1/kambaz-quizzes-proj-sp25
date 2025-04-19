@@ -12,7 +12,7 @@ export default function EditorHeader() {
     const currentQuiz = quizzes.find((quiz: any) => quiz._id === "Q101");
 
     // Determine if the quiz is published
-    const isPublished = currentQuiz?.published === "YES";
+    const isPublished = currentQuiz?.published;
     const points = currentQuiz?.points || "0"; // Default to 0 if undefined
 
     return (
