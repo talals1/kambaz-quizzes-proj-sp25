@@ -10,12 +10,6 @@ export default function QuizAttempts({
 }) {
 
 
-    const isCorrect = (question: any) => {
-        console.log("isCorrcet")
-        console.log(question.correctAnswer)
-        console.log(attempt.answers[question._id] as string)
-        return question.correctAnswer === (attempt.answers[question._id] as string)
-    }
 
     return (
         <div>
@@ -33,7 +27,8 @@ export default function QuizAttempts({
                                     <b>{question.title}</b>
                                     &nbsp;
                                     &nbsp;
-                                    {isCorrect(question) ?
+                                    {attempt.answers[question._id][1]
+                                        ?
                                         <Badge bg="success">Correct!</Badge>
                                         :
                                         <Badge bg="danger">Incorrect</Badge>
@@ -56,14 +51,14 @@ export default function QuizAttempts({
                                                         {answer}
                                                         &nbsp;
                                                         {question.correctAnswer === answer &&
-                                                        <FaCheckCircle className="text-success"/>}
+                                                            <FaCheckCircle className="text-success" />}
                                                     </>
                                                 }
                                                 name={`multi-${question._id}`}
                                                 checked={
                                                     attempt.answers[
                                                     question._id
-                                                    ] === answer
+                                                    ][0] === answer
                                                 }
                                             />
                                         )
@@ -79,12 +74,12 @@ export default function QuizAttempts({
                                                     True
                                                     &nbsp;
                                                     {question.correctAnswer &&
-                                                    <FaCheckCircle className="text-success"/>}
+                                                        <FaCheckCircle className="text-success" />}
                                                 </>
                                             }
                                             name={`bool-${question._id}`}
                                             checked={
-                                                attempt.answers[question._id] === true
+                                                attempt.answers[question._id][0] === "true"
                                             }
                                         />
                                         <FormCheck
@@ -95,23 +90,27 @@ export default function QuizAttempts({
                                                     False
                                                     &nbsp;
                                                     {!question.correctAnswer &&
-                                                    <FaCheckCircle className="text-success"/>}
+                                                        <FaCheckCircle className="text-success" />}
                                                 </>
                                             }
                                             name={`bool-${question._id}`}
                                             checked={
-                                                attempt.answers[question._id] === false
+                                                attempt.answers[question._id][0] === "false"
                                             }
                                         />
                                     </>
                                 )}
 
                                 {question.type === "fill-in-the-blank" && (
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Enter your answer here"
-                                        value={attempt.answers[question._id]}
-                                    />
+                                    <>
+                                        <b>Correct Answer:</b> &nbsp; {question.correctAnswer}
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Enter your answer here"
+                                            value={attempt.answers[question._id][0]}
+                                        />
+                                    </>
+
                                 )}
                             </Form>
                         </ListGroup.Item>
