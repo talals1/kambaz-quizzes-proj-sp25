@@ -5,9 +5,16 @@ import { Dropdown, DropdownButton } from "react-bootstrap";
 import * as quizzesClient from "./client";
 import { useDispatch } from "react-redux";
 import { deleteQuiz, updateQuiz } from "./reducer";
-export default function QuizControlButtons({ quiz }: { quiz: any }) {
+export default function QuizControlButtons({
+    quiz,
+    qid,
+}: {
+    quiz: any;
+    qid: string;
+}) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     return (
         <div className="float-end">
             {quiz.published ? (
@@ -32,7 +39,7 @@ export default function QuizControlButtons({ quiz }: { quiz: any }) {
                 <Dropdown.Item
                     onClick={async (e) => {
                         e.preventDefault();
-                        await quizzesClient.deleteQuiz(quiz._id);
+                        await quizzesClient.deleteQuiz(qid);
                         dispatch(deleteQuiz(quiz));
                     }}
                 >
@@ -42,11 +49,12 @@ export default function QuizControlButtons({ quiz }: { quiz: any }) {
                 <Dropdown.Item
                     onClick={async (e) => {
                         e.preventDefault();
-
-                        const publish = { ...quiz, published: !quiz.published };
-
-                        await quizzesClient.updateQuiz(publish);
-                        dispatch(updateQuiz(publish));
+                        const updatedQuiz = {
+                            ...quiz,
+                            published: !quiz.published,
+                        };
+                        await quizzesClient.updateQuiz(updatedQuiz);
+                        dispatch(updateQuiz(updatedQuiz));
                     }}
                 >
                     {" "}

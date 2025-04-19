@@ -1,4 +1,5 @@
-import { Form, FormCheck, ListGroup } from "react-bootstrap";
+import { Badge, Form, FormCheck, ListGroup } from "react-bootstrap";
+import { FaCheckCircle } from "react-icons/fa";
 
 export default function QuizAttempts({
     attempt,
@@ -7,17 +8,32 @@ export default function QuizAttempts({
     attempt: any;
     questions: any;
 }) {
+
+
+
     return (
         <div>
             <h3>Attempts</h3>
             <br />
             <div>
                 <ListGroup>
+                    <div>
+                        Score: {attempt.score}%
+                    </div>
                     {questions.map((question: any) => (
                         <ListGroup.Item key={question._id}>
                             <div className="d-flex justify-content-between align-items-center">
                                 <h4 className="mb-0">
                                     <b>{question.title}</b>
+                                    &nbsp;
+                                    &nbsp;
+                                    {attempt.answers[question._id][1]
+                                        ?
+                                        <Badge bg="success">Correct!</Badge>
+                                        :
+                                        <Badge bg="danger">Incorrect</Badge>
+                                    }
+
                                 </h4>
                             </div>
                             <hr />
@@ -30,12 +46,19 @@ export default function QuizAttempts({
                                                 key={index}
                                                 type="radio"
                                                 id={`answer-${index}`}
-                                                label={answer}
+                                                label={
+                                                    <>
+                                                        {answer}
+                                                        &nbsp;
+                                                        {question.correctAnswer === answer &&
+                                                            <FaCheckCircle className="text-success" />}
+                                                    </>
+                                                }
                                                 name={`multi-${question._id}`}
                                                 checked={
                                                     attempt.answers[
-                                                        question._id
-                                                    ] === answer
+                                                    question._id
+                                                    ][0] === answer
                                                 }
                                             />
                                         )
@@ -46,30 +69,48 @@ export default function QuizAttempts({
                                         <FormCheck
                                             type="radio"
                                             id="true-answer"
-                                            label="True"
+                                            label={
+                                                <>
+                                                    True
+                                                    &nbsp;
+                                                    {question.correctAnswer &&
+                                                        <FaCheckCircle className="text-success" />}
+                                                </>
+                                            }
                                             name={`bool-${question._id}`}
                                             checked={
-                                                attempt.answers[question._id]
+                                                attempt.answers[question._id][0] === "true"
                                             }
                                         />
                                         <FormCheck
                                             type="radio"
                                             id="false-answer"
-                                            label="False"
+                                            label={
+                                                <>
+                                                    False
+                                                    &nbsp;
+                                                    {!question.correctAnswer &&
+                                                        <FaCheckCircle className="text-success" />}
+                                                </>
+                                            }
                                             name={`bool-${question._id}`}
                                             checked={
-                                                !attempt.answers[question._id]
+                                                attempt.answers[question._id][0] === "false"
                                             }
                                         />
                                     </>
                                 )}
 
                                 {question.type === "fill-in-the-blank" && (
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Enter your answer here"
-                                        value={attempt.answers[question._id]}
-                                    />
+                                    <>
+                                        <b>Correct Answer:</b> &nbsp; {question.correctAnswer}
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Enter your answer here"
+                                            value={attempt.answers[question._id][0]}
+                                        />
+                                    </>
+
                                 )}
                             </Form>
                         </ListGroup.Item>
