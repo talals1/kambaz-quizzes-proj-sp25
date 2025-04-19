@@ -44,7 +44,7 @@ export default function QuestionEditor() {
     };
 
     const createNewQuestion = async () => {
-        await quizzesClient.createQuestionForQuiz(cid as string, formData);
+        await quizzesClient.createQuestionForQuiz(qid as string, formData);
         dispatch(addQuestion(formData));
     };
     const editQuestion = async () => {
