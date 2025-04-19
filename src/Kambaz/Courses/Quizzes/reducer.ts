@@ -18,20 +18,21 @@ const quizSlice = createSlice({
                 title: quiz.title || "",
                 course: quiz.course || "",
                 type: quiz.type || "GRADED QUIZ",
-                points: quiz.points || "100",
+                points: quiz.points || 100,
                 assignmentGroup: quiz.assignmentGroup || "QUIZZES",
-                shuffleAnswers: quiz.shuffleAnswers || "YES",
-                timeLimit: quiz.timeLimit || "20",
-                multipleAttempts: quiz.multipleAttempts || "NO",
-                numAttempts: quiz.numAttempts || "1",
+                shuffleAnswers: quiz.shuffleAnswers || true,
+                timeLimit: quiz.timeLimit || 20,
+                multipleAttempts: quiz.multipleAttempts || false,
+                numAttempts: quiz.numAttempts || 1,
                 showCorrectAnswers: quiz.showCorrectAnswers || "",
                 accessCode: quiz.accessCode || "",
-                oneAtATime: quiz.oneAtATime || "YES",
-                webcamRequired: quiz.webcamRequired || "NO",
-                lockAfterAnswer: quiz.lockAfterAnswer || "NO",
+                oneAtATime: quiz.oneAtATime || true,
+                webcamRequired: quiz.webcamRequired || false,
+                lockAfterAnswer: quiz.lockAfterAnswer || false,
                 dueDate: quiz.dueDate || "",
                 availableDate: quiz.availableDate || "",
                 untilDate: quiz.untilDate || "",
+                published: quiz.published || false,
             };
             state.quizzes = [...state.quizzes, newQuiz] as any;
         },
@@ -40,6 +41,8 @@ const quizSlice = createSlice({
             state.quizzes = state.quizzes.map((quiz: any) =>
                 quiz._id === updatedQuiz._id ? updatedQuiz : quiz
             );
+            console.log("updated quizzes")
+            console.log()
         },
 
         deleteQuiz: (state, { payload }) => {
