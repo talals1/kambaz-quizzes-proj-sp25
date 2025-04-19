@@ -25,7 +25,7 @@ export default function QuizControls() {
                         id="wd-add-quiz"
                         variant="danger"
                         onClick={() => {
-                            navigate(`${uuidv4()}`);
+                            navigate(`${uuidv4()}/Editor`);
                         }}
                     >
                         <FaPlus
