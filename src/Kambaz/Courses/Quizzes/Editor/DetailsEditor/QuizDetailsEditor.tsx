@@ -144,18 +144,6 @@ export default function QuizDetailsEditor({
                     </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} controlId="points" className="mb-3">
-                    <Form.Label column sm={2}>
-                        Points
-                    </Form.Label>
-                    <Col sm={2}>
-                        <Form.Control
-                            defaultValue={quiz?.points}
-                            onChange={handleChange}
-                        />
-                    </Col>
-                </Form.Group>
-
                 <Form.Group as={Row} controlId="timeLimit" className="mb-3">
                     <Form.Label column sm={2}>
                         Time Limit
