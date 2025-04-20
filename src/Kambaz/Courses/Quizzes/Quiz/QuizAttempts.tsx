@@ -13,6 +13,7 @@ export default function QuizAttempts({
     // This is for cases when a user tries to view their attempt for a quiz
     // that has had another question added to it after they last took it.
     const filteredQuestions = questions.filter((q: any) => q._id in attempt.answers);
+    
 
     return (
         <div>
@@ -76,7 +77,7 @@ export default function QuizAttempts({
                                                 <>
                                                     True
                                                     &nbsp;
-                                                    {question.correctAnswer &&
+                                                    {question.correctAnswer === "True" &&
                                                         <FaCheckCircle className="text-success" />}
                                                 </>
                                             }
@@ -92,7 +93,7 @@ export default function QuizAttempts({
                                                 <>
                                                     False
                                                     &nbsp;
-                                                    {!question.correctAnswer &&
+                                                    {question.correctAnswer === "False" &&
                                                         <FaCheckCircle className="text-success" />}
                                                 </>
                                             }
