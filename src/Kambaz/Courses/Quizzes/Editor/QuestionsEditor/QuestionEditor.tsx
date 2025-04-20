@@ -111,8 +111,8 @@ export default function QuestionEditor() {
                         placeholder="Enter question description..."
                     />
                 </Form.Group>
-
-                {formData.type === "multiple-choice" && (
+                {formData.type === "multiple-choice" ||
+                formData.type === "fill-in-the-blank" ? (
                     <Form.Group className="mb-3">
                         <Form.Label>Answer Choices</Form.Label>
                         <ListGroup>
@@ -181,8 +181,39 @@ export default function QuestionEditor() {
                             <FaPlus className="me-2" /> Add Answer
                         </Button>
                     </Form.Group>
+                ) : (
+                    formData.type === "true-false" && (
+                        <Form.Group className="mb-3">
+                            <Form.Label>Select the correct answer</Form.Label>
+                            <Form.Check
+                                type="radio"
+                                name="correctAnswer"
+                                label="True"
+                                value="True"
+                                checked={formData.correctAnswer === "True"}
+                                onChange={() =>
+                                    setFormData({
+                                        ...formData,
+                                        correctAnswer: "True",
+                                    })
+                                }
+                            />
+                            <Form.Check
+                                type="radio"
+                                name="correctAnswer"
+                                label="False"
+                                value="False"
+                                checked={formData.correctAnswer === "False"}
+                                onChange={() =>
+                                    setFormData({
+                                        ...formData,
+                                        correctAnswer: "False",
+                                    })
+                                }
+                            />
+                        </Form.Group>
+                    )
                 )}
-
                 {formData.type === "true-false" && (
                     <Form.Group className="mb-3">
                         <Form.Label>Select the correct answer</Form.Label>
@@ -214,21 +245,6 @@ export default function QuestionEditor() {
                         />
                     </Form.Group>
                 )}
-
-                {formData.type === "fill-in-the-blank" && (
-                    <Form.Group className="mb-3">
-                        <Form.Label>Correct Answer</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="correctAnswer"
-                            value={formData.correctAnswer}
-                            onChange={handleChange}
-                            placeholder="Enter the correct answer"
-                            required
-                        />
-                    </Form.Group>
-                )}
-
                 <hr />
                 <div className="d-flex justify-content-end gap-2">
                     <Button
