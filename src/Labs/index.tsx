@@ -14,7 +14,7 @@ export default function Labs() {
     return (
         <Provider store={store}>
             <div className="container-fluid">
-                <h1>CS4610 Final Project</h1>
+                <h1>CS4610 (Masters) Final Project</h1>
                 <h1>Quiz Project</h1>
                 <h2>Talal Siddiqui</h2>
                 <h2>Jay Sridharan</h2>
