@@ -19,7 +19,7 @@ const quizSlice = createSlice({
                 title: quiz.title || "",
                 course: quiz.course || "",
                 type: quiz.type || "GRADED QUIZ",
-                points: quiz.points || 100,
+                points: quiz.points || 0,
                 assignmentGroup: quiz.assignmentGroup || "QUIZZES",
                 shuffleAnswers: quiz.shuffleAnswers || true,
                 timeLimit: quiz.timeLimit || 20,
