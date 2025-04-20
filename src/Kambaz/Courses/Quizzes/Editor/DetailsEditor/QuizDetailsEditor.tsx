@@ -11,7 +11,6 @@ import {
 } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 
 import { addQuiz, updateQuiz } from "../../reducer";
 import * as coursesClient from "../../../client";
@@ -29,7 +28,6 @@ export default function QuizDetailsEditor({
     const { quizzes } = useSelector((state: any) => state.quizReducer);
 
     const quiz = quizzes.find((q: any) => {
-        console.log(q);
         return q._id === qid;
     });
 
@@ -52,12 +50,7 @@ export default function QuizDetailsEditor({
     };
 
     const createNewQuiz = async () => {
-        const createdQuiz = await coursesClient.createQuizForCourse(cid as string, modifiedQuiz);
-        console.log("Creating quiz in reducer!")
-        console.log("Quiz = ")
-        console.log(modifiedQuiz);
-        console.log("Created quiz from backend")
-        console.log(createdQuiz)
+        await coursesClient.createQuizForCourse(cid as string, modifiedQuiz);
         dispatch(addQuiz(modifiedQuiz));
     };
     const editQuiz = async () => {
@@ -77,14 +70,14 @@ export default function QuizDetailsEditor({
 
     const saveAndPublishQuiz = () => {
         modifiedQuiz = { ...modifiedQuiz, published: true };
-        saveQuiz()
-        navigate(`/Kambaz/Courses/${cid}/Quizzes`)
-    }
+        saveQuiz();
+        navigate(`/Kambaz/Courses/${cid}/Quizzes`);
+    };
 
     const cancelHandler = () => {
-        setUseEditor(false)
-        navigate(`/Kambaz/Courses/${cid}/Quizzes`)
-    }
+        setUseEditor(false);
+        navigate(`/Kambaz/Courses/${cid}/Quizzes`);
+    };
 
     return (
         <Container className="p-4">
@@ -172,22 +165,11 @@ export default function QuizDetailsEditor({
                     </CardSubtitle>
                     <CardBody>
                         <Form.Group className="mb-3">
-                            {/* <Form.Label column sm={2}>
-                                Options
-                            </Form.Label> */}
-                            {/* <Col sm={6}> */}
                             <Form.Check
                                 id="shuffleAnswers"
                                 type="checkbox"
                                 label="Shuffle Answers"
                                 defaultChecked={quiz?.shuffleAnswers}
-                                onChange={handleChange}
-                            />
-                            <Form.Check
-                                id="multipleAttempts"
-                                type="checkbox"
-                                label="Multiple Attempts"
-                                defaultChecked={quiz?.multipleAttempts}
                                 onChange={handleChange}
                             />
                             <Form.Check
@@ -218,7 +200,29 @@ export default function QuizDetailsEditor({
                                 defaultChecked={quiz?.lockAfterAnswering}
                                 onChange={handleChange}
                             />
-                            {/* </Col> */}
+                            <Form.Check
+                                id="multipleAttempts"
+                                type="checkbox"
+                                label="Multiple Attempts"
+                                defaultChecked={quiz?.multipleAttempts}
+                                onChange={handleChange}
+                            />
+                            <Form.Group
+                                as={Row}
+                                className="align-items-center mb-3"
+                                controlId="numberOfAttempts"
+                            >
+                                <Form.Label column sm="5">
+                                    How many attempts?
+                                </Form.Label>
+                                <Col sm="4">
+                                    <Form.Control
+                                        type="number"
+                                        defaultValue={quiz?.numberOfAttempts}
+                                        onChange={handleChange}
+                                    />
+                                </Col>
+                            </Form.Group>
                         </Form.Group>
                     </CardBody>
                 </Card>
