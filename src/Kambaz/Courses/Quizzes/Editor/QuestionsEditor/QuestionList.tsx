@@ -59,7 +59,8 @@ export default function QuestionList() {
                             </div>
                         </div>
                         <hr />
-                        <p>{question.description}</p>
+                        {/* Source: https://stackoverflow.com/questions/39758136/how-to-render-html-string-as-real-html */}
+                        <div dangerouslySetInnerHTML={{ __html: question.description }} />
                         <Form>
                             {(question.type === "multiple-choice" ||
                                 question.type === "fill-in-the-blank") &&
