@@ -13,18 +13,20 @@ export default function QuizDetails() {
             {!useEditor && (
                 <>
                     <Button
-                        variant="danger"
-                        className="float-end"
-                        href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/take_quiz`}
-                    >
-                        Preview the Quiz
-                    </Button>
-                    <Button
+                        style={{ "margin": "3px" }}
                         variant="danger"
                         className="float-end"
                         onClick={() => setUseEditor(!useEditor)}
                     >
                         Edit Details
+                    </Button>
+                    <Button
+                        style={{ "margin": "3px" }}
+                        variant="danger"
+                        className="float-end"
+                        href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/take_quiz`}
+                    >
+                        Preview the Quiz
                     </Button>
                 </>
             )}
