@@ -61,23 +61,23 @@ export default function QuestionList() {
                         <hr />
                         <p>{question.description}</p>
                         <Form>
-                            {question.type === "multiple-choice" ||
-                                (question.type === "fill-in-the-blank" &&
-                                    question.answers.map(
-                                        (answer: any, index: any) => (
-                                            <FormCheck
-                                                key={index}
-                                                type="radio"
-                                                id={`answer-${index}`}
-                                                label={answer}
-                                                value={answer}
-                                                checked={
-                                                    answer ===
-                                                    question.correctAnswer
-                                                }
-                                            />
-                                        )
-                                    ))}
+                            {(question.type === "multiple-choice" ||
+                                question.type === "fill-in-the-blank") &&
+                                question.answers.map(
+                                    (answer: any, index: any) => (
+                                        <FormCheck
+                                            key={index}
+                                            type="radio"
+                                            id={`answer-${index}`}
+                                            label={answer}
+                                            value={answer}
+                                            checked={
+                                                answer ===
+                                                question.correctAnswer
+                                            }
+                                        />
+                                    )
+                                )}
 
                             {question.type === "true-false" && (
                                 <>

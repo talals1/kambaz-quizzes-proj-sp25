@@ -214,37 +214,6 @@ export default function QuestionEditor() {
                         </Form.Group>
                     )
                 )}
-                {formData.type === "true-false" && (
-                    <Form.Group className="mb-3">
-                        <Form.Label>Select the correct answer</Form.Label>
-                        <Form.Check
-                            type="radio"
-                            name="correctAnswer"
-                            label="True"
-                            value="True"
-                            checked={formData.correctAnswer === "True"}
-                            onChange={() =>
-                                setFormData({
-                                    ...formData,
-                                    correctAnswer: "True",
-                                })
-                            }
-                        />
-                        <Form.Check
-                            type="radio"
-                            name="correctAnswer"
-                            label="False"
-                            value="False"
-                            checked={formData.correctAnswer === "False"}
-                            onChange={() =>
-                                setFormData({
-                                    ...formData,
-                                    correctAnswer: "False",
-                                })
-                            }
-                        />
-                    </Form.Group>
-                )}
                 <hr />
                 <div className="d-flex justify-content-end gap-2">
                     <Button
