@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
     quizzes: [],
@@ -24,7 +23,7 @@ const quizSlice = createSlice({
                 shuffleAnswers: quiz.shuffleAnswers || true,
                 timeLimit: quiz.timeLimit || 20,
                 multipleAttempts: quiz.multipleAttempts || false,
-                numAttempts: quiz.numAttempts || 1,
+                numberOfAttempts: quiz.numberOfAttempts || 1,
                 showCorrectAnswers: quiz.showCorrectAnswers || "",
                 accessCode: quiz.accessCode || "",
                 oneAtATime: quiz.oneAtATime || true,
@@ -35,16 +34,20 @@ const quizSlice = createSlice({
                 untilDate: quiz.untilDate || "",
                 published: quiz.published || false,
             };
+            if (!newQuiz.multipleAttempts) {
+                newQuiz.numberOfAttempts = 1;
+            }
             state.quizzes = [...state.quizzes, newQuiz] as any;
-            console.log("reducer addQuiz");
-            console.log(state.quizzes);
         },
 
         updateQuiz: (state: any, { payload: updatedQuiz }) => {
+            if (!updatedQuiz.multipleAttempts) {
+                updatedQuiz.numberOfAttempts = 1;
+            }
+
             state.quizzes = state.quizzes.map((quiz: any) =>
                 quiz._id === updatedQuiz._id ? updatedQuiz : quiz
             );
-            console.log("updated quizzes");
             console.log();
         },
 
