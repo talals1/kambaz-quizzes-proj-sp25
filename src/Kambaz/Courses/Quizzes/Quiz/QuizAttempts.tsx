@@ -106,7 +106,7 @@ export default function QuizAttempts({
 
                                 {question.type === "fill-in-the-blank" && (
                                     <>
-                                        <b>Accept Answers:</b> &nbsp; {question.answers.join(", ")}
+                                        <b>Accepted Answers:</b> &nbsp; {question.answers.join(", ")}
                                         <Form.Control
                                             type="text"
                                             placeholder="Enter your answer here"
