@@ -112,6 +112,10 @@ export default function Quiz() {
                         <b>Points</b> {quiz.points}
                         &nbsp; &nbsp; &nbsp; &nbsp;
                         <b>Questions</b> {quiz.qids.length}
+                        &nbsp; &nbsp; &nbsp; &nbsp;
+                        <b>Attempts</b> {quiz.numberOfAttempts}
+                        &nbsp; &nbsp; &nbsp; &nbsp;
+                        <b>Attempts Remaining</b> {quiz.numberOfAttempts - totalAttempts}
                     </p>
                     <p className="my-1">
                         <b>Available</b> {formatDate(quiz.availableDate)} -{" "}
