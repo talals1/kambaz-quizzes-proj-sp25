@@ -36,7 +36,7 @@ export default function Quizzes() {
     };
     useEffect(() => {
         fetchQuizzes();
-    }, [quizzes]);
+    }, []);
 
     return (
         <div>
