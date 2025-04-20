@@ -10,10 +10,16 @@ export default function QuizDetails() {
 
     return (
         <div>
+            {useEditor ? (
+                <QuizDetailsEditor setUseEditor={setUseEditor} />
+            ) : (
+                <QuizDetailsViewer />
+            )}
+            <hr />
             {!useEditor && (
-                <>
+                <div>
                     <Button
-                        style={{ "margin": "3px" }}
+                        style={{ margin: "3px" }}
                         variant="danger"
                         className="float-end"
                         onClick={() => setUseEditor(!useEditor)}
@@ -21,20 +27,14 @@ export default function QuizDetails() {
                         Edit Details
                     </Button>
                     <Button
-                        style={{ "margin": "3px" }}
+                        style={{ margin: "3px" }}
                         variant="danger"
                         className="float-end"
                         href={`#/Kambaz/Courses/${cid}/Quizzes/${qid}/take_quiz`}
                     >
                         Preview the Quiz
                     </Button>
-                </>
-            )}
-            <br />
-            {useEditor ? (
-                <QuizDetailsEditor setUseEditor={setUseEditor} />
-            ) : (
-                <QuizDetailsViewer />
+                </div>
             )}
         </div>
     );

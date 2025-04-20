@@ -24,7 +24,7 @@ const quizSlice = createSlice({
                 timeLimit: quiz.timeLimit || 20,
                 multipleAttempts: quiz.multipleAttempts || false,
                 numberOfAttempts: quiz.numberOfAttempts || 1,
-                showCorrectAnswers: quiz.showCorrectAnswers || "",
+                showCorrectAnswers: quiz.showCorrectAnswers || false,
                 accessCode: quiz.accessCode || "",
                 oneAtATime: quiz.oneAtATime || true,
                 webcamRequired: quiz.webcamRequired || false,

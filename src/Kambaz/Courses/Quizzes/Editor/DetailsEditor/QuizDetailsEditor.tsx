@@ -32,7 +32,9 @@ export default function QuizDetailsEditor({
     });
 
     // The quiz object we end up saving to
-    let modifiedQuiz = quiz ? quiz : { _id: qid, course: cid };
+    let modifiedQuiz = quiz
+        ? quiz
+        : { _id: qid, course: cid, type: "Graded Quiz", group: "Quizzes" };
 
     // Handles any change in any field
     const handleChange = (
@@ -91,7 +93,6 @@ export default function QuizDetailsEditor({
                     />
                 </Form.Group>
 
-                {/* TODO replace this with React Quill */}
                 <Form.Group controlId="description" className="mb-3">
                     <Form.Label>Description</Form.Label>
                     <ReactQuill
@@ -124,7 +125,9 @@ export default function QuizDetailsEditor({
                             <option value="Graded Quiz">Graded Quiz</option>
                             <option value="Practice Quiz">Practice Quiz</option>
                             <option value="Graded Survey">Graded Survey</option>
-                            <option value="Ungraded Survey">Ungraded Survey</option>
+                            <option value="Ungraded Survey">
+                                Ungraded Survey
+                            </option>
                         </Form.Select>
                     </Col>
                 </Form.Group>
@@ -139,9 +142,9 @@ export default function QuizDetailsEditor({
                             onChange={handleChange}
                         >
                             <option value="Quizzes">Quizzes</option>
-                            <option values="Exams">Exams</option>
-                            <option values="Assignments">Assignments</option>
-                            <option values="Project">Project</option>
+                            <option value="Exams">Exams</option>
+                            <option value="Assignments">Assignments</option>
+                            <option value="Project">Project</option>
                         </Form.Select>
                     </Col>
                 </Form.Group>
