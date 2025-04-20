@@ -15,6 +15,7 @@ const quizSlice = createSlice({
         addQuiz: (state, { payload: quiz }) => {
             const newQuiz = {
                 _id: uuidv4(),
+                qids: quiz.qids || [],
                 title: quiz.title || "",
                 course: quiz.course || "",
                 type: quiz.type || "GRADED QUIZ",
@@ -35,6 +36,8 @@ const quizSlice = createSlice({
                 published: quiz.published || false,
             };
             state.quizzes = [...state.quizzes, newQuiz] as any;
+            console.log("reducer addQuiz")
+            console.log(state.quizzes)
         },
 
         updateQuiz: (state: any, { payload: updatedQuiz }) => {
