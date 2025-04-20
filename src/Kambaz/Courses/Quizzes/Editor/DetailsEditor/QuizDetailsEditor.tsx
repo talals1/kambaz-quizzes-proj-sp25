@@ -9,7 +9,7 @@ import {
     Form,
     Row,
 } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
@@ -25,6 +25,7 @@ export default function QuizDetailsEditor({
 }) {
     const dispatch = useDispatch();
     const { cid, qid } = useParams();
+    const navigate = useNavigate();
     const { quizzes } = useSelector((state: any) => state.quizReducer);
 
     const quiz = quizzes.find((q: any) => {
@@ -71,8 +72,14 @@ export default function QuizDetailsEditor({
 
     const saveAndPublishQuiz = () => {
         modifiedQuiz = { ...modifiedQuiz, published: true };
-        saveQuiz();
-    };
+        saveQuiz()
+        navigate(`/Kambaz/Courses/${cid}/Quizzes`)
+    }
+
+    const cancelHandler = () => {
+        setUseEditor(false)
+        navigate(`/Kambaz/Courses/${cid}/Quizzes`)
+    }
 
     return (
         <Container className="p-4">
@@ -276,7 +283,7 @@ export default function QuizDetailsEditor({
                 <Button
                     variant="secondary"
                     className="float-end"
-                    onClick={() => setUseEditor(false)}
+                    onClick={() => cancelHandler}
                 >
                     Cancel
                 </Button>

@@ -9,7 +9,10 @@ export default function QuizAttempts({
     questions: any;
 }) {
 
-
+    // Display only the questions for which this attempt as answers for.
+    // This is for cases when a user tries to view their attempt for a quiz
+    // that has had another question added to it after they last took it.
+    const filteredQuestions = questions.filter((q: any) => q._id in attempt.answers);
 
     return (
         <div>
@@ -20,7 +23,7 @@ export default function QuizAttempts({
                     <div>
                         Score: {attempt.score}%
                     </div>
-                    {questions.map((question: any) => (
+                    {filteredQuestions.map((question: any) => (
                         <ListGroup.Item key={question._id}>
                             <div className="d-flex justify-content-between align-items-center">
                                 <h4 className="mb-0">
@@ -103,7 +106,7 @@ export default function QuizAttempts({
 
                                 {question.type === "fill-in-the-blank" && (
                                     <>
-                                        <b>Correct Answer:</b> &nbsp; {question.correctAnswer}
+                                        <b>Accept Answers:</b> &nbsp; {question.answers.join(", ")}
                                         <Form.Control
                                             type="text"
                                             placeholder="Enter your answer here"
