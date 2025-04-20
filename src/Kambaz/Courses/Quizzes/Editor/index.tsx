@@ -6,11 +6,12 @@ import QuizDetails from "./DetailsEditor/QuizDetails";
 
 export default function QuizEditor() {
     const [activeTab, setActiveTab] = useState("details");
+    const [pointTotal, setPointTotal] = useState(0);
 
     return (
         <div id="quiz-editor">
             <div>
-                <EditorHeader />
+                <EditorHeader pointTotal={pointTotal} setPointTotal={setPointTotal} />
 
                 <br />
 
@@ -37,9 +38,9 @@ export default function QuizEditor() {
 
                 <div className="tab-content">
                     {activeTab === "details" ? (
-                        <QuizDetails />
+                        <QuizDetails pointTotal={pointTotal} setPointTotal={setPointTotal} />
                     ) : (
-                        <QuestionsEditor />
+                        <QuestionsEditor pointTotal={pointTotal} setPointTotal={setPointTotal} />
                     )}
                 </div>
             </div>

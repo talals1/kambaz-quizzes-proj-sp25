@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import QuizDetailsEditor from "./QuizDetailsEditor";
 import QuizDetailsViewer from "./QuizDetailsViewer";
 
-export default function QuizDetails() {
+export default function QuizDetails({ pointTotal, setPointTotal } : { pointTotal: any; setPointTotal: any; }) {
     const [useEditor, setUseEditor] = useState(false);
 
     return (
@@ -21,7 +21,7 @@ export default function QuizDetails() {
             {useEditor ? (
                 <QuizDetailsEditor setUseEditor={setUseEditor} />
             ) : (
-                <QuizDetailsViewer />
+                <QuizDetailsViewer pointTotal={pointTotal} setPointTotal={setPointTotal} />
             )}
         </div>
     );

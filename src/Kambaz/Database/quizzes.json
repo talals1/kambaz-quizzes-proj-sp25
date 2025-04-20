@@ -19,7 +19,7 @@
         "availableDate": "2024-05-06",
         "untilDate": "2024-05-20",
         "dueDate": "2024-05-13",
-        "published": "YES"
+        "published": true
     },
     {
         "_id": "Q102",
@@ -41,6 +41,6 @@
         "availableDate": "2024-05-06",
         "untilDate": "2024-05-20",
         "dueDate": "2024-05-13",
-        "published": "NO"
+        "published": false
     }
 ]

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { formatDate } from "../../../../../utils";
 
-export default function QuizDetailsViewer() {
+export default function QuizDetailsViewer({ pointTotal, setPointTotal } : { pointTotal: any; setPointTotal: any; }) {
     const { qid } = useParams();
     const { quizzes } = useSelector((state: any) => state.quizReducer);
 
@@ -34,7 +34,7 @@ export default function QuizDetailsViewer() {
                 </Col>
                 <Col size={4} className="text-start">
                     {" "}
-                    {quiz?.points}{" "}
+                    {pointTotal}{" "}
                 </Col>
             </Row>
 

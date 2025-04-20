@@ -11,7 +11,7 @@ import * as questionsClient from "./client";
 import * as quizzesClient from "../../client";
 import { addQuestion, updateQuestion } from "./reducer";
 
-export default function QuestionEditor() {
+export default function QuestionEditor({ pointTotal, setPointTotal } : { pointTotal: any; setPointTotal: any; }) {
     const dispatch = useDispatch();
     const { cid, qid, questionID } = useParams();
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ export default function QuestionEditor() {
         quizID: qid,
         title: existingQuestion?.title || "",
         type: existingQuestion?.type || "multiple-choice",
-        points: existingQuestion?.points || "",
+        points: existingQuestion?.points || 0,
         answers: existingQuestion?.answers || [],
         correctAnswer: existingQuestion?.correctAnswer || "",
         description: existingQuestion?.description || "",
@@ -44,10 +44,13 @@ export default function QuestionEditor() {
     };
 
     const createNewQuestion = async () => {
+        setPointTotal(pointTotal + formData.points);
         await quizzesClient.createQuestionForQuiz(qid as string, formData);
         dispatch(addQuestion(formData));
     };
     const editQuestion = async () => {
+        const currPoints = existingQuestion.points;
+        setPointTotal(pointTotal - currPoints + formData.points);
         await questionsClient.updateQuestion(formData);
         dispatch(updateQuestion(formData));
     };

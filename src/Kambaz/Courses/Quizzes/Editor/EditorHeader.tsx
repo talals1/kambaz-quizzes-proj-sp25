@@ -3,8 +3,9 @@ import { useSelector } from "react-redux";
 import GreenCheckmark from "../../Modules/GreenCheckmark";
 import { FaTimesCircle } from "react-icons/fa";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
-export default function EditorHeader() {
+export default function EditorHeader({ pointTotal, setPointTotal } : { pointTotal: any; setPointTotal: any; }) {
     const { qid } = useParams(); // Retrieve qid from URL params
     const quizzes = useSelector((state: any) => state.quizReducer.quizzes);
 
@@ -13,12 +14,14 @@ export default function EditorHeader() {
 
     // Determine if the quiz is published
     const isPublished = currentQuiz?.published;
-    const points = currentQuiz?.points || "0"; // Default to 0 if undefined
-
+    // const points = currentQuiz?.points || "0"; // Default to 0 if undefined
+    useEffect(() => {
+        setPointTotal(currentQuiz.points);
+    }, [qid]);
     return (
         <div className="d-flex align-items-center justify-content-end">
             <h5 className="me-2">Points</h5>
-            <h5 className="me-2">{points}</h5>
+            <h5 className="me-2">{pointTotal}</h5>
             {isPublished ? (
                 <div className="d-flex align-items-center text-success">
                     <GreenCheckmark className="me-1" />
