@@ -76,31 +76,21 @@ export default function TOC() {
             <Nav.Item>
                 {" "}
                 <Nav.Link
-                    href="https://github.com/jsridha/kambaz-react-web-app"
+                    href="https://github.com/talals1/kambaz-quizzes-proj-sp25"
                     target="_blank"
                 >
                     {" "}
-                    My GitHub{" "}
+                    Our Frontend{" "}
                 </Nav.Link>{" "}
             </Nav.Item>
             <Nav.Item>
                 {" "}
                 <Nav.Link
-                    href="https://kambaz-node-server-app-jyuj.onrender.com"
+                    href="https://github.com/stoneholt/kambaz-quizzes-proj-sp25-server"
                     target="_blank"
                 >
                     {" "}
-                    Render{" "}
-                </Nav.Link>{" "}
-            </Nav.Item>
-            <Nav.Item>
-                {" "}
-                <Nav.Link
-                    href="https://github.com/jsridha/kambaz-node-server-app"
-                    target="_blank"
-                >
-                    {" "}
-                    Server GitHub{" "}
+                    Our Backend{" "}
                 </Nav.Link>{" "}
             </Nav.Item>
         </Nav>

@@ -14,8 +14,14 @@ export default function Labs() {
     return (
         <Provider store={store}>
             <div className="container-fluid">
-                <h1>Labs</h1>
+                <h1>CS4610 Final Project</h1>
+                <h1>Quiz Project</h1>
+                <h2>Talal Siddiqui</h2>
                 <h2>Jay Sridharan</h2>
+                <h2>Benjamin Holt</h2>
+                <hr/>
+                <h2>Labs</h2>
+                {/* <h2>Jay Sridharan</h2> */}
                 <TOC />
                 <Routes>
                     <Route path="/" element={<Navigate to="Lab1" />} />
