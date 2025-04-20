@@ -40,7 +40,7 @@ export default function QuizControlButtons({
                     onClick={async (e) => {
                         e.preventDefault();
                         await quizzesClient.deleteQuiz(qid);
-                        dispatch(deleteQuiz(quiz));
+                        dispatch(deleteQuiz(quiz._id));
                     }}
                 >
                     {" "}
