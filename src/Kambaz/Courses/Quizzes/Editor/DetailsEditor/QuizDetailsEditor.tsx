@@ -52,7 +52,12 @@ export default function QuizDetailsEditor({
     };
 
     const createNewQuiz = async () => {
-        await coursesClient.createQuizForCourse(cid as string, modifiedQuiz);
+        const createdQuiz = await coursesClient.createQuizForCourse(cid as string, modifiedQuiz);
+        console.log("Creating quiz in reducer!")
+        console.log("Quiz = ")
+        console.log(modifiedQuiz);
+        console.log("Created quiz from backend")
+        console.log(createdQuiz)
         dispatch(addQuiz(modifiedQuiz));
     };
     const editQuiz = async () => {

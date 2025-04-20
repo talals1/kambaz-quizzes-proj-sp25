@@ -7,6 +7,8 @@ export default function QuizDetailsViewer() {
     const { qid } = useParams();
     const { quizzes } = useSelector((state: any) => state.quizReducer);
 
+    const totalPoints = useSelector((state: any) => state.questionReducer.totalPoints);
+
     const quiz = quizzes.find((q: any) => {
         return q._id === qid;
     });
@@ -34,7 +36,7 @@ export default function QuizDetailsViewer() {
                 </Col>
                 <Col size={4} className="text-start">
                     {" "}
-                    {quiz?.points}{" "}
+                    {totalPoints}{" "}
                 </Col>
             </Row>
 
