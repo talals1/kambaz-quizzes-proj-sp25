@@ -283,7 +283,7 @@ export default function QuizDetailsEditor({
                 <Button
                     variant="secondary"
                     className="float-end"
-                    onClick={() => cancelHandler}
+                    onClick={cancelHandler}
                 >
                     Cancel
                 </Button>
