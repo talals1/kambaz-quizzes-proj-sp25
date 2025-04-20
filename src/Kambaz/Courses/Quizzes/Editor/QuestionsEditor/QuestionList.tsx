@@ -61,22 +61,23 @@ export default function QuestionList() {
                         <hr />
                         <p>{question.description}</p>
                         <Form>
-                            {question.type === "multiple-choice" &&
-                                question.answers.map(
-                                    (answer: any, index: any) => (
-                                        <FormCheck
-                                            key={index}
-                                            type="radio"
-                                            id={`answer-${index}`}
-                                            label={answer}
-                                            value={answer}
-                                            checked={
-                                                answer ===
-                                                question.correctAnswer
-                                            }
-                                        />
-                                    )
-                                )}
+                            {question.type === "multiple-choice" ||
+                                (question.type === "fill-in-the-blank" &&
+                                    question.answers.map(
+                                        (answer: any, index: any) => (
+                                            <FormCheck
+                                                key={index}
+                                                type="radio"
+                                                id={`answer-${index}`}
+                                                label={answer}
+                                                value={answer}
+                                                checked={
+                                                    answer ===
+                                                    question.correctAnswer
+                                                }
+                                            />
+                                        )
+                                    ))}
 
                             {question.type === "true-false" && (
                                 <>
@@ -99,14 +100,6 @@ export default function QuestionList() {
                                         }
                                     />
                                 </>
-                            )}
-
-                            {question.type === "fill-in-the-blank" && (
-                                <Form.Control
-                                    type="text"
-                                    defaultValue={question.correctAnswer}
-                                    placeholder="Enter your answer here"
-                                />
                             )}
                         </Form>
                     </ListGroup.Item>
