@@ -157,7 +157,8 @@ export default function QuizDetailsViewer() {
                 </Col>
                 <Col size={4} className="text-start">
                     {" "}
-                    {quiz?.description}{" "}
+                    {/* Source: https://stackoverflow.com/questions/39758136/how-to-render-html-string-as-real-html */}
+                    <div dangerouslySetInnerHTML={{ __html: quiz?.description }} />{" "}
                 </Col>
             </Row>
 
