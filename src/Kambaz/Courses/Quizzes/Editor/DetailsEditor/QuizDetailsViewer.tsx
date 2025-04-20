@@ -91,7 +91,7 @@ export default function QuizDetailsViewer() {
                 </Col>
                 <Col size={4} className="text-start">
                     {" "}
-                    {formatBoolean(quiz?.numberOfAttempts)}{" "}
+                    {quiz?.numberOfAttempts}{" "}
                 </Col>
             </Row>
 

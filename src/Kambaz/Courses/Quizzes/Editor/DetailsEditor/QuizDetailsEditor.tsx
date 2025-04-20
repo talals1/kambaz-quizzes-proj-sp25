@@ -121,10 +121,10 @@ export default function QuizDetailsEditor({
                             defaultValue={quiz?.type}
                             onChange={handleChange}
                         >
-                            <option>Graded Quiz</option>
-                            <option>Practice Quiz</option>
-                            <option>Graded Survey</option>
-                            <option>Ungraded Survey</option>
+                            <option value="Graded Quiz">Graded Quiz</option>
+                            <option value="Practice Quiz">Practice Quiz</option>
+                            <option value="Graded Survey">Graded Survey</option>
+                            <option value="Ungraded Survey">Ungraded Survey</option>
                         </Form.Select>
                     </Col>
                 </Form.Group>
@@ -138,10 +138,10 @@ export default function QuizDetailsEditor({
                             defaultValue={quiz?.group}
                             onChange={handleChange}
                         >
-                            <option>Quizzes</option>
-                            <option>Exams</option>
-                            <option>Assignments</option>
-                            <option>Project</option>
+                            <option value="Quizzes">Quizzes</option>
+                            <option values="Exams">Exams</option>
+                            <option values="Assignments">Assignments</option>
+                            <option values="Project">Project</option>
                         </Form.Select>
                     </Col>
                 </Form.Group>
